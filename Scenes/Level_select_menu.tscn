@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://8xdhcn3yaegd"]
+
+[ext_resource type="Script" path="res://Scripts/level_select_menu.gd" id="1_8sitd"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8sitd")
+
+[node name="Level_1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 524.0
+offset_top = 253.0
+offset_right = 648.0
+offset_bottom = 302.0
+text = "level 1"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 524.0
+offset_top = 344.0
+offset_right = 649.0
+offset_bottom = 384.0
+text = "back"
+
+[connection signal="button_up" from="Level_1" to="." method="_level_1_pressed"]
+[connection signal="button_up" from="Back" to="." method="_back_button_pressed"]
