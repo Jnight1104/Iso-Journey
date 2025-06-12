@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://pkgm4m42dt3k"]
+[gd_scene load_steps=5 format=3 uid="uid://pkgm4m42dt3k"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_k047h"]
 
@@ -7,6 +7,9 @@ albedo_color = Color(0.47788, 0.47788, 0.47788, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwaot"]
 size = Vector3(0.5, 1.6, 0.5)
+
+[sub_resource type="PrismMesh" id="PrismMesh_vg2hi"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_k047h")
@@ -19,3 +22,7 @@ material = SubResource("StandardMaterial3D_lp12k")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_mwaot")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 1.348, 0)
+mesh = SubResource("PrismMesh_vg2hi")
