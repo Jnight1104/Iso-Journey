@@ -7,10 +7,15 @@ const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
 const LERP_RATE : float = 0.4
-const MAX_ACTION_QUEUE : int = 1
+const MAX_ACTION_QUEUE : int = 2
 var target_location : Vector3 = SPAWN
 var moving : bool = false
 var action_queue : Array = []
+var front_blocked : bool = false
+var right_blocked : bool = false
+var back_blocked : bool = false
+var left_blocked : bool = false
+var detection_ray : Node = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,34 +26,50 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_up"):
-		_move(UP)
+		_move_input(UP)
 	elif Input.is_action_just_pressed("ui_down"):
-		_move(DOWN)
+		_move_input(DOWN)
 	elif Input.is_action_just_pressed("ui_left"):
-		_move(LEFT)
+		_move_input(LEFT)
 	elif Input.is_action_just_pressed("ui_right"):
-		_move(RIGHT)
+		_move_input(RIGHT)
+		
 	# Moves the player toward the target location smoothly
 	position = lerp(position, target_location, LERP_RATE)
 
 
 # Function for setting the target location depending on the direction based on the input
-func _move(direction):
-	if moving:
-		if len(action_queue) < MAX_ACTION_QUEUE:
+func _move_input(direction):
+	if len(action_queue) < MAX_ACTION_QUEUE:
 			action_queue.append(direction)
-	else:
+	if not moving:
 		moving = true
+		_move(direction)
+
+
+func _move(direction):
+	if direction == UP:
+		detection_ray = $Forward
+	elif direction == RIGHT:
+		detection_ray = $Right
+	elif direction == DOWN:
+		detection_ray = $Back
+	elif direction == LEFT:
+		detection_ray = $Left
+	if detection_ray.is_colliding():
+		$Move_delay_timer.start(MOVE_DELAY)
+		position += direction * 0.3
+	else:
 		target_location += direction
 		$Move_delay_timer.start(MOVE_DELAY)
-
+		
 
 # Allows player to move again after the delay is done
 func _move_delay_done():
+	action_queue.remove_at(0)
 	# Repeats movement if the action queue isnt done
 	if len(action_queue) > 0:
-		target_location += action_queue[0]
-		action_queue.remove_at(0)
+		_move(action_queue[0])
 		$Move_delay_timer.start(MOVE_DELAY)
 	else:
 		moving = false
