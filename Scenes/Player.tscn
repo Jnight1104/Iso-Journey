@@ -11,7 +11,7 @@ size = Vector3(0.5, 1.6, 0.5)
 [sub_resource type="PrismMesh" id="PrismMesh_vg2hi"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_k047h")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
