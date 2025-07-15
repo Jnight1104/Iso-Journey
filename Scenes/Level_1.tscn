@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4kc2ojewuget"]
+[gd_scene load_steps=10 format=3 uid="uid://d4kc2ojewuget"]
 
 [ext_resource type="PackedScene" uid="uid://pkgm4m42dt3k" path="res://Scenes/Player.tscn" id="1_e747c"]
 [ext_resource type="PackedScene" uid="uid://c2crxba3owhbe" path="res://Scenes/Box.tscn" id="2_onu2b"]
 [ext_resource type="PackedScene" uid="uid://cfyksnkf74v44" path="res://Scenes/Win_collectible.tscn" id="3_adoy0"]
+[ext_resource type="PackedScene" uid="uid://llop56s2vxno" path="res://Scenes/Pressure_plate.tscn" id="4_g432u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l8oyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,7 +24,7 @@ size = Vector3(11, 1, 11)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tp2vw"]
 size = Vector3(11, 1, 1)
 
-[node name="Node3D" type="Node3D"]
+[node name="Level" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6w05v")
@@ -78,5 +79,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
 [node name="StaticBody3D2" parent="." instance=ExtResource("2_onu2b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
 
-[node name="RigidBody3D2" parent="." instance=ExtResource("3_adoy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 6, -3)
+[node name="Win_collectible" parent="." instance=ExtResource("3_adoy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.75, -3)
+
+[node name="Area3D" parent="." instance=ExtResource("4_g432u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -4)

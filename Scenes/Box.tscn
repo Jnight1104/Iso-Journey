@@ -7,7 +7,8 @@ albedo_color = Color(0.618093, 0.408602, 0.0969769, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ar7v"]
 
-[node name="StaticBody3D" type="StaticBody3D" groups=["Box"]]
+[node name="RigidBody3D" type="RigidBody3D" groups=["Box"]]
+gravity_scale = 0.0
 script = ExtResource("1_lxlui")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]

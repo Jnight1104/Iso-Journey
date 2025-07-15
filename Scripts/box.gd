@@ -1,4 +1,4 @@
-extends StaticBody3D
+extends RigidBody3D
 
 const LERP_RATE : float = 0.3
 const UP : Vector3 = Vector3(1, 0, 0)
