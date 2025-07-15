@@ -60,8 +60,14 @@ func _move(direction):
 		if detection_ray.get_collider().is_in_group("Box"):
 			push.connect(detection_ray.get_collider()._pushed)
 			push.emit(direction, detection_ray.get_collider())
-		$Move_delay_timer.start(MOVE_DELAY)
-		position += direction * 0.3
+			$Move_delay_timer.start(MOVE_DELAY)
+			position += direction * 0.3
+		elif detection_ray.get_collider().is_in_group("Boundaries"):
+			$Move_delay_timer.start(MOVE_DELAY)
+			position += direction * 0.3
+		else:
+			target_location += direction
+			$Move_delay_timer.start(MOVE_DELAY)
 	else:
 		target_location += direction
 		$Move_delay_timer.start(MOVE_DELAY)
