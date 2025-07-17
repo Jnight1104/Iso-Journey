@@ -14,14 +14,11 @@ var target_rotation : float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	target_rotation = STARTING_ROTATION
+	rotation.y = target_rotation
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	camera_offset_x = sin(rotation.y) * CAMERA_OFFSET_RADIUS
-	camera_offset_z = cos(rotation.y) * CAMERA_OFFSET_RADIUS
-	camera_offset = Vector3(camera_offset_x, CAMERA_Y_POS, camera_offset_z) + global.player_pos
-	print(position.y)
 	if Input.is_action_pressed("ui_period"):
 		target_rotation += ROTATION_RATE * delta
 	if Input.is_action_pressed("ui_comma"):
@@ -29,10 +26,9 @@ func _process(delta):
 	
 	# Moves and rotates the camera toward the target location smoothly
 	rotation.y = lerp(rotation.y, target_rotation, LERP_RATE)
+	
+	# Sets target location and moves the camera toward it
+	camera_offset_x = sin(rotation.y) * CAMERA_OFFSET_RADIUS
+	camera_offset_z = cos(rotation.y) * CAMERA_OFFSET_RADIUS
+	camera_offset = Vector3(camera_offset_x, CAMERA_Y_POS, camera_offset_z) + global.player_pos
 	position = camera_offset #lerp(position, camera_offset, LERP_RATE)
-
-# 135, +x -z
-# 45, +x +z
-# -135, -x -z
-# -45, -x +z
-# sin for x     cos for z
