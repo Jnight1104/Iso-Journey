@@ -1,32 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfyksnkf74v44"]
+[gd_scene load_steps=4 format=3 uid="uid://cfyksnkf74v44"]
 
 [ext_resource type="Script" path="res://Scripts/win_collectible.gd" id="1_c8y4d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fno27"]
+size = Vector3(0.6, 0.6, 0.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bj0ta"]
 transparency = 1
 albedo_color = Color(1, 0.78, 0.4, 0.53)
 metallic_specular = 0.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k1p0y"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fno27"]
-size = Vector3(0.6, 0.6, 0.6)
-
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="Area3D" type="Area3D"]
 script = ExtResource("1_c8y4d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_fno27")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(0.5, 0.5, 0.5)
 material = SubResource("StandardMaterial3D_bj0ta")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_k1p0y")
-
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-shape = SubResource("BoxShape3D_fno27")
-
-[connection signal="body_entered" from="Area3D" to="." method="_collected"]
+[connection signal="body_entered" from="." to="." method="_collected"]

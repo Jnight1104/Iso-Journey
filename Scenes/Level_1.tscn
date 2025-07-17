@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4kc2ojewuget"]
+[gd_scene load_steps=11 format=3 uid="uid://d4kc2ojewuget"]
 
 [ext_resource type="PackedScene" uid="uid://pkgm4m42dt3k" path="res://Scenes/Player.tscn" id="1_e747c"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="1_g2l8i"]
 [ext_resource type="PackedScene" uid="uid://c2crxba3owhbe" path="res://Scenes/Box.tscn" id="2_onu2b"]
 [ext_resource type="PackedScene" uid="uid://cfyksnkf74v44" path="res://Scenes/Win_collectible.tscn" id="3_adoy0"]
 [ext_resource type="PackedScene" uid="uid://llop56s2vxno" path="res://Scenes/Pressure_plate.tscn" id="4_g432u"]
@@ -39,6 +40,7 @@ shape = SubResource("BoxShape3D_quuv3")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.707107, -0.241845, 0.664463, 0, 0.939693, 0.34202, -0.707107, 0.241845, -0.664463, 7, 6, -7)
+script = ExtResource("1_g2l8i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.258819, 0.933013, -0.25, 2, 11, -3)
@@ -80,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
 
 [node name="Win_collectible" parent="." instance=ExtResource("3_adoy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.75, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -3)
 
 [node name="Area3D" parent="." instance=ExtResource("4_g432u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -4)

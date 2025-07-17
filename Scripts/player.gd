@@ -1,12 +1,13 @@
 extends CharacterBody3D
 
+@onready var global = get_node("/root/Global")
 const SPAWN : Vector3 = Vector3(0, 0.5, 0)
 const UP : Vector3 = Vector3(1, 0, 0)
 const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
-const LERP_RATE : float = 0.3
+const LERP_RATE : float = 0.2
 const MAX_ACTION_QUEUE : int = 2
 var target_location : Vector3 = SPAWN
 var moving : bool = false
@@ -25,6 +26,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	global.player_pos = position
 	if Input.is_action_just_pressed("ui_up"):
 		_move_input(UP)
 	elif Input.is_action_just_pressed("ui_down"):
