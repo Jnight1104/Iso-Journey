@@ -5,7 +5,7 @@ const CAMERA_OFFSET_RADIUS : float = sqrt(98)
 const CAMERA_Y_POS : float = 5.5
 const LERP_RATE : float = 0.2
 const ROTATION_RATE : float = 1
-const STARTING_ROTATION : float = 3 * PI / 4
+const STARTING_ROTATION : float = -3 * PI / 4
 var camera_offset_x : float = 0.0
 var camera_offset_z : float = 0.0
 var camera_offset : Vector3 = Vector3(0, 0, 0)
@@ -19,6 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Sets target rotation based on player inputs
 	if Input.is_action_pressed("ui_period"):
 		target_rotation += ROTATION_RATE * delta
 	if Input.is_action_pressed("ui_comma"):

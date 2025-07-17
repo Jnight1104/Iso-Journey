@@ -20,6 +20,12 @@ func _collected(body):
 		queue_free()
 
 
-func _win():
+func _unlocked():
 	$CSGBox3D.material.albedo_color = OPAQUE_COLOUR
 	unlocked = true
+
+
+func _locked():
+	$CSGBox3D.material.albedo_color = TRANSPARENT_COLOUR
+	unlocked = false
+	
