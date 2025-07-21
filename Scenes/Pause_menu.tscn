@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://3rbwyri5ri08"]
+
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_vwd16"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ceda8"]
+font_color = Color(0.230315, 0.230315, 0.230315, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vwd16")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 332.0
+offset_top = 40.0
+offset_right = 812.0
+offset_bottom = 555.0
+color = Color(1, 1, 1, 0.6)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 541.0
+offset_top = 56.0
+offset_right = 610.0
+offset_bottom = 79.0
+text = "Paused"
+label_settings = SubResource("LabelSettings_ceda8")
+
+[node name="Resume" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 533.0
+offset_top = 328.0
+offset_right = 608.0
+offset_bottom = 359.0
+text = "Resume"
+
+[node name="Quit" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 532.0
+offset_top = 370.0
+offset_right = 609.0
+offset_bottom = 401.0
+text = "Quit"
+
+[node name="Pause" type="Button" parent="."]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 589.0
+offset_right = 607.0
+offset_bottom = 627.0
+text = "Pause"
+
+[connection signal="button_up" from="Resume" to="." method="_resume_button_pressed"]
+[connection signal="button_up" from="Quit" to="." method="_quit_button_pressed"]
+[connection signal="button_up" from="Pause" to="." method="_pause_button_pressed"]

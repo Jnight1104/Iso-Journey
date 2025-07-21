@@ -29,7 +29,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global.player_pos = position
-	if not game_finished:
+	if not game_finished and not global.paused:
 		if Input.is_action_just_pressed("ui_up"):
 			_move_input(UP)
 		elif Input.is_action_just_pressed("ui_down"):
@@ -38,9 +38,11 @@ func _process(delta):
 			_move_input(LEFT)
 		elif Input.is_action_just_pressed("ui_right"):
 			_move_input(RIGHT)
-		
+	if Input.is_action_just_pressed("ui_escape"):
+		action_queue = []
 	# Moves the player toward the target location smoothly
-	position = lerp(position, target_location, LERP_RATE)
+	if not global.paused:
+		position = lerp(position, target_location, LERP_RATE)
 
 
 # Function for setting the target location depending on the direction based on the input

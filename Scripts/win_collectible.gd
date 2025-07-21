@@ -9,6 +9,7 @@ signal win
 func _ready():
 	win.connect(get_node("/root/Level/Player")._win)
 	win.connect(get_node("/root/Level/Win_screen")._win)
+	win.connect(get_node("/root/Level/Pause_menu")._win)
 	$CSGBox3D.material.albedo_color = TRANSPARENT_COLOUR
 
 
