@@ -9,6 +9,7 @@ const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
 const LERP_RATE : float = 0.2
 const MAX_ACTION_QUEUE : int = 2
+const OBSTACLE_BUFFER_SCALE : float = 0.3
 var target_location : Vector3 = SPAWN
 var moving : bool = false
 var action_queue : Array = []
@@ -17,6 +18,7 @@ var right_blocked : bool = false
 var back_blocked : bool = false
 var left_blocked : bool = false
 var detection_ray : Node = null
+var game_finished : bool = false
 signal push
 
 # Called when the node enters the scene tree for the first time.
@@ -27,14 +29,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global.player_pos = position
-	if Input.is_action_just_pressed("ui_up"):
-		_move_input(UP)
-	elif Input.is_action_just_pressed("ui_down"):
-		_move_input(DOWN)
-	elif Input.is_action_just_pressed("ui_left"):
-		_move_input(LEFT)
-	elif Input.is_action_just_pressed("ui_right"):
-		_move_input(RIGHT)
+	if not game_finished:
+		if Input.is_action_just_pressed("ui_up"):
+			_move_input(UP)
+		elif Input.is_action_just_pressed("ui_down"):
+			_move_input(DOWN)
+		elif Input.is_action_just_pressed("ui_left"):
+			_move_input(LEFT)
+		elif Input.is_action_just_pressed("ui_right"):
+			_move_input(RIGHT)
 		
 	# Moves the player toward the target location smoothly
 	position = lerp(position, target_location, LERP_RATE)
@@ -63,10 +66,10 @@ func _move(direction):
 			push.connect(detection_ray.get_collider()._pushed)
 			push.emit(direction, detection_ray.get_collider())
 			$Move_delay_timer.start(MOVE_DELAY)
-			position += direction * 0.3
+			position += direction * OBSTACLE_BUFFER_SCALE
 		elif detection_ray.get_collider().is_in_group("Boundaries"):
 			$Move_delay_timer.start(MOVE_DELAY)
-			position += direction * 0.3
+			position += direction * OBSTACLE_BUFFER_SCALE
 		else:
 			target_location += direction
 			$Move_delay_timer.start(MOVE_DELAY)
@@ -84,3 +87,9 @@ func _move_delay_done():
 		$Move_delay_timer.start(MOVE_DELAY)
 	else:
 		moving = false
+
+
+func _win():
+	game_finished = true
+	action_queue = []
+	

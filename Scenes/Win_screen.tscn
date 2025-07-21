@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://wuqxfpxeqv0c"]
+
+[ext_resource type="Script" path="res://Scripts/win_screen.gd" id="1_pja7c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_be3d6"]
+font_color = Color(0.176419, 0.176419, 0.176419, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pja7c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 186.0
+offset_right = 856.0
+offset_bottom = 513.0
+color = Color(1, 1, 1, 0.6)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 287.0
+offset_right = 641.0
+offset_bottom = 317.0
+text = "You win!"
+label_settings = SubResource("LabelSettings_be3d6")
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 499.0
+offset_top = 412.0
+offset_right = 676.0
+offset_bottom = 477.0
+text = "Exit"
+
+[connection signal="button_up" from="Exit" to="." method="_exit_button_pressed"]

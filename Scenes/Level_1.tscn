@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4kc2ojewuget"]
+[gd_scene load_steps=12 format=3 uid="uid://d4kc2ojewuget"]
 
 [ext_resource type="PackedScene" uid="uid://pkgm4m42dt3k" path="res://Scenes/Player.tscn" id="1_e747c"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="1_g2l8i"]
 [ext_resource type="PackedScene" uid="uid://c2crxba3owhbe" path="res://Scenes/Box.tscn" id="2_onu2b"]
 [ext_resource type="PackedScene" uid="uid://cfyksnkf74v44" path="res://Scenes/Win_collectible.tscn" id="3_adoy0"]
 [ext_resource type="PackedScene" uid="uid://llop56s2vxno" path="res://Scenes/Pressure_plate.tscn" id="4_g432u"]
+[ext_resource type="PackedScene" uid="uid://wuqxfpxeqv0c" path="res://Scenes/Win_screen.tscn" id="6_72dg4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l8oyi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -47,7 +48,10 @@ script = ExtResource("1_g2l8i")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.258819, 0.933013, -0.25, 2, 11, -3)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_e747c")]
+[node name="Win_screen" parent="." instance=ExtResource("6_72dg4")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_e747c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Boundary" type="StaticBody3D" parent="." groups=["Boundaries"]]
