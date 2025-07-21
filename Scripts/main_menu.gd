@@ -19,3 +19,7 @@ func _play_button_pressed():
 # Quits the game when quit is pressed
 func _quit_button_pressed():
 	get_tree().quit()
+
+
+func _options_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/Options_menu.tscn")

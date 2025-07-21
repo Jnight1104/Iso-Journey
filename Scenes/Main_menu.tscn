@@ -22,12 +22,21 @@ text = "Play
 
 [node name="Quit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 507.0
-offset_top = 320.0
-offset_right = 618.0
-offset_bottom = 365.0
+offset_left = 505.0
+offset_top = 366.0
+offset_right = 616.0
+offset_bottom = 411.0
 text = "quit
 "
 
+[node name="Options" type="Button" parent="."]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 313.0
+offset_right = 613.0
+offset_bottom = 353.0
+text = "Options"
+
 [connection signal="button_up" from="Play" to="." method="_play_button_pressed"]
 [connection signal="button_up" from="Quit" to="." method="_quit_button_pressed"]
+[connection signal="button_up" from="Options" to="." method="_options_button_pressed"]
