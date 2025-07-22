@@ -13,11 +13,6 @@ func _ready():
 		release_signal.connect(get_node("/root/Level/Win_collectible")._locked)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _pressed(body):
 	$Pressed.show()
 	$Unpressed.hide()

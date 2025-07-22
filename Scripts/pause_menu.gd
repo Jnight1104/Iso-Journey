@@ -7,7 +7,7 @@ func _ready():
 	resume()
 
 
-func _process(delta):
+func _process(_delta):
 	# Pauses/unpauses the game on user input based on whether it is already paused or not
 	if Input.is_action_just_pressed("ui_escape"):
 		if global.paused == false:

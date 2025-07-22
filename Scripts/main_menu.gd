@@ -6,11 +6,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 # Navigation to the level select screen when play is pressed
 func _play_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")

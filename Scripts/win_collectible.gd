@@ -13,11 +13,6 @@ func _ready():
 	$CSGBox3D.material.albedo_color = TRANSPARENT_COLOUR
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _collected(body):
 	if body.is_in_group("Player") and unlocked:
 		win.emit()

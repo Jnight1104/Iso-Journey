@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-const LERP_RATE : float = 0.3
+const LERP_RATE : float = 18
 const UP : Vector3 = Vector3(1, 0, 0)
 const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
@@ -17,7 +17,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = lerp(position, target_location, LERP_RATE)
+	position = lerp(position, target_location, LERP_RATE * delta)
 
 
 func _pushed(direction, node):

@@ -7,7 +7,7 @@ const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
-const LERP_RATE : float = 0.2
+const LERP_RATE : float = 12
 const MAX_ACTION_QUEUE : int = 2
 const OBSTACLE_BUFFER_SCALE : float = 0.3
 var target_location : Vector3 = SPAWN
@@ -23,7 +23,9 @@ signal push
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	for node in get_node("/root/Level").get_children():
+		if node.is_in_group("Box"):
+			push.connect(node._pushed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,7 +44,7 @@ func _process(delta):
 		action_queue = []
 	# Moves the player toward the target location smoothly
 	if not global.paused:
-		position = lerp(position, target_location, LERP_RATE)
+		position = lerp(position, target_location, LERP_RATE * delta)
 
 
 # Function for setting the target location depending on the direction based on the input
@@ -65,7 +67,7 @@ func _move(direction):
 		detection_ray = $Left
 	if detection_ray.is_colliding():
 		if detection_ray.get_collider().is_in_group("Box"):
-			push.connect(detection_ray.get_collider()._pushed)
+			#push.connect(detection_ray.get_collider()._pushed)
 			push.emit(direction, detection_ray.get_collider())
 			$Move_delay_timer.start(MOVE_DELAY)
 			position += direction * OBSTACLE_BUFFER_SCALE
