@@ -2,7 +2,7 @@ extends Camera3D
 
 @onready var global = get_node("/root/Global")
 const CAMERA_OFFSET_RADIUS : float = sqrt(98)
-const CAMERA_Y_POS : float = 5.5
+const CAMERA_Y_POS : float = 9.5
 const LERP_RATE : float = 0.2
 const ROTATION_RATE : float = 1
 const STARTING_ROTATION : float = -3 * PI / 4

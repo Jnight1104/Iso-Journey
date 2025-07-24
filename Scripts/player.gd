@@ -10,6 +10,8 @@ const MOVE_DELAY : float = 0.1
 const LERP_RATE : float = 12
 const MAX_ACTION_QUEUE : int = 2
 const OBSTACLE_BUFFER_SCALE : float = 0.3
+const UNDO_OFFSET : int = 1
+const UNDO : String = "undo"
 var target_location : Vector3 = SPAWN
 var moving : bool = false
 var action_queue : Array = []
@@ -19,6 +21,8 @@ var back_blocked : bool = false
 var left_blocked : bool = false
 var detection_ray : Node = null
 var game_finished : bool = false
+var undos : int = 0
+var action_history : Array = [SPAWN]
 signal push
 
 # Called when the node enters the scene tree for the first time.
@@ -40,6 +44,11 @@ func _process(delta):
 			_move_input(LEFT)
 		elif Input.is_action_just_pressed("ui_right"):
 			_move_input(RIGHT)
+	if Input.is_action_just_pressed("ui_minus"):
+		if undos < len(action_history) - UNDO_OFFSET:
+			action_queue = []
+			undos += UNDO_OFFSET
+			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 	if Input.is_action_just_pressed("ui_escape"):
 		action_queue = []
 	# Moves the player toward the target location smoothly
@@ -57,6 +66,7 @@ func _move_input(direction):
 
 
 func _move(direction):
+	action_history = action_history.slice(0, )
 	if direction == UP:
 		detection_ray = $Forward
 	elif direction == RIGHT:
@@ -69,6 +79,7 @@ func _move(direction):
 		if detection_ray.get_collider().is_in_group("Box"):
 			#push.connect(detection_ray.get_collider()._pushed)
 			push.emit(direction, detection_ray.get_collider())
+			action_history.append(target_location)
 			$Move_delay_timer.start(MOVE_DELAY)
 			position += direction * OBSTACLE_BUFFER_SCALE
 		elif detection_ray.get_collider().is_in_group("Boundaries"):
@@ -76,9 +87,11 @@ func _move(direction):
 			position += direction * OBSTACLE_BUFFER_SCALE
 		else:
 			target_location += direction
+			action_history.append(target_location)
 			$Move_delay_timer.start(MOVE_DELAY)
 	else:
 		target_location += direction
+		action_history.append(target_location)
 		$Move_delay_timer.start(MOVE_DELAY)
 		
 
