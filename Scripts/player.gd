@@ -7,6 +7,7 @@ const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
+const SHORT_MOVE_DELAY : float = 0.01
 const LERP_RATE : float = 12
 const MAX_ACTION_QUEUE : int = 2
 const OBSTACLE_BUFFER_SCALE : float = 0.3
@@ -64,11 +65,14 @@ func _move_input(direction):
 
 
 func _move(direction):
+	print(action_history)
 	if direction == UNDO:
 		if undos < len(action_history) - UNDO_OFFSET:
 			undos += UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 			$Move_delay_timer.start(MOVE_DELAY)
+		else:
+			$Move_delay_timer.start(SHORT_MOVE_DELAY)
 	else:
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
