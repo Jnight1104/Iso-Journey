@@ -27,35 +27,49 @@ func _process(delta):
 
 
 func _pushed(direction, node):
-	if direction == UP:
-		detection_ray = $Forward
-	elif direction == RIGHT:
-		detection_ray = $Right
-	elif direction == DOWN:
-		detection_ray = $Back
-	elif direction == LEFT:
-		detection_ray = $Left
-	if detection_ray.is_colliding():
+	if direction == WAIT:
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
 			undos = 0
 		action_history.append(target_location)
+	elif direction == UNDO:
+		undos += UNDO_OFFSET
+		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 	else:
-		if node == self:
+		if direction == UP:
+			detection_ray = $Forward
+		elif direction == RIGHT:
+			detection_ray = $Right
+		elif direction == DOWN:
+			detection_ray = $Back
+		elif direction == LEFT:
+			detection_ray = $Left
+		if detection_ray.is_colliding():
 			if undos > 0:
 				action_history = action_history.slice(0, len(action_history) - undos)
 				undos = 0
-			target_location += direction
 			action_history.append(target_location)
+		else:
+			if node == self:
+				if undos > 0:
+					action_history = action_history.slice(0, len(action_history) - undos)
+					undos = 0
+				target_location += direction
+				action_history.append(target_location)
+			else:
+				if undos > 0:
+					action_history = action_history.slice(0, len(action_history) - undos)
+					undos = 0
+				action_history.append(target_location)
 
 
-func _action_done(action):
-	if action == WAIT:
-		if undos > 0:
-			action_history = action_history.slice(0, len(action_history) - undos)
-			undos = 0
-		action_history.append(target_location)
-	elif action == UNDO:
-		undos += UNDO_OFFSET
-		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
+#func _action_done(action):
+#	if action == WAIT:
+#		if undos > 0:
+#			action_history = action_history.slice(0, len(action_history) - undos)
+#			undos = 0
+#		action_history.append(target_location)
+#	elif action == UNDO:
+#		undos += UNDO_OFFSET
+#		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 		

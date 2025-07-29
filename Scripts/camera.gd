@@ -32,4 +32,4 @@ func _process(delta):
 	camera_offset_x = sin(rotation.y) * CAMERA_OFFSET_RADIUS
 	camera_offset_z = cos(rotation.y) * CAMERA_OFFSET_RADIUS
 	camera_offset = Vector3(camera_offset_x, CAMERA_Y_POS, camera_offset_z) + global.player_pos
-	position = camera_offset #lerp(position, camera_offset, LERP_RATE)
+	position = camera_offset 

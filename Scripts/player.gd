@@ -26,14 +26,14 @@ var game_finished : bool = false
 var undos : int = 0
 var action_history : Array = [SPAWN]
 signal push
-signal action
+#signal action
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for node in get_node("/root/Level").get_children():
 		if node.is_in_group("Box"):
 			push.connect(node._pushed)
-			action.connect(node._action_done)
+			#action.connect(node._action_done)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,10 +68,9 @@ func _move_input(direction):
 
 
 func _move(direction):
-	print(action_history)
 	if direction == UNDO:
 		if undos < len(action_history) - UNDO_OFFSET:
-			action.emit(UNDO)
+			push.emit(UNDO, self)
 			undos += UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 			$Move_delay_timer.start(MOVE_DELAY)
@@ -100,12 +99,12 @@ func _move(direction):
 				$Move_delay_timer.start(MOVE_DELAY)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			else:
-				action.emit(WAIT)
+				push.emit(WAIT, self)
 				target_location += direction
 				action_history.append(target_location)
 				$Move_delay_timer.start(MOVE_DELAY)
 		else:
-			action.emit(WAIT)
+			push.emit(WAIT, self)
 			target_location += direction
 			action_history.append(target_location)
 			$Move_delay_timer.start(MOVE_DELAY)
