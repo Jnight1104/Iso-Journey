@@ -13,13 +13,13 @@ func _ready():
 		release_signal.connect(get_node("/root/Level/Win_collectible")._locked)
 
 
-func _pressed(body):
+func _pressed(_body):
 	$Pressed.show()
 	$Unpressed.hide()
 	press_signal.emit()
 
 
-func _released(body):
+func _released(_body):
 	$Unpressed.show()
 	$Pressed.hide()
 	release_signal.emit()
