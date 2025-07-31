@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccsd5sfd73jce"]
+[gd_scene load_steps=13 format=3 uid="uid://ccsd5sfd73jce"]
 
+[ext_resource type="PackedScene" uid="uid://wuqxfpxeqv0c" path="res://Scenes/Win_screen.tscn" id="1_qp51d"]
 [ext_resource type="PackedScene" uid="uid://pkgm4m42dt3k" path="res://Scenes/Player.tscn" id="1_x7xx6"]
+[ext_resource type="PackedScene" uid="uid://3rbwyri5ri08" path="res://Scenes/Pause_menu.tscn" id="2_pyrdf"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="2_w5hrd"]
 [ext_resource type="PackedScene" uid="uid://c2crxba3owhbe" path="res://Scenes/Box.tscn" id="3_0bfe5"]
 [ext_resource type="PackedScene" uid="uid://cfyksnkf74v44" path="res://Scenes/Win_collectible.tscn" id="4_kejwb"]
@@ -37,7 +39,11 @@ transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
 size = Vector3(7, 1, 7)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_x7xx6")]
+[node name="Win_screen" parent="." instance=ExtResource("1_qp51d")]
+
+[node name="Pause_menu" parent="." instance=ExtResource("2_pyrdf")]
+
+[node name="Player" parent="." instance=ExtResource("1_x7xx6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -134,7 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -3)
 [node name="RigidBody3D8" parent="." instance=ExtResource("3_0bfe5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -5)
 
-[node name="Area3D" parent="." instance=ExtResource("4_kejwb")]
+[node name="Win_collectible" parent="." instance=ExtResource("4_kejwb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -6)
 
 [node name="Area3D2" parent="." instance=ExtResource("5_5n1uy")]
