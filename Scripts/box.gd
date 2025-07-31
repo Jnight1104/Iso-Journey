@@ -7,6 +7,7 @@ const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
 const MOVE_DELAY : float = 0.1
 const UNDO : Vector3 = Vector3(-100, 0, 0)
+const REDO : Vector3 = Vector3(100, 0, 0)
 const WAIT : Vector3 = Vector3(100, 100, 100)
 const UNDO_OFFSET : int = 1
 var target_location : Vector3 = Vector3(0, 0, 0)

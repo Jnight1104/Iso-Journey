@@ -13,6 +13,7 @@ const MAX_ACTION_QUEUE : int = 2
 const OBSTACLE_BUFFER_SCALE : float = 0.3
 const UNDO_OFFSET : int = 1
 const UNDO : Vector3 = Vector3(-100, 0, 0)
+const REDO : Vector3 = Vector3(100, 0, 0)
 const WAIT : Vector3 = Vector3(100, 100, 100)
 var target_location : Vector3 = SPAWN
 var moving : bool = false
@@ -42,6 +43,8 @@ func _process(delta):
 	if not game_finished and not global.paused:
 		if Input.is_action_just_pressed("ui_minus"):
 			_move_input(UNDO)
+		elif Input.is_action_just_pressed("ui_plus"):
+			_move_input(REDO)
 		elif Input.is_action_just_pressed("ui_up"):
 			_move_input(UP)
 		elif Input.is_action_just_pressed("ui_down"):
@@ -76,6 +79,8 @@ func _move(direction):
 			$Move_delay_timer.start(MOVE_DELAY)
 		else:
 			$Move_delay_timer.start(SHORT_MOVE_DELAY)
+	elif direction == REDO:
+		pass
 	else:
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
