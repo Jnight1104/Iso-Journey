@@ -36,6 +36,9 @@ func _pushed(direction, node):
 	elif direction == UNDO:
 		undos += UNDO_OFFSET
 		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
+	elif direction == REDO:
+		undos -= UNDO_OFFSET
+		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 	else:
 		if direction == UP:
 			detection_ray = $Forward

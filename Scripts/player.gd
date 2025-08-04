@@ -80,7 +80,13 @@ func _move(direction):
 		else:
 			$Move_delay_timer.start(SHORT_MOVE_DELAY)
 	elif direction == REDO:
-		pass
+		if undos > 0:
+			push.emit(REDO, self)
+			undos -= UNDO_OFFSET
+			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
+			$Move_delay_timer.start(MOVE_DELAY)
+		else:
+			$Move_delay_timer.start(SHORT_MOVE_DELAY)
 	else:
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
