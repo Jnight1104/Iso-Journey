@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4kc2ojewuget"]
+[gd_scene load_steps=15 format=3 uid="uid://d4kc2ojewuget"]
 
 [ext_resource type="PackedScene" uid="uid://pkgm4m42dt3k" path="res://Scenes/Player.tscn" id="1_e747c"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="1_g2l8i"]
+[ext_resource type="PackedScene" uid="uid://blphuthoj2i7d" path="res://Assets/Level1_platform.fbx" id="1_wm18a"]
+[ext_resource type="PackedScene" uid="uid://bsoovim1hs0pk" path="res://Assets/Level1_platform_bg.fbx" id="2_0gxo0"]
 [ext_resource type="PackedScene" uid="uid://c2crxba3owhbe" path="res://Scenes/Box.tscn" id="2_onu2b"]
 [ext_resource type="PackedScene" uid="uid://3rbwyri5ri08" path="res://Scenes/Pause_menu.tscn" id="3_1rvrs"]
 [ext_resource type="PackedScene" uid="uid://cfyksnkf74v44" path="res://Scenes/Win_collectible.tscn" id="3_adoy0"]
@@ -32,9 +34,11 @@ size = Vector3(11, 1, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6w05v")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-size = Vector3(11, 1, 11)
+[node name="Level1_platform" parent="." instance=ExtResource("1_wm18a")]
+transform = Transform3D(0.917, 0, 0, 0, 0.917, 0, 0, 0, 0.917, 4, -0.417, 0)
+
+[node name="Level1_platform_bg" parent="." instance=ExtResource("2_0gxo0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
