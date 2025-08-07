@@ -28,6 +28,13 @@ Boundaries=""
 Box=""
 Player=""
 
+[importer_defaults]
+
+animation_library={
+"fbx/embedded_image_handling": 3,
+"gltf/embedded_image_handling": 3
+}
+
 [input]
 
 ui_period={

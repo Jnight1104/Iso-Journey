@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://8xdhcn3yaegd"]
+[gd_scene load_steps=6 format=3 uid="uid://8xdhcn3yaegd"]
 
 [ext_resource type="Script" path="res://Scripts/level_select_menu.gd" id="1_8sitd"]
 [ext_resource type="Texture2D" uid="uid://ce5pnplhlskdt" path="res://Assets/Level select screen.png" id="2_w7y7j"]
+[ext_resource type="Texture2D" uid="uid://ctpw5e10txju0" path="res://Assets/Level 1.png" id="3_2ukpa"]
 [ext_resource type="Texture2D" uid="uid://ymyod8prhn8p" path="res://Assets/Back button.png" id="3_ykujf"]
+[ext_resource type="Texture2D" uid="uid://b5cwo28c0khdv" path="res://Assets/Level 2.png" id="4_crfar"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -20,19 +22,23 @@ texture = ExtResource("2_w7y7j")
 
 [node name="Level_1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 524.0
-offset_top = 253.0
-offset_right = 648.0
-offset_bottom = 302.0
-text = "level 1"
+offset_left = 68.0
+offset_top = 158.0
+offset_right = 628.0
+offset_bottom = 722.0
+scale = Vector2(0.15, 0.15)
+icon = ExtResource("3_2ukpa")
+flat = true
 
 [node name="Level_2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 523.0
-offset_top = 165.0
-offset_right = 645.0
-offset_bottom = 219.0
-text = "level 2"
+offset_left = 253.0
+offset_top = 141.0
+offset_right = 813.0
+offset_bottom = 701.0
+scale = Vector2(0.15, 0.15)
+icon = ExtResource("4_crfar")
+flat = true
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
@@ -45,7 +51,11 @@ icon = ExtResource("3_ykujf")
 flat = true
 
 [connection signal="button_up" from="Level_1" to="." method="_level_1_pressed"]
+[connection signal="mouse_entered" from="Level_1" to="." method="_level_1_mouse_entered"]
+[connection signal="mouse_exited" from="Level_1" to="." method="_level_1_mouse_exited"]
 [connection signal="button_up" from="Level_2" to="." method="_level_2_pressed"]
+[connection signal="mouse_entered" from="Level_2" to="." method="_level_2_mouse_entered"]
+[connection signal="mouse_exited" from="Level_2" to="." method="_level_2_mouse_exited"]
 [connection signal="button_up" from="Back" to="." method="_back_button_pressed"]
 [connection signal="mouse_entered" from="Back" to="." method="_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_back_mouse_exited"]

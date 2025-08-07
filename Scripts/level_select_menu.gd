@@ -19,8 +19,8 @@ func _level_1_pressed():
 func _level_2_pressed():
 	global.level = 2
 	get_tree().change_scene_to_file("res://Scenes/Level_2.tscn")
-	
-	
+
+
 # Navigation back to main menu when back is pressed
 func _back_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Main_menu.tscn")
@@ -32,3 +32,19 @@ func _back_mouse_entered():
 
 func _back_mouse_exited():
 	$Back.set_modulate(TRANSPARENT)
+
+
+func _level_1_mouse_entered():
+	$Level_1.set_modulate(DARKENED)
+
+
+func _level_1_mouse_exited():
+	$Level_1.set_modulate(TRANSPARENT)
+
+
+func _level_2_mouse_entered():
+	$Level_2.set_modulate(DARKENED)
+
+
+func _level_2_mouse_exited():
+	$Level_2.set_modulate(TRANSPARENT)
