@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfyksnkf74v44"]
+[gd_scene load_steps=5 format=3 uid="uid://cfyksnkf74v44"]
 
 [ext_resource type="Script" path="res://Scripts/win_collectible.gd" id="1_c8y4d"]
+[ext_resource type="PackedScene" uid="uid://chk7e2okg85ip" path="res://Assets/Collectible.fbx" id="2_t01ly"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fno27"]
 size = Vector3(0.6, 0.6, 0.6)
@@ -20,5 +21,9 @@ shape = SubResource("BoxShape3D_fno27")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(0.5, 0.5, 0.5)
 material = SubResource("StandardMaterial3D_bj0ta")
+
+[node name="Collectible" parent="." instance=ExtResource("2_t01ly")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+visible = false
 
 [connection signal="body_entered" from="." to="." method="_collected"]

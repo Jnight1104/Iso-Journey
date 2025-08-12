@@ -1,31 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://pkgm4m42dt3k"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_k047h"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lp12k"]
-albedo_color = Color(0.47788, 0.47788, 0.47788, 1)
+[ext_resource type="PackedScene" uid="uid://1agqoph3ycje" path="res://Assets/Character.fbx" id="2_dqg7r"]
+[ext_resource type="PackedScene" uid="uid://c7bt5y8e800vq" path="res://Assets/Player_hand.fbx" id="3_6lipe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwaot"]
 size = Vector3(0.5, 1.6, 0.5)
 
-[sub_resource type="PrismMesh" id="PrismMesh_vg2hi"]
-size = Vector3(0.5, 0.5, 0.5)
-
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_k047h")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-size = Vector3(0.5, 1.6, 0.5)
-material = SubResource("StandardMaterial3D_lp12k")
+[node name="Character" parent="." instance=ExtResource("2_dqg7r")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.849794, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_mwaot")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 1.348, 0)
-mesh = SubResource("PrismMesh_vg2hi")
 
 [node name="Move_delay_timer" type="Timer" parent="."]
 one_shot = true
@@ -49,5 +39,11 @@ collide_with_areas = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1)
 collide_with_areas = true
+
+[node name="Left_hand" parent="." instance=ExtResource("3_6lipe")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7, -0.45)
+
+[node name="Right_hand" parent="." instance=ExtResource("3_6lipe")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7, 0.45)
 
 [connection signal="timeout" from="Move_delay_timer" to="." method="_move_delay_done"]

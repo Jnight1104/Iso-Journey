@@ -1,9 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2crxba3owhbe"]
 
 [ext_resource type="Script" path="res://Scripts/box.gd" id="1_lxlui"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nw4kh"]
-albedo_color = Color(0.618093, 0.408602, 0.0969769, 1)
+[ext_resource type="PackedScene" uid="uid://bpufyxgjjntgp" path="res://Assets/Log.fbx" id="2_0bsrt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ar7v"]
 
@@ -11,8 +9,8 @@ albedo_color = Color(0.618093, 0.408602, 0.0969769, 1)
 gravity_scale = 0.0
 script = ExtResource("1_lxlui")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-material = SubResource("StandardMaterial3D_nw4kh")
+[node name="Log" parent="." instance=ExtResource("2_0bsrt")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_6ar7v")
