@@ -1,16 +1,18 @@
 extends Area3D
 
-const TRANSPARENT_COLOUR : Color = Color(1, 0.78, 0.4, 0.53)
-const OPAQUE_COLOUR : Color = Color(1, 0.78, 0.4, 1)
-var unlocked : bool = false
+@onready var appearance: Node = $Cube
+const TRANSPARENT_COLOUR: Color = Color(1, 0.788, 0.226, 0.53)
+const OPAQUE_COLOUR: Color = Color(1, 0.788, 0.226, 1)
+var unlocked: bool = false
 signal win
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	win.connect(get_node("/root/Level/Player")._win)
 	win.connect(get_node("/root/Level/Win_screen")._win)
 	win.connect(get_node("/root/Level/Pause_menu")._win)
-	$CSGBox3D.material.albedo_color = TRANSPARENT_COLOUR
+	appearance.material_override.albedo_color = TRANSPARENT_COLOUR
 
 
 func _collected(body):
@@ -21,11 +23,11 @@ func _collected(body):
 
 
 func _unlocked():
-	$CSGBox3D.material.albedo_color = OPAQUE_COLOUR
+	appearance.material_override.albedo_color = OPAQUE_COLOUR
 	unlocked = true
 
 
 func _locked():
-	$CSGBox3D.material.albedo_color = TRANSPARENT_COLOUR
+	appearance.material_override.albedo_color = TRANSPARENT_COLOUR
 	unlocked = false
 	
