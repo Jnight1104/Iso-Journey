@@ -1,31 +1,43 @@
 extends CharacterBody3D
 
 @onready var global = get_node("/root/Global")
-const SPAWN : Vector3 = Vector3(0, 0.5, 0)
-const UP : Vector3 = Vector3(1, 0, 0)
-const DOWN : Vector3 = Vector3(-1, 0, 0)
-const LEFT : Vector3 = Vector3(0, 0, -1)
-const RIGHT : Vector3 = Vector3(0, 0, 1)
-const MOVE_DELAY : float = 0.1
-const SHORT_MOVE_DELAY : float = 0.01
-const LERP_RATE : float = 12
-const MAX_ACTION_QUEUE : int = 2
-const OBSTACLE_BUFFER_SCALE : float = 0.3
-const UNDO_OFFSET : int = 1
-const UNDO : Vector3 = Vector3(-100, 0, 0)
-const REDO : Vector3 = Vector3(100, 0, 0)
-const WAIT : Vector3 = Vector3(100, 100, 100)
-var target_location : Vector3 = SPAWN
-var moving : bool = false
-var action_queue : Array = []
-var front_blocked : bool = false
-var right_blocked : bool = false
-var back_blocked : bool = false
-var left_blocked : bool = false
-var detection_ray : Node = null
-var game_finished : bool = false
-var undos : int = 0
-var action_history : Array = [SPAWN]
+@onready var move_delay_timer: Node = $Move_delay_timer
+@onready var forward_ray: Node = $Forward
+@onready var right_ray: Node = $Right
+@onready var back_ray: Node = $Back
+@onready var left_ray: Node = $Left
+@onready var left_hand: Node = $Left_hand
+@onready var right_hand: Node = $Right_hand
+const SPAWN: Vector3 = Vector3(0, 0.5, 0)
+const UP: Vector3 = Vector3(1, 0, 0)
+const DOWN: Vector3 = Vector3(-1, 0, 0)
+const LEFT: Vector3 = Vector3(0, 0, -1)
+const RIGHT: Vector3 = Vector3(0, 0, 1)
+const MOVE_DELAY: float = 0.1
+const SHORT_MOVE_DELAY: float = 0.01
+const LERP_RATE: float = 12
+const MAX_ACTION_QUEUE: int = 2
+const OBSTACLE_BUFFER_SCALE: float = 0.3
+const UNDO_OFFSET: int = 1
+const UNDO: Vector3 = Vector3(-100, 0, 0)
+const REDO: Vector3 = Vector3(100, 0, 0)
+const WAIT: Vector3 = Vector3(100, 100, 100)
+const HAND_Y_POS: float = 0.7
+const HAND_Y_POS_MULTIPLIER: float = 0.05
+const TIME_INCREMENT: float = 1.5
+var target_location: Vector3 = SPAWN
+var moving: bool = false
+var action_queue: Array = []
+var front_blocked: bool = false
+var right_blocked: bool = false
+var back_blocked: bool = false
+var left_blocked: bool = false
+var detection_ray: Node = null
+var game_finished: bool = false
+var undos: int = 0
+var action_history: Array = [SPAWN]
+var hand_y_pos_offset: float = 0.0
+var time_variation: float = 0.0
 signal push
 #signal action
 
@@ -59,6 +71,10 @@ func _process(delta):
 	# Moves the player toward the target location smoothly
 	if not global.paused:
 		position = lerp(position, target_location, LERP_RATE * delta)
+	if not moving:
+		right_hand.position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+		left_hand.position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+		time_variation += TIME_INCREMENT * delta
 
 
 # Function for setting the target location depending on the direction based on the input
@@ -76,49 +92,49 @@ func _move(direction):
 			push.emit(UNDO, self)
 			undos += UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
-			$Move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY)
 		else:
-			$Move_delay_timer.start(SHORT_MOVE_DELAY)
+			move_delay_timer.start(SHORT_MOVE_DELAY)
 	elif direction == REDO:
 		if undos > 0:
 			push.emit(REDO, self)
 			undos -= UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
-			$Move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY)
 		else:
-			$Move_delay_timer.start(SHORT_MOVE_DELAY)
+			move_delay_timer.start(SHORT_MOVE_DELAY)
 	else:
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
 			undos = 0
 		if direction == UP:
-			detection_ray = $Forward
+			detection_ray = forward_ray
 		elif direction == RIGHT:
-			detection_ray = $Right
+			detection_ray = right_ray
 		elif direction == DOWN:
-			detection_ray = $Back
+			detection_ray = back_ray
 		elif direction == LEFT:
-			detection_ray = $Left
+			detection_ray = left_ray
 		if detection_ray.is_colliding():
 			if detection_ray.get_collider().is_in_group("Box"):
 				#push.connect(detection_ray.get_collider()._pushed)
 				push.emit(direction, detection_ray.get_collider())
 				action_history.append(target_location)
-				$Move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			elif detection_ray.get_collider().is_in_group("Boundaries"):
-				$Move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			else:
 				push.emit(WAIT, self)
 				target_location += direction
 				action_history.append(target_location)
-				$Move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY)
 		else:
 			push.emit(WAIT, self)
 			target_location += direction
 			action_history.append(target_location)
-			$Move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY)
 		
 
 # Allows player to move again after the delay is done
@@ -127,7 +143,7 @@ func _move_delay_done():
 	# Repeats movement if the action queue isnt done
 	if len(action_queue) > 0:
 		_move(action_queue[0])
-		$Move_delay_timer.start(MOVE_DELAY)
+		move_delay_timer.start(MOVE_DELAY)
 	else:
 		moving = false
 
