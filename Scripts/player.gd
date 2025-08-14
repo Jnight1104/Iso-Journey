@@ -42,7 +42,7 @@ var action_history: Array = [SPAWN]
 var hand_y_pos_offset: float = 0.0
 var time_variation: float = 0.0
 signal push
-#signal action
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -161,7 +161,7 @@ func _move_delay_done():
 		moving = false
 
 
+# Triggers game end effects upon winning
 func _win():
 	game_finished = true
 	action_queue = []
-	

@@ -1,10 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://3rbwyri5ri08"]
+[gd_scene load_steps=27 format=3 uid="uid://3rbwyri5ri08"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_vwd16"]
 [ext_resource type="Texture2D" uid="uid://dyulioenpxa68" path="res://Assets/Pause button.png" id="2_n2cdv"]
+[ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="2_quptw"]
+[ext_resource type="Texture2D" uid="uid://br0a56m3b1ss8" path="res://Assets/Resume button.png" id="3_hy5sn"]
+[ext_resource type="Texture2D" uid="uid://csvvwa3bf0hoy" path="res://Assets/Quit button2.png" id="4_tn3ls"]
+[ext_resource type="Texture2D" uid="uid://bmwgynvcgfejo" path="res://Assets/Movement_ arrow keys.png" id="6_nx0qj"]
+[ext_resource type="Texture2D" uid="uid://dts0bfl214g6x" path="res://Assets/Rotate camera.png" id="7_0wadd"]
+[ext_resource type="Texture2D" uid="uid://beb0giaj3hce2" path="res://Assets/Undo redo action.png" id="8_pwfmr"]
+[ext_resource type="Texture2D" uid="uid://b2nls1wxhgnf0" path="res://Assets/Pause & unpause game_ “esc”.png" id="9_am17u"]
+[ext_resource type="Texture2D" uid="uid://k8jhvu164xek" path="res://Assets/Fast mode.png" id="10_d01kx"]
+[ext_resource type="Texture2D" uid="uid://dp6dtdgi2ksxk" path="res://Assets/Music.png" id="11_c1bpb"]
+[ext_resource type="Texture2D" uid="uid://do7k4scqsits0" path="res://Assets/Sounds.png" id="12_en70w"]
+[ext_resource type="Texture2D" uid="uid://cvf4pam3m78cl" path="res://Assets/Toggle frame 1.png" id="13_lc8dp"]
+[ext_resource type="Texture2D" uid="uid://bg28bnf0m5qo3" path="res://Assets/Toggle frame 2.png" id="14_1nwty"]
+[ext_resource type="Texture2D" uid="uid://dj027erw072e8" path="res://Assets/Toggle frame 3.png" id="15_jq2f6"]
+[ext_resource type="Texture2D" uid="uid://cl5dg01lipnd3" path="res://Assets/Toggle frame 4.png" id="16_33any"]
+[ext_resource type="Texture2D" uid="uid://cq4wr8wjnjggd" path="res://Assets/Toggle frame 5.png" id="17_xfy2b"]
+[ext_resource type="Texture2D" uid="uid://qmmdsrnj0qqy" path="res://Assets/Toggle frame 6.png" id="18_l7vp5"]
+[ext_resource type="Texture2D" uid="uid://d31gfkbr0xjpi" path="res://Assets/Toggle frame 7.png" id="19_h8tja"]
+[ext_resource type="Texture2D" uid="uid://cnd1456jligw4" path="res://Assets/Toggle frame 8.png" id="20_140if"]
+[ext_resource type="Texture2D" uid="uid://rerphcqprglc" path="res://Assets/Toggle frame 9.png" id="21_pidh1"]
+[ext_resource type="Texture2D" uid="uid://cr8swxc48shre" path="res://Assets/Toggle frame 10.png" id="22_oq7y2"]
+[ext_resource type="Texture2D" uid="uid://4fq42ek4n2bu" path="res://Assets/Toggle frame 11.png" id="23_cw7jr"]
+[ext_resource type="Texture2D" uid="uid://cy6iun00wlmux" path="res://Assets/Toggle frame 12.png" id="24_fia6e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ceda8"]
-font_color = Color(0.230315, 0.230315, 0.230315, 1)
+font = ExtResource("2_quptw")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xten7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_lc8dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1nwty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jq2f6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_33any")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xfy2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_l7vp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_h8tja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_140if")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_pidh1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_oq7y2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_cw7jr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_fia6e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 45.0
+}]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -18,50 +86,116 @@ script = ExtResource("1_vwd16")
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 332.0
-offset_top = 40.0
-offset_right = 812.0
-offset_bottom = 555.0
+offset_right = 1152.0
+offset_bottom = 648.0
 color = Color(1, 1, 1, 0.6)
 
 [node name="Label" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 541.0
-offset_top = 56.0
-offset_right = 610.0
-offset_bottom = 79.0
+offset_left = 504.0
+offset_top = 24.0
+offset_right = 648.0
+offset_bottom = 69.0
 text = "Paused"
 label_settings = SubResource("LabelSettings_ceda8")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Resume" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 533.0
-offset_top = 328.0
-offset_right = 608.0
-offset_bottom = 359.0
-text = "Resume"
+offset_left = 488.0
+offset_top = 542.0
+offset_right = 1748.0
+offset_bottom = 858.0
+scale = Vector2(0.14, 0.14)
+icon = ExtResource("3_hy5sn")
+flat = true
 
 [node name="Quit" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 532.0
-offset_top = 370.0
-offset_right = 609.0
-offset_bottom = 401.0
-text = "Quit"
+offset_left = 522.5
+offset_top = 592.0
+offset_right = 1418.5
+offset_bottom = 908.0
+scale = Vector2(0.12, 0.12)
+icon = ExtResource("4_tn3ls")
+flat = true
 
 [node name="Pause" type="Button" parent="."]
 layout_mode = 0
 offset_left = 516.8
-offset_top = 580.0
+offset_top = 543.0
 offset_right = 1700.8
-offset_bottom = 996.0
+offset_bottom = 959.0
 scale = Vector2(0.1, 0.1)
 icon = ExtResource("2_n2cdv")
 flat = true
 
+[node name="Text" type="Node2D" parent="."]
+visible = false
+
+[node name="Movement" type="Sprite2D" parent="Text"]
+position = Vector2(532.5, 207)
+scale = Vector2(0.325397, 0.325397)
+texture = ExtResource("6_nx0qj")
+
+[node name="Camera_rotate" type="Sprite2D" parent="Text"]
+position = Vector2(624, 241)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("7_0wadd")
+
+[node name="Undo_redo" type="Sprite2D" parent="Text"]
+position = Vector2(576.5, 275)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("8_pwfmr")
+
+[node name="Pause_unpause" type="Sprite2D" parent="Text"]
+position = Vector2(572, 309)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("9_am17u")
+
+[node name="Fast_mode" type="Sprite2D" parent="Text"]
+position = Vector2(542.5, 343)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("10_d01kx")
+
+[node name="Music" type="Sprite2D" parent="Text"]
+position = Vector2(509, 377)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("11_c1bpb")
+
+[node name="Sounds" type="Sprite2D" parent="Text"]
+position = Vector2(523.5, 411)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("12_en70w")
+
+[node name="Toggle" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(667, 343)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
+[node name="Toggle2" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(667, 377)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
+[node name="Toggle3" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(667, 411)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
 [connection signal="button_up" from="Resume" to="." method="_resume_button_pressed"]
+[connection signal="mouse_entered" from="Resume" to="." method="_resume_mouse_entered"]
+[connection signal="mouse_exited" from="Resume" to="." method="_resume_mouse_exited"]
 [connection signal="button_up" from="Quit" to="." method="_quit_button_pressed"]
+[connection signal="mouse_entered" from="Quit" to="." method="_quit_mouse_entered"]
+[connection signal="mouse_exited" from="Quit" to="." method="_quit_mouse_exited"]
 [connection signal="button_up" from="Pause" to="." method="_pause_button_pressed"]
+[connection signal="mouse_entered" from="Pause" to="." method="_pause_mouse_entered"]
+[connection signal="mouse_exited" from="Pause" to="." method="_pause_mouse_exited"]

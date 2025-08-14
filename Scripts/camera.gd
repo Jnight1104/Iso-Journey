@@ -11,6 +11,7 @@ var camera_offset_z : float = 0.0
 var camera_offset : Vector3 = Vector3(0, 0, 0)
 var target_rotation : float = 0.0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	target_rotation = STARTING_ROTATION

@@ -1,6 +1,6 @@
 extends Area3D
 
-@onready var appearance: Node = $Cube
+@onready var appearance: Node = $Mesh
 const TRANSPARENT_COLOUR: Color = Color(1, 0.788, 0.226, 0.53)
 const OPAQUE_COLOUR: Color = Color(1, 0.788, 0.226, 1)
 const SPIN_SPEED: float = 0.5

@@ -1,6 +1,9 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
+const TRANSPARENT : Color = Color(1, 1, 1, 1)
+const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +24,14 @@ func _pause_button_pressed():
 	pause()
 
 
+func _pause_mouse_entered():
+	$Pause.set_modulate(DARKENED)
+
+
+func _pause_mouse_exited():
+	$Pause.set_modulate(TRANSPARENT)
+
+
 # Function for pausing the game
 func pause():
 	global.paused = true
@@ -29,7 +40,10 @@ func pause():
 	$Label.show()
 	$Resume.show()
 	$Quit.show()
-
+	$Text.show()
+	$Toggle.show()
+	$Toggle2.show()
+	$Toggle3.show()
 
 # Function for resuming the game
 func resume():
@@ -38,6 +52,10 @@ func resume():
 	$Quit.hide()
 	$Label.hide()
 	$ColorRect.hide()
+	$Text.hide()
+	$Toggle.hide()
+	$Toggle2.hide()
+	$Toggle3.hide()
 	$Pause.show()
 
 
@@ -53,3 +71,19 @@ func _quit_button_pressed():
 
 func _win():
 	self.hide()
+
+
+func _resume_mouse_entered():
+	$Resume.set_modulate(DARKENED)
+
+
+func _resume_mouse_exited():
+	$Resume.set_modulate(TRANSPARENT)
+
+
+func _quit_mouse_entered():
+	$Quit.set_modulate(DARKENED)
+
+
+func _quit_mouse_exited():
+	$Quit.set_modulate(TRANSPARENT)
