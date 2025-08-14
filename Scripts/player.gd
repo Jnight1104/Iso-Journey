@@ -18,6 +18,7 @@ const SHORT_MOVE_DELAY: float = 0.01
 const LERP_RATE: float = 12
 const MAX_ACTION_QUEUE: int = 2
 const OBSTACLE_BUFFER_SCALE: float = 0.3
+const HAND_PUSH_SCALE: float = 0.3
 const UNDO_OFFSET: int = 1
 const UNDO: Vector3 = Vector3(-100, 0, 0)
 const REDO: Vector3 = Vector3(100, 0, 0)
@@ -25,6 +26,8 @@ const WAIT: Vector3 = Vector3(100, 100, 100)
 const HAND_Y_POS: float = 0.7
 const HAND_Y_POS_MULTIPLIER: float = 0.05
 const TIME_INCREMENT: float = 1.5
+var left_hand_position: Vector3 = Vector3(0, 0.7, -0.45)
+var right_hand_position: Vector3 = Vector3(0, 0.7, 0.45)
 var target_location: Vector3 = SPAWN
 var moving: bool = false
 var action_queue: Array = []
@@ -68,12 +71,14 @@ func _process(delta):
 	# Clears pending actions when game is paused
 	if Input.is_action_just_pressed("ui_escape"):
 		action_queue = []
-	# Moves the player toward the target location smoothly
+	# Moves the player toward the target location smoothly and sets position of hands
 	if not global.paused:
 		position = lerp(position, target_location, LERP_RATE * delta)
+		left_hand.position = lerp(left_hand.position, left_hand_position, LERP_RATE * delta)
+		right_hand.position = lerp(right_hand.position, right_hand_position, LERP_RATE * delta)
 	if not moving:
-		right_hand.position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
-		left_hand.position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+		left_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+		right_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
 		time_variation += TIME_INCREMENT * delta
 
 
@@ -117,11 +122,19 @@ func _move(direction):
 			detection_ray = left_ray
 		if detection_ray.is_colliding():
 			if detection_ray.get_collider().is_in_group("Box"):
-				#push.connect(detection_ray.get_collider()._pushed)
 				push.emit(direction, detection_ray.get_collider())
 				action_history.append(target_location)
 				move_delay_timer.start(MOVE_DELAY)
-				position += direction * OBSTACLE_BUFFER_SCALE
+				if direction == UP:
+					right_hand.position += HAND_PUSH_SCALE * direction
+					left_hand.position += HAND_PUSH_SCALE * direction
+				elif direction == RIGHT:
+					right_hand.position += HAND_PUSH_SCALE * direction
+				elif direction == DOWN:
+					right_hand.position += HAND_PUSH_SCALE * direction
+					left_hand.position += HAND_PUSH_SCALE * direction
+				elif direction == LEFT:
+					left_hand.position += HAND_PUSH_SCALE * direction
 			elif detection_ray.get_collider().is_in_group("Boundaries"):
 				move_delay_timer.start(MOVE_DELAY)
 				position += direction * OBSTACLE_BUFFER_SCALE
