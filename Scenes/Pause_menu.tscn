@@ -83,15 +83,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vwd16")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+[node name="Pause_screen_ui" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Pause_screen_ui"]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(1, 1, 1, 0.6)
 
-[node name="Label" type="Label" parent="."]
-visible = false
+[node name="Label" type="Label" parent="Pause_screen_ui"]
 layout_mode = 0
 offset_left = 504.0
 offset_top = 24.0
@@ -102,8 +105,7 @@ label_settings = SubResource("LabelSettings_ceda8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Resume" type="Button" parent="."]
-visible = false
+[node name="Resume" type="Button" parent="Pause_screen_ui"]
 layout_mode = 0
 offset_left = 488.0
 offset_top = 542.0
@@ -113,8 +115,7 @@ scale = Vector2(0.14, 0.14)
 icon = ExtResource("3_hy5sn")
 flat = true
 
-[node name="Quit" type="Button" parent="."]
-visible = false
+[node name="Quit" type="Button" parent="Pause_screen_ui"]
 layout_mode = 0
 offset_left = 522.5
 offset_top = 592.0
@@ -123,6 +124,58 @@ offset_bottom = 908.0
 scale = Vector2(0.12, 0.12)
 icon = ExtResource("4_tn3ls")
 flat = true
+
+[node name="Text" type="Node2D" parent="Pause_screen_ui"]
+
+[node name="Movement" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(532.5, 207)
+scale = Vector2(0.325397, 0.325397)
+texture = ExtResource("6_nx0qj")
+
+[node name="Camera_rotate" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(624, 241)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("7_0wadd")
+
+[node name="Undo_redo" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(576.5, 275)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("8_pwfmr")
+
+[node name="Pause_unpause" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(572, 309)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("9_am17u")
+
+[node name="Fast_mode" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(542.5, 343)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("10_d01kx")
+
+[node name="Music" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(509, 377)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("11_c1bpb")
+
+[node name="Sounds" type="Sprite2D" parent="Pause_screen_ui/Text"]
+position = Vector2(523.5, 411)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("12_en70w")
+
+[node name="Toggle" type="AnimatedSprite2D" parent="Pause_screen_ui"]
+position = Vector2(667, 343)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
+[node name="Toggle2" type="AnimatedSprite2D" parent="Pause_screen_ui"]
+position = Vector2(667, 377)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
+[node name="Toggle3" type="AnimatedSprite2D" parent="Pause_screen_ui"]
+position = Vector2(667, 411)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
 
 [node name="Pause" type="Button" parent="."]
 layout_mode = 0
@@ -134,68 +187,12 @@ scale = Vector2(0.1, 0.1)
 icon = ExtResource("2_n2cdv")
 flat = true
 
-[node name="Text" type="Node2D" parent="."]
-visible = false
-
-[node name="Movement" type="Sprite2D" parent="Text"]
-position = Vector2(532.5, 207)
-scale = Vector2(0.325397, 0.325397)
-texture = ExtResource("6_nx0qj")
-
-[node name="Camera_rotate" type="Sprite2D" parent="Text"]
-position = Vector2(624, 241)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("7_0wadd")
-
-[node name="Undo_redo" type="Sprite2D" parent="Text"]
-position = Vector2(576.5, 275)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("8_pwfmr")
-
-[node name="Pause_unpause" type="Sprite2D" parent="Text"]
-position = Vector2(572, 309)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("9_am17u")
-
-[node name="Fast_mode" type="Sprite2D" parent="Text"]
-position = Vector2(542.5, 343)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("10_d01kx")
-
-[node name="Music" type="Sprite2D" parent="Text"]
-position = Vector2(509, 377)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("11_c1bpb")
-
-[node name="Sounds" type="Sprite2D" parent="Text"]
-position = Vector2(523.5, 411)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("12_en70w")
-
-[node name="Toggle" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(667, 343)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
-
-[node name="Toggle2" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(667, 377)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
-
-[node name="Toggle3" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(667, 411)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
-
-[connection signal="button_up" from="Resume" to="." method="_resume_button_pressed"]
-[connection signal="mouse_entered" from="Resume" to="." method="_resume_mouse_entered"]
-[connection signal="mouse_exited" from="Resume" to="." method="_resume_mouse_exited"]
-[connection signal="button_up" from="Quit" to="." method="_quit_button_pressed"]
-[connection signal="mouse_entered" from="Quit" to="." method="_quit_mouse_entered"]
-[connection signal="mouse_exited" from="Quit" to="." method="_quit_mouse_exited"]
+[connection signal="button_up" from="Pause_screen_ui/Resume" to="." method="_resume_button_pressed"]
+[connection signal="mouse_entered" from="Pause_screen_ui/Resume" to="." method="_resume_mouse_entered"]
+[connection signal="mouse_exited" from="Pause_screen_ui/Resume" to="." method="_resume_mouse_exited"]
+[connection signal="button_up" from="Pause_screen_ui/Quit" to="." method="_quit_button_pressed"]
+[connection signal="mouse_entered" from="Pause_screen_ui/Quit" to="." method="_quit_mouse_entered"]
+[connection signal="mouse_exited" from="Pause_screen_ui/Quit" to="." method="_quit_mouse_exited"]
 [connection signal="button_up" from="Pause" to="." method="_pause_button_pressed"]
 [connection signal="mouse_entered" from="Pause" to="." method="_pause_mouse_entered"]
 [connection signal="mouse_exited" from="Pause" to="." method="_pause_mouse_exited"]

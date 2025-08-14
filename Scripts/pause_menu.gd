@@ -1,23 +1,31 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
-const TRANSPARENT : Color = Color(1, 1, 1, 1)
-const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
+const TRANSPARENT: Color = Color(1, 1, 1, 1)
+const DARKENED: Color = Color(0.9, 0.9, 0.9, 1)
+const FADE_IN: float = 1.0
+const FADE_OUT: float = 0.0
+const TRANSPARENCY_SCALE: float = 10.0
+var transparency: Color = Color(1, 1, 1, 0)
+var transparency_target: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Pause_screen_ui.set_modulate(transparency)
 	resume()
 
 
-func _process(_delta):
+func _process(delta):
 	# Pauses/unpauses the game on user input based on whether it is already paused or not
 	if Input.is_action_just_pressed("ui_escape"):
 		if global.paused == false:
 			pause()
 		else:
 			resume()
-
+	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
+	$Pause_screen_ui.set_modulate(transparency)
+	print(transparency)
 
 # Pauses the game on pause button pressed
 func _pause_button_pressed():
@@ -35,27 +43,14 @@ func _pause_mouse_exited():
 # Function for pausing the game
 func pause():
 	global.paused = true
+	transparency_target = FADE_IN
 	$Pause.hide()
-	$ColorRect.show()
-	$Label.show()
-	$Resume.show()
-	$Quit.show()
-	$Text.show()
-	$Toggle.show()
-	$Toggle2.show()
-	$Toggle3.show()
+
 
 # Function for resuming the game
 func resume():
 	global.paused = false
-	$Resume.hide()
-	$Quit.hide()
-	$Label.hide()
-	$ColorRect.hide()
-	$Text.hide()
-	$Toggle.hide()
-	$Toggle2.hide()
-	$Toggle3.hide()
+	transparency_target = FADE_OUT
 	$Pause.show()
 
 
@@ -74,16 +69,16 @@ func _win():
 
 
 func _resume_mouse_entered():
-	$Resume.set_modulate(DARKENED)
+	$Pause_screen_ui/Resume.set_modulate(DARKENED)
 
 
 func _resume_mouse_exited():
-	$Resume.set_modulate(TRANSPARENT)
+	$Pause_screen_ui/Resume.set_modulate(TRANSPARENT)
 
 
 func _quit_mouse_entered():
-	$Quit.set_modulate(DARKENED)
+	$Pause_screen_ui/Quit.set_modulate(DARKENED)
 
 
 func _quit_mouse_exited():
-	$Quit.set_modulate(TRANSPARENT)
+	$Pause_screen_ui/Quit.set_modulate(TRANSPARENT)
