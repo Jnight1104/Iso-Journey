@@ -1,5 +1,6 @@
 extends Area3D
 
+@onready var global = get_node("/root/Global")
 @onready var appearance: Node = $Mesh
 const TRANSPARENT_COLOUR: Color = Color(1, 0.788, 0.226, 0.53)
 const OPAQUE_COLOUR: Color = Color(1, 0.788, 0.226, 1)
@@ -19,8 +20,9 @@ func _ready():
 
 
 func _process(delta):
-	# Constantly rotates the collectible over time
-	rotation.y += SPIN_SPEED * delta
+	# Constantly rotates the collectible over time when the game isn't paused
+	if not global.paused:
+		rotation.y += SPIN_SPEED * delta
 
 
 func _collected(body):
@@ -40,4 +42,3 @@ func _locked():
 	# Turns the collectible transparent when win conditions are not met
 	appearance.material_override.albedo_color = TRANSPARENT_COLOUR
 	unlocked = false
-	

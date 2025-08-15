@@ -76,10 +76,10 @@ func _process(delta):
 		position = lerp(position, target_location, LERP_RATE * delta)
 		left_hand.position = lerp(left_hand.position, left_hand_position, LERP_RATE * delta)
 		right_hand.position = lerp(right_hand.position, right_hand_position, LERP_RATE * delta)
-	if not moving:
-		left_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
-		right_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
-		time_variation += TIME_INCREMENT * delta
+		if not moving:
+			left_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+			right_hand_position.y = HAND_Y_POS + HAND_Y_POS_MULTIPLIER * sin(time_variation)
+			time_variation += TIME_INCREMENT * delta
 
 
 # Function for setting the target location depending on the direction based on the input
