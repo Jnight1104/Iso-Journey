@@ -25,7 +25,7 @@ func _process(delta):
 			resume()
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
 	$Pause_screen_ui.set_modulate(transparency)
-	print(transparency)
+
 
 # Pauses the game on pause button pressed
 func _pause_button_pressed():
@@ -45,12 +45,16 @@ func pause():
 	global.paused = true
 	transparency_target = FADE_IN
 	$Pause.hide()
+	$Pause_screen_ui/Resume.set_disabled(false)
+	$Pause_screen_ui/Quit.set_disabled(false)
 
 
 # Function for resuming the game
 func resume():
 	global.paused = false
 	transparency_target = FADE_OUT
+	$Pause_screen_ui/Resume.set_disabled(true)
+	$Pause_screen_ui/Quit.set_disabled(true)
 	$Pause.show()
 
 

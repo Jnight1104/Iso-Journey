@@ -1,8 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://wuqxfpxeqv0c"]
+[gd_scene load_steps=5 format=3 uid="uid://wuqxfpxeqv0c"]
 
 [ext_resource type="Script" path="res://Scripts/win_screen.gd" id="1_pja7c"]
+[ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="2_pg3mm"]
+[ext_resource type="Texture2D" uid="uid://cphwld7amg7ru" path="res://Assets/Exit button.png" id="3_kij8u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_be3d6"]
+font = ExtResource("2_pg3mm")
+font_size = 39
 font_color = Color(0.176419, 0.176419, 0.176419, 1)
 
 [node name="Control" type="Control"]
@@ -16,27 +20,33 @@ script = ExtResource("1_pja7c")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 319.0
-offset_top = 186.0
-offset_right = 856.0
-offset_bottom = 513.0
+offset_left = 312.0
+offset_top = 157.0
+offset_right = 840.0
+offset_bottom = 484.0
 color = Color(1, 1, 1, 0.6)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 552.0
-offset_top = 287.0
-offset_right = 641.0
-offset_bottom = 317.0
-text = "You win!"
+offset_left = 418.0
+offset_top = 192.0
+offset_right = 734.0
+offset_bottom = 235.0
+text = "Level complete!"
 label_settings = SubResource("LabelSettings_be3d6")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Exit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 499.0
-offset_top = 412.0
-offset_right = 676.0
-offset_bottom = 477.0
-text = "Exit"
+offset_left = 520.0
+offset_top = 416.0
+offset_right = 1704.0
+offset_bottom = 832.0
+scale = Vector2(0.095, 0.095)
+icon = ExtResource("3_kij8u")
+flat = true
 
 [connection signal="button_up" from="Exit" to="." method="_exit_button_pressed"]
+[connection signal="mouse_entered" from="Exit" to="." method="_exit_mouse_entered"]
+[connection signal="mouse_exited" from="Exit" to="." method="_exit_mouse_exited"]
