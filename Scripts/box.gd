@@ -5,7 +5,7 @@ const UP : Vector3 = Vector3(1, 0, 0)
 const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
-const MOVE_DELAY : float = 0.1
+const EMITTING_PERIOD : float = 0.1
 const UNDO : Vector3 = Vector3(-100, 0, 0)
 const REDO : Vector3 = Vector3(100, 0, 0)
 const WAIT : Vector3 = Vector3(100, 100, 100)
@@ -18,6 +18,7 @@ var undos : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Dust.emitting = false
 	target_location = position
 	action_history.append(position)
 
@@ -40,6 +41,7 @@ func _pushed(direction, node):
 		undos -= UNDO_OFFSET
 		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 	else:
+		$Dust.process_material.direction = -1 * direction
 		if direction == UP:
 			detection_ray = $Forward
 		elif direction == RIGHT:
@@ -59,6 +61,8 @@ func _pushed(direction, node):
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
 				target_location += direction
+				$Emitting_timer.start(EMITTING_PERIOD)
+				$Dust.emitting = true
 				action_history.append(target_location)
 			else:
 				if undos > 0:
@@ -66,6 +70,9 @@ func _pushed(direction, node):
 					undos = 0
 				action_history.append(target_location)
 
+
+func _emitting_timer_timeout():
+	$Dust.emitting = false
 
 #func _action_done(action):
 #	if action == WAIT:

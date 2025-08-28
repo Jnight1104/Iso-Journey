@@ -148,7 +148,7 @@ func _move(direction):
 			target_location += direction
 			action_history.append(target_location)
 			move_delay_timer.start(MOVE_DELAY)
-		
+
 
 # Allows player to move again after the delay is done
 func _move_delay_done():
