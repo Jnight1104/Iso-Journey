@@ -60,7 +60,3 @@ one_shot = true
 explosiveness = 0.7
 process_material = SubResource("ParticleProcessMaterial_k5dnn")
 draw_pass_1 = SubResource("BoxMesh_bgqfg")
-
-[node name="Emitting_timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="Emitting_timer" to="." method="_emitting_timer_timeout"]

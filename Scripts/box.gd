@@ -5,7 +5,6 @@ const UP : Vector3 = Vector3(1, 0, 0)
 const DOWN : Vector3 = Vector3(-1, 0, 0)
 const LEFT : Vector3 = Vector3(0, 0, -1)
 const RIGHT : Vector3 = Vector3(0, 0, 1)
-const EMITTING_PERIOD : float = 0.1
 const UNDO : Vector3 = Vector3(-100, 0, 0)
 const REDO : Vector3 = Vector3(100, 0, 0)
 const WAIT : Vector3 = Vector3(100, 100, 100)
@@ -61,7 +60,6 @@ func _pushed(direction, node):
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
 				target_location += direction
-				$Emitting_timer.start(EMITTING_PERIOD)
 				$Dust.restart()
 				action_history.append(target_location)
 			else:
@@ -70,9 +68,6 @@ func _pushed(direction, node):
 					undos = 0
 				action_history.append(target_location)
 
-
-func _emitting_timer_timeout():
-	$Dust.emitting = false
 
 #func _action_done(action):
 #	if action == WAIT:
