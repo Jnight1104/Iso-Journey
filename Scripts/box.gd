@@ -62,7 +62,7 @@ func _pushed(direction, node):
 					undos = 0
 				target_location += direction
 				$Emitting_timer.start(EMITTING_PERIOD)
-				$Dust.emitting = true
+				$Dust.restart()
 				action_history.append(target_location)
 			else:
 				if undos > 0:
