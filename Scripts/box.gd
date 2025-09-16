@@ -1,18 +1,18 @@
 extends RigidBody3D
 
-const LERP_RATE : float = 18
-const UP : Vector3 = Vector3(1, 0, 0)
-const DOWN : Vector3 = Vector3(-1, 0, 0)
-const LEFT : Vector3 = Vector3(0, 0, -1)
-const RIGHT : Vector3 = Vector3(0, 0, 1)
-const UNDO : Vector3 = Vector3(-100, 0, 0)
-const REDO : Vector3 = Vector3(100, 0, 0)
-const WAIT : Vector3 = Vector3(100, 100, 100)
-const UNDO_OFFSET : int = 1
-var target_location : Vector3 = Vector3(0, 0, 0)
-var detection_ray : Node = null
-var action_history : Array = []
-var undos : int = 0
+const LERP_RATE: float = 18
+const UP: Vector3 = Vector3(1, 0, 0)
+const DOWN: Vector3 = Vector3(-1, 0, 0)
+const LEFT: Vector3 = Vector3(0, 0, -1)
+const RIGHT: Vector3 = Vector3(0, 0, 1)
+const UNDO: Vector3 = Vector3(-100, 0, 0)
+const REDO: Vector3 = Vector3(100, 0, 0)
+const WAIT: Vector3 = Vector3(100, 100, 100)
+const UNDO_OFFSET: int = 1
+var target_location: Vector3 = Vector3(0, 0, 0)
+var detection_ray: Node = null
+var action_history: Array = []
+var undos: int = 0
 
 
 # Called when the node enters the scene tree for the first time.

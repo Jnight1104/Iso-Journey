@@ -23,6 +23,7 @@ const UNDO_OFFSET: int = 1
 const UNDO: Vector3 = Vector3(-100, 0, 0)
 const REDO: Vector3 = Vector3(100, 0, 0)
 const WAIT: Vector3 = Vector3(100, 100, 100)
+const RESTART: Vector3 = Vector3(10, 10, 10)
 const HAND_Y_POS: float = 0.7
 const HAND_Y_POS_MULTIPLIER: float = 0.05
 const TIME_INCREMENT: float = 1.5
@@ -56,9 +57,11 @@ func _ready():
 func _process(delta):
 	global.player_pos = position
 	if not game_finished and not global.paused:
-		if Input.is_action_just_pressed("ui_minus"):
+		if Input.is_action_just_pressed("ui_minus") or global.undoing == true:
+			global.undoing = false
 			_move_input(UNDO)
-		elif Input.is_action_just_pressed("ui_plus"):
+		elif Input.is_action_just_pressed("ui_plus") or global.redoing == true:
+			global.redoing = false
 			_move_input(REDO)
 		elif Input.is_action_just_pressed("ui_up"):
 			_move_input(UP)

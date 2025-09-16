@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://3rbwyri5ri08"]
+[gd_scene load_steps=30 format=3 uid="uid://3rbwyri5ri08"]
 
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_vwd16"]
 [ext_resource type="Texture2D" uid="uid://dyulioenpxa68" path="res://Assets/Pause button.png" id="2_n2cdv"]
@@ -24,6 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://cr8swxc48shre" path="res://Assets/Toggle frame 10.png" id="22_oq7y2"]
 [ext_resource type="Texture2D" uid="uid://4fq42ek4n2bu" path="res://Assets/Toggle frame 11.png" id="23_cw7jr"]
 [ext_resource type="Texture2D" uid="uid://cy6iun00wlmux" path="res://Assets/Toggle frame 12.png" id="24_fia6e"]
+[ext_resource type="Texture2D" uid="uid://b8r01lvupvdxj" path="res://Assets/Undo button.png" id="25_4j4iq"]
+[ext_resource type="Texture2D" uid="uid://jd1rklu2qk2p" path="res://Assets/Redo button.png" id="26_yvfqw"]
+[ext_resource type="Texture2D" uid="uid://dkyrcv5ncsbt0" path="res://Assets/Restart button.png" id="27_hw1e3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ceda8"]
 font = ExtResource("2_quptw")
@@ -187,6 +190,44 @@ scale = Vector2(0.1, 0.1)
 icon = ExtResource("2_n2cdv")
 flat = true
 
+[node name="Undo" type="Button" parent="."]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 586.0
+offset_right = 1016.0
+offset_bottom = 1146.0
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("25_4j4iq")
+flat = true
+
+[node name="Redo" type="Button" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 586.0
+offset_right = 1200.0
+offset_bottom = 1146.0
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("26_yvfqw")
+flat = true
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 586.0
+offset_right = 1108.0
+offset_bottom = 1146.0
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("27_hw1e3")
+flat = true
+
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Fade_timer" type="Timer" parent="."]
+
 [connection signal="button_up" from="Pause_screen_ui/Resume" to="." method="_resume_button_pressed"]
 [connection signal="mouse_entered" from="Pause_screen_ui/Resume" to="." method="_resume_mouse_entered"]
 [connection signal="mouse_exited" from="Pause_screen_ui/Resume" to="." method="_resume_mouse_exited"]
@@ -196,3 +237,13 @@ flat = true
 [connection signal="button_up" from="Pause" to="." method="_pause_button_pressed"]
 [connection signal="mouse_entered" from="Pause" to="." method="_pause_mouse_entered"]
 [connection signal="mouse_exited" from="Pause" to="." method="_pause_mouse_exited"]
+[connection signal="button_up" from="Undo" to="." method="_undo_button_pressed"]
+[connection signal="mouse_entered" from="Undo" to="." method="_undo_mouse_entered"]
+[connection signal="mouse_exited" from="Undo" to="." method="_undo_mouse_exited"]
+[connection signal="button_up" from="Redo" to="." method="_redo_button_pressed"]
+[connection signal="mouse_entered" from="Redo" to="." method="_redo_mouse_entered"]
+[connection signal="mouse_exited" from="Redo" to="." method="_redo_mouse_exited"]
+[connection signal="button_up" from="Restart" to="." method="_restart_button_pressed"]
+[connection signal="mouse_entered" from="Restart" to="." method="_restart_mouse_entered"]
+[connection signal="mouse_exited" from="Restart" to="." method="_restart_mouse_exited"]
+[connection signal="timeout" from="Fade_timer" to="." method="_fade_timer_done"]
