@@ -58,8 +58,6 @@ transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.2
 [node name="Win_screen" parent="." instance=ExtResource("6_72dg4")]
 visible = false
 
-[node name="Pause_menu" parent="." instance=ExtResource("3_1rvrs")]
-
 [node name="Player" parent="." instance=ExtResource("1_e747c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
@@ -235,3 +233,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1.2, -29)
 
 [node name="Tree59" parent="Trees" instance=ExtResource("10_kksci")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.2, -33)
+
+[node name="Pause_menu" parent="." instance=ExtResource("3_1rvrs")]

@@ -8,8 +8,8 @@ const FADE_IN: float = 1.0
 const FADE_OUT: float = 0.0
 const TRANSPARENCY_SCALE: float = 10.0
 const MAX_REPEAT_RANGE: int = 101
-const FADE_INCREMENT: float = 0.1
-const FADE_TIME: float = 0.5
+const FADE_SCALE: float = 4.0
+const FADE_TIME: float = 1.0
 var transparency: Color = Color(1, 1, 1, 0)
 var transparency_target: float = 0.0
 var fade: Color = Color(0, 0, 0, 1)
@@ -25,7 +25,7 @@ func _ready():
 	global.paused = true
 	$Pause_screen_ui.set_modulate(transparency)
 	$Fade.set_modulate(fade)
-	fade_target = 0.0
+	fade_target = FADE_OUT
 	$Fade_timer.start(FADE_TIME)
 
 
@@ -39,7 +39,8 @@ func _process(delta):
 				resume()
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
 	$Pause_screen_ui.set_modulate(transparency)
-	fade.a = lerp(fade.a, fade_target, TRANSPARENCY_SCALE * delta)
+	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
+	$Fade.set_modulate(fade)
 
 
 # Pauses the game on pause button pressed
@@ -134,10 +135,13 @@ func _redo_mouse_exited():
 
 
 func _restart_button_pressed():
+	fading = true
+	$Fade.show()
 	global.paused = true
 	global.undoing = false
 	global.redoing = false
-	get_tree().reload_current_scene()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
 
 
 func _restart_mouse_entered():
@@ -149,6 +153,9 @@ func _restart_mouse_exited():
 
 
 func _fade_timer_done():
-	global.paused = false
-	fading = false
-	$Fade.hide()
+	if fade_target == FADE_OUT:
+		global.paused = false
+		fading = false
+		$Fade.hide()
+	else:
+		get_tree().reload_current_scene()
