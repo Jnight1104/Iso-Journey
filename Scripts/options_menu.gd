@@ -2,15 +2,32 @@ extends Control
 
 const TRANSPARENT : Color = Color(1, 1, 1, 1)
 const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
+const FADE_IN: float = 1.0
+const FADE_OUT: float = 0.0
+const FADE_SCALE: float = 4.0
+const FADE_TIME: float = 1.0
+var fade: Color = Color(0, 0, 0, 1)
+var fade_target: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Back.set_modulate(TRANSPARENT)
+	$Fade.show()
+	$Fade.set_modulate(fade)
+	fade_target = FADE_OUT
+	$Fade_timer.start(FADE_TIME)
+
+
+func _process(delta):
+	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
+	$Fade.set_modulate(fade)
 
 
 func _back_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Main_menu.tscn")
+	$Fade.show()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
 
 
 func _back_mouse_entered():
@@ -19,3 +36,10 @@ func _back_mouse_entered():
 
 func _back_mouse_exited():
 	$Back.set_modulate(TRANSPARENT)
+
+
+func _fade_timer_done():
+	if fade_target == FADE_OUT:
+		$Fade.hide()
+	else:
+		get_tree().change_scene_to_file("res://Scenes/Main_menu.tscn")

@@ -145,6 +145,15 @@ sprite_frames = SubResource("SpriteFrames_qvbb7")
 frame = 11
 frame_progress = 1.0
 
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Fade_timer" type="Timer" parent="."]
+
 [connection signal="button_up" from="Back" to="." method="_back_button_pressed"]
 [connection signal="mouse_entered" from="Back" to="." method="_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_back_mouse_exited"]
+[connection signal="timeout" from="Fade_timer" to="." method="_fade_timer_done"]

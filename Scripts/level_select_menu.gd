@@ -10,6 +10,7 @@ const FADE_TIME: float = 1.0
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Back.set_modulate(TRANSPARENT)

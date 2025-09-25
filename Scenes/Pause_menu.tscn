@@ -225,7 +225,6 @@ modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 1)
 
 [node name="Fade_timer" type="Timer" parent="."]
 

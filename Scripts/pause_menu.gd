@@ -15,10 +15,12 @@ var transparency_target: float = 0.0
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
 var fading: bool = true
+var quitting: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	quitting = false
 	$Fade.show()
 	fading = true
 	resume()
@@ -87,7 +89,14 @@ func _resume_button_pressed():
 
 # Quits the game on quit button pressed
 func _quit_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
+	fading = true
+	$Fade.show()
+	global.paused = true
+	global.undoing = false
+	global.redoing = false
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
+	quitting = true
 
 
 func _win():
@@ -157,5 +166,7 @@ func _fade_timer_done():
 		global.paused = false
 		fading = false
 		$Fade.hide()
+	elif quitting == true:
+		get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 	else:
 		get_tree().reload_current_scene()
