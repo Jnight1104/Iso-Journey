@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="2_quptw"]
 [ext_resource type="Texture2D" uid="uid://br0a56m3b1ss8" path="res://Assets/Resume button.png" id="3_hy5sn"]
 [ext_resource type="Texture2D" uid="uid://csvvwa3bf0hoy" path="res://Assets/Quit button2.png" id="4_tn3ls"]
-[ext_resource type="Texture2D" uid="uid://bmwgynvcgfejo" path="res://Assets/Movement_ arrow keys.png" id="6_nx0qj"]
+[ext_resource type="Texture2D" uid="uid://cink5bmjcqj8p" path="res://Assets/Movement_WASD.png" id="5_hmurv"]
 [ext_resource type="Texture2D" uid="uid://dts0bfl214g6x" path="res://Assets/Rotate camera.png" id="7_0wadd"]
 [ext_resource type="Texture2D" uid="uid://beb0giaj3hce2" path="res://Assets/Undo redo action.png" id="8_pwfmr"]
 [ext_resource type="Texture2D" uid="uid://b2nls1wxhgnf0" path="res://Assets/Pause & unpause game_ “esc”.png" id="9_am17u"]
@@ -131,9 +131,9 @@ flat = true
 [node name="Text" type="Node2D" parent="Pause_screen_ui"]
 
 [node name="Movement" type="Sprite2D" parent="Pause_screen_ui/Text"]
-position = Vector2(532.5, 207)
-scale = Vector2(0.325397, 0.325397)
-texture = ExtResource("6_nx0qj")
+position = Vector2(576, 207)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("5_hmurv")
 
 [node name="Camera_rotate" type="Sprite2D" parent="Pause_screen_ui/Text"]
 position = Vector2(624, 241)

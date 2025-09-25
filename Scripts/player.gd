@@ -63,13 +63,13 @@ func _process(delta):
 		elif Input.is_action_just_pressed("ui_plus") or global.redoing == true:
 			global.redoing = false
 			_move_input(REDO)
-		elif Input.is_action_just_pressed("ui_up"):
+		elif Input.is_action_just_pressed("ui_w"):
 			_move_input(UP)
-		elif Input.is_action_just_pressed("ui_down"):
+		elif Input.is_action_just_pressed("ui_s"):
 			_move_input(DOWN)
-		elif Input.is_action_just_pressed("ui_left"):
+		elif Input.is_action_just_pressed("ui_a"):
 			_move_input(LEFT)
-		elif Input.is_action_just_pressed("ui_right"):
+		elif Input.is_action_just_pressed("ui_d"):
 			_move_input(RIGHT)
 	# Clears pending actions when game is paused
 	if Input.is_action_just_pressed("ui_escape"):
