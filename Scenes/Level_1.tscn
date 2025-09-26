@@ -41,59 +41,6 @@ transform = Transform3D(0.917, 0, 0, 0, 0.917, 0, 0, 0, 0.917, 4, -0.417, 0)
 [node name="Level1_platform_bg" parent="." instance=ExtResource("9_21gtr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
 
-[node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-
-[node name="Flooor" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_quuv3")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707106, 0.707107, 0.707107, 0.5, -0.5, -7, 10, -7)
-fov = 60.0
-script = ExtResource("1_g2l8i")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.258819, 0.933013, -0.25, 2, 11, -3)
-
-[node name="Win_screen" parent="." instance=ExtResource("6_72dg4")]
-visible = false
-
-[node name="Player" parent="." instance=ExtResource("1_e747c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="Boundary" type="StaticBody3D" parent="." groups=["Boundaries"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -6)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary"]
-shape = SubResource("BoxShape3D_tp2vw")
-
-[node name="Boundary2" type="StaticBody3D" parent="." groups=["Boundaries"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary2"]
-shape = SubResource("BoxShape3D_tp2vw")
-
-[node name="Boundary3" type="StaticBody3D" parent="." groups=["Boundaries"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 6)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary3"]
-shape = SubResource("BoxShape3D_tp2vw")
-
-[node name="Boundary4" type="StaticBody3D" parent="." groups=["Boundaries"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary4"]
-shape = SubResource("BoxShape3D_tp2vw")
-
-[node name="RigidBody3D" parent="." instance=ExtResource("2_onu2b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 2)
-
-[node name="Win_collectible" parent="." instance=ExtResource("3_adoy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 0)
-
-[node name="Area3D" parent="." instance=ExtResource("4_g432u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, 0)
-
 [node name="Trees" type="Node3D" parent="."]
 
 [node name="Tree2" parent="Trees" instance=ExtResource("10_kksci")]
@@ -233,5 +180,58 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1.2, -29)
 
 [node name="Tree59" parent="Trees" instance=ExtResource("10_kksci")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.2, -33)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Flooor" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_quuv3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707106, 0.707107, 0.707107, 0.5, -0.5, -7, 10, -7)
+fov = 60.0
+script = ExtResource("1_g2l8i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.258819, 0.933013, -0.25, 2, 11, -3)
+
+[node name="Win_screen" parent="." instance=ExtResource("6_72dg4")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_e747c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Boundary" type="StaticBody3D" parent="." groups=["Boundaries"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary"]
+shape = SubResource("BoxShape3D_tp2vw")
+
+[node name="Boundary2" type="StaticBody3D" parent="." groups=["Boundaries"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary2"]
+shape = SubResource("BoxShape3D_tp2vw")
+
+[node name="Boundary3" type="StaticBody3D" parent="." groups=["Boundaries"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary3"]
+shape = SubResource("BoxShape3D_tp2vw")
+
+[node name="Boundary4" type="StaticBody3D" parent="." groups=["Boundaries"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundary4"]
+shape = SubResource("BoxShape3D_tp2vw")
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_onu2b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 2)
+
+[node name="Win_collectible" parent="." instance=ExtResource("3_adoy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 0)
+
+[node name="Area3D" parent="." instance=ExtResource("4_g432u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, 0)
 
 [node name="Pause_menu" parent="." instance=ExtResource("3_1rvrs")]
