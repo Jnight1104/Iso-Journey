@@ -48,6 +48,20 @@ func _level_3_pressed():
 	$Fade_timer.start(FADE_TIME)
 
 
+func _level_4_pressed():
+	global.level = 4
+	$Fade.show()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
+
+
+func _level_5_pressed():
+	global.level = 5
+	$Fade.show()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
+
+
 # Navigation back to main menu when back is pressed
 func _back_button_pressed():
 	global.level = 0
@@ -88,6 +102,22 @@ func _level_3_mouse_exited():
 	$Level_3.set_modulate(TRANSPARENT)
 
 
+func _level_4_mouse_entered():
+	$Level_4.set_modulate(DARKENED)
+
+
+func _level_4_mouse_exited():
+	$Level_4.set_modulate(TRANSPARENT)
+
+
+func _level_5_mouse_entered():
+	$Level_5.set_modulate(DARKENED)
+
+
+func _level_5_mouse_exited():
+	$Level_5.set_modulate(TRANSPARENT)
+
+
 func _fade_timer_done():
 	if fade_target == FADE_OUT:
 		$Fade.hide()
@@ -100,4 +130,7 @@ func _fade_timer_done():
 			get_tree().change_scene_to_file("res://Scenes/Level_2.tscn")
 		elif global.level == 3:
 			get_tree().change_scene_to_file("res://Scenes/Level_3.tscn")
-			
+		elif global.level == 4:
+			get_tree().change_scene_to_file("res://Scenes/Level_4.tscn")
+		elif global.level == 5:
+			get_tree().change_scene_to_file("res://Scenes/Level_5.tscn")
