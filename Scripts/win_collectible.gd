@@ -36,6 +36,9 @@ func _unlocked():
 	# Turns the collectible opaque when win conditions are met
 	appearance.material_override.albedo_color = OPAQUE_COLOUR
 	unlocked = true
+	if self.overlaps_body($"../Player"):
+		win.emit()
+		queue_free()
 
 
 func _locked():
