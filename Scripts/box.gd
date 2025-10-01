@@ -59,6 +59,7 @@ func _pushed(direction, node):
 				if undos > 0:
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
+				$Move_sound.play()
 				target_location += direction
 				$Dust.restart()
 				action_history.append(target_location)
