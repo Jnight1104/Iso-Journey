@@ -1,5 +1,6 @@
 extends RigidBody3D
 
+@onready var global = get_node("/root/Global")
 const LERP_RATE: float = 18
 const UP: Vector3 = Vector3(1, 0, 0)
 const DOWN: Vector3 = Vector3(-1, 0, 0)
@@ -59,7 +60,8 @@ func _pushed(direction, node):
 				if undos > 0:
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
-				$Move_sound.play()
+				if global.sound_on:
+					$Move_sound.play()
 				target_location += direction
 				$Dust.restart()
 				action_history.append(target_location)

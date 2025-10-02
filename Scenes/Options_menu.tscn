@@ -126,24 +126,48 @@ position = Vector2(523.5, 451)
 scale = Vector2(0.325, 0.325)
 texture = ExtResource("10_d4emj")
 
-[node name="Toggle" type="AnimatedSprite2D" parent="."]
-position = Vector2(667, 383)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_qvbb7")
+[node name="Fade_timer" type="Timer" parent="."]
 
-[node name="Toggle2" type="AnimatedSprite2D" parent="."]
-position = Vector2(667, 417)
+[node name="Fast_mode_button" type="CheckButton" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 371.0
+offset_right = 693.0
+offset_bottom = 395.0
+
+[node name="Toggle" type="AnimatedSprite2D" parent="Fast_mode_button"]
+position = Vector2(25, 12)
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_qvbb7")
 frame = 11
 frame_progress = 1.0
 
-[node name="Toggle3" type="AnimatedSprite2D" parent="."]
-position = Vector2(667, 451)
+[node name="Music_button" type="CheckButton" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 404.5
+offset_right = 692.0
+offset_bottom = 429.5
+
+[node name="Toggle2" type="AnimatedSprite2D" parent="Music_button"]
+position = Vector2(25, 12.5)
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_qvbb7")
-frame = 11
-frame_progress = 1.0
+
+[node name="Sounds_button" type="CheckButton" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 438.5
+offset_right = 692.0
+offset_bottom = 463.5
+
+[node name="Toggle3" type="AnimatedSprite2D" parent="Sounds_button"]
+position = Vector2(25, 12.5)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_qvbb7")
 
 [node name="Fade" type="ColorRect" parent="."]
 layout_mode = 0
@@ -151,9 +175,16 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
-[node name="Fade_timer" type="Timer" parent="."]
-
 [connection signal="button_up" from="Back" to="." method="_back_button_pressed"]
 [connection signal="mouse_entered" from="Back" to="." method="_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_back_mouse_exited"]
 [connection signal="timeout" from="Fade_timer" to="." method="_fade_timer_done"]
+[connection signal="button_up" from="Fast_mode_button" to="." method="_fast_mode_pressed"]
+[connection signal="mouse_entered" from="Fast_mode_button" to="." method="_fast_mode_mouse_entered"]
+[connection signal="mouse_exited" from="Fast_mode_button" to="." method="_fast_mode_mouse_exited"]
+[connection signal="button_up" from="Music_button" to="." method="_music_pressed"]
+[connection signal="mouse_entered" from="Music_button" to="." method="_music_mouse_entered"]
+[connection signal="mouse_exited" from="Music_button" to="." method="_music_mouse_exited"]
+[connection signal="button_up" from="Sounds_button" to="." method="_sounds_pressed"]
+[connection signal="mouse_entered" from="Sounds_button" to="." method="_sounds_mouse_entered"]
+[connection signal="mouse_exited" from="Sounds_button" to="." method="_sounds_mouse_exited"]

@@ -9,3 +9,11 @@ func _ready():
 # Replays the music when it finishes
 func _music_finished():
 	$Music.play()
+
+
+func music_on():
+	$Music.play()
+
+
+func music_off():
+	$Music.stop()

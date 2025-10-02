@@ -128,6 +128,47 @@ scale = Vector2(0.12, 0.12)
 icon = ExtResource("4_tn3ls")
 flat = true
 
+[node name="Fast_mode_button" type="CheckButton" parent="Pause_screen_ui"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 330.5
+offset_right = 692.0
+offset_bottom = 355.5
+
+[node name="Toggle" type="AnimatedSprite2D" parent="Pause_screen_ui/Fast_mode_button"]
+position = Vector2(25, 12.5)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+frame = 11
+frame_progress = 1.0
+
+[node name="Music_button" type="CheckButton" parent="Pause_screen_ui"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 364.5
+offset_right = 692.0
+offset_bottom = 389.5
+
+[node name="Toggle2" type="AnimatedSprite2D" parent="Pause_screen_ui/Music_button"]
+position = Vector2(25, 12.5)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
+[node name="Sounds_button" type="CheckButton" parent="Pause_screen_ui"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 642.0
+offset_top = 398.5
+offset_right = 692.0
+offset_bottom = 423.5
+
+[node name="Toggle3" type="AnimatedSprite2D" parent="Pause_screen_ui/Sounds_button"]
+position = Vector2(25, 12.5)
+scale = Vector2(0.13, 0.13)
+sprite_frames = SubResource("SpriteFrames_xten7")
+
 [node name="Text" type="Node2D" parent="Pause_screen_ui"]
 
 [node name="Movement" type="Sprite2D" parent="Pause_screen_ui/Text"]
@@ -164,21 +205,6 @@ texture = ExtResource("11_c1bpb")
 position = Vector2(523.5, 411)
 scale = Vector2(0.325, 0.325)
 texture = ExtResource("12_en70w")
-
-[node name="Toggle" type="AnimatedSprite2D" parent="Pause_screen_ui"]
-position = Vector2(667, 343)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
-
-[node name="Toggle2" type="AnimatedSprite2D" parent="Pause_screen_ui"]
-position = Vector2(667, 377)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
-
-[node name="Toggle3" type="AnimatedSprite2D" parent="Pause_screen_ui"]
-position = Vector2(667, 411)
-scale = Vector2(0.13, 0.13)
-sprite_frames = SubResource("SpriteFrames_xten7")
 
 [node name="Pause" type="Button" parent="."]
 layout_mode = 0
@@ -220,13 +246,13 @@ scale = Vector2(0.1, 0.1)
 icon = ExtResource("27_hw1e3")
 flat = true
 
+[node name="Fade_timer" type="Timer" parent="."]
+
 [node name="Fade" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-
-[node name="Fade_timer" type="Timer" parent="."]
 
 [connection signal="button_up" from="Pause_screen_ui/Resume" to="." method="_resume_button_pressed"]
 [connection signal="mouse_entered" from="Pause_screen_ui/Resume" to="." method="_resume_mouse_entered"]
@@ -234,6 +260,15 @@ offset_bottom = 648.0
 [connection signal="button_up" from="Pause_screen_ui/Quit" to="." method="_quit_button_pressed"]
 [connection signal="mouse_entered" from="Pause_screen_ui/Quit" to="." method="_quit_mouse_entered"]
 [connection signal="mouse_exited" from="Pause_screen_ui/Quit" to="." method="_quit_mouse_exited"]
+[connection signal="button_up" from="Pause_screen_ui/Fast_mode_button" to="." method="_fast_mode_pressed"]
+[connection signal="mouse_entered" from="Pause_screen_ui/Fast_mode_button" to="." method="_fast_mode_mouse_entered"]
+[connection signal="mouse_exited" from="Pause_screen_ui/Fast_mode_button" to="." method="_fast_mode_mouse_exited"]
+[connection signal="button_up" from="Pause_screen_ui/Music_button" to="." method="_music_pressed"]
+[connection signal="mouse_entered" from="Pause_screen_ui/Music_button" to="." method="_music_mouse_entered"]
+[connection signal="mouse_exited" from="Pause_screen_ui/Music_button" to="." method="_music_mouse_exited"]
+[connection signal="button_up" from="Pause_screen_ui/Sounds_button" to="." method="_sounds_pressed"]
+[connection signal="mouse_entered" from="Pause_screen_ui/Sounds_button" to="." method="_sounds_mouse_entered"]
+[connection signal="mouse_exited" from="Pause_screen_ui/Sounds_button" to="." method="_sounds_mouse_exited"]
 [connection signal="button_up" from="Pause" to="." method="_pause_button_pressed"]
 [connection signal="mouse_entered" from="Pause" to="." method="_pause_mouse_entered"]
 [connection signal="mouse_exited" from="Pause" to="." method="_pause_mouse_exited"]

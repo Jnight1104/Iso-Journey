@@ -1,6 +1,12 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
+@onready var fast_mode_toggle: Node = $Pause_screen_ui/Fast_mode_button/Toggle
+@onready var music_toggle: Node = $Pause_screen_ui/Music_button/Toggle2
+@onready var sounds_toggle: Node = $Pause_screen_ui/Sounds_button/Toggle3
+@onready var fast_mode_button: Node = $Pause_screen_ui/Fast_mode_button
+@onready var music_button: Node = $Pause_screen_ui/Music_button
+@onready var sounds_button: Node = $Pause_screen_ui/Sounds_button
 const NORMAL: Color = Color(1, 1, 1, 1)
 const DARKENED: Color = Color(0.9, 0.9, 0.9, 1)
 const TRANSPARENT: Color = Color(1, 1, 1, 0.5)
@@ -10,16 +16,22 @@ const TRANSPARENCY_SCALE: float = 10.0
 const MAX_REPEAT_RANGE: int = 101
 const FADE_SCALE: float = 4.0
 const FADE_TIME: float = 1.0
+const START_FRAME: int = 0
+const END_FRAME: int = 11
 var transparency: Color = Color(1, 1, 1, 0)
 var transparency_target: float = 0.0
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
 var fading: bool = true
 var quitting: bool = false
+signal music_play
+signal music_stop
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	music_play.connect(get_node("/root/MusicNode").music_on)
+	music_stop.connect(get_node("/root/MusicNode").music_off)
 	quitting = false
 	$Fade.show()
 	fading = true
@@ -29,6 +41,19 @@ func _ready():
 	$Fade.set_modulate(fade)
 	fade_target = FADE_OUT
 	$Fade_timer.start(FADE_TIME)
+	# Sets toggle button visual modes based on whether their representing values are true or false
+	if not global.fast_mode:
+		fast_mode_toggle.set_frame(END_FRAME)
+	else:
+		fast_mode_toggle.set_frame(START_FRAME)
+	if not global.music_on:
+		music_toggle.set_frame(END_FRAME)
+	else:
+		music_toggle.set_frame(START_FRAME)
+	if not global.sound_on:
+		sounds_toggle.set_frame(END_FRAME)
+	else:
+		sounds_toggle.set_frame(START_FRAME)
 
 
 func _process(delta):
@@ -170,3 +195,56 @@ func _fade_timer_done():
 		get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 	else:
 		get_tree().reload_current_scene()
+
+
+func _fast_mode_pressed():
+	if not global.fast_mode:
+		fast_mode_toggle.play_backwards()
+		global.fast_mode = true
+	else:
+		fast_mode_toggle.play()
+		global.fast_mode = false
+
+
+func _fast_mode_mouse_entered():
+	fast_mode_button.set_modulate(DARKENED)
+
+
+func _fast_mode_mouse_exited():
+	fast_mode_button.set_modulate(NORMAL)
+
+
+func _music_pressed():
+	if not global.music_on:
+		music_toggle.play_backwards()
+		global.music_on = true
+		music_play.emit()
+	else:
+		music_toggle.play()
+		global.music_on = false
+		music_stop.emit()
+
+
+func _music_mouse_entered():
+	music_button.set_modulate(DARKENED)
+
+
+func _music_mouse_exited():
+	music_button.set_modulate(NORMAL)
+
+
+func _sounds_pressed():
+	if not global.sound_on:
+		sounds_toggle.play_backwards()
+		global.sound_on = true
+	else:
+		sounds_toggle.play()
+		global.sound_on = false
+
+
+func _sounds_mouse_entered():
+	sounds_button.set_modulate(DARKENED)
+
+
+func _sounds_mouse_exited():
+	sounds_button.set_modulate(NORMAL)

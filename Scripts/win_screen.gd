@@ -1,5 +1,6 @@
 extends Control
 
+@onready var global = get_node("/root/Global")
 const TRANSPARENT: Color = Color(1, 1, 1, 1)
 const DARKENED: Color = Color(0.9, 0.9, 0.9, 1)
 const FADE_IN: float = 1.0
@@ -23,7 +24,8 @@ func _process(delta):
 
 
 func _win():
-	$Success_sound.play()
+	if global.sound_on:
+		$Success_sound.play()
 	self.show()
 
 

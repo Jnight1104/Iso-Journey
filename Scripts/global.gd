@@ -7,3 +7,6 @@ var paused: bool = true
 var objectives_reached: int = 0
 var undoing: bool = false
 var redoing: bool = false
+var fast_mode: bool = false
+var music_on: bool = true
+var sound_on: bool = true
