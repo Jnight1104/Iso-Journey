@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://pkgm4m42dt3k"]
+[gd_scene load_steps=6 format=3 uid="uid://pkgm4m42dt3k"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_k047h"]
 [ext_resource type="PackedScene" uid="uid://1agqoph3ycje" path="res://Assets/Character.fbx" id="2_dqg7r"]
 [ext_resource type="PackedScene" uid="uid://c7bt5y8e800vq" path="res://Assets/Player_hand.fbx" id="3_6lipe"]
+[ext_resource type="AudioStream" uid="uid://djclp6o6idn51" path="res://Assets/Step.wav" id="4_05byb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwaot"]
 size = Vector3(0.5, 1.6, 0.5)
@@ -45,5 +46,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7, -0.45)
 
 [node name="Right_hand" parent="." instance=ExtResource("3_6lipe")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.7, 0.45)
+
+[node name="Step_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_05byb")
+volume_db = 15.0
+pitch_scale = 0.8
 
 [connection signal="timeout" from="Move_delay_timer" to="." method="_move_delay_done"]

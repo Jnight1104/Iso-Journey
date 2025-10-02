@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://wuqxfpxeqv0c"]
+[gd_scene load_steps=6 format=3 uid="uid://wuqxfpxeqv0c"]
 
 [ext_resource type="Script" path="res://Scripts/win_screen.gd" id="1_pja7c"]
 [ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="2_pg3mm"]
 [ext_resource type="Texture2D" uid="uid://cphwld7amg7ru" path="res://Assets/Exit button.png" id="3_kij8u"]
+[ext_resource type="AudioStream" uid="uid://bi544hpbifvlg" path="res://Assets/Level_win.ogg" id="4_8g1aq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_be3d6"]
 font = ExtResource("2_pg3mm")
@@ -55,6 +56,10 @@ offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
 [node name="Fade_timer" type="Timer" parent="."]
+
+[node name="Success_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8g1aq")
+volume_db = -15.0
 
 [connection signal="button_up" from="Exit" to="." method="_exit_button_pressed"]
 [connection signal="mouse_entered" from="Exit" to="." method="_exit_mouse_entered"]

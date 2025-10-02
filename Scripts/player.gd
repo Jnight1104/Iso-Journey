@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var left_ray: Node = $Left
 @onready var left_hand: Node = $Left_hand
 @onready var right_hand: Node = $Right_hand
+@onready var step_sound: Node = $Step_sound
 const SPAWN: Vector3 = Vector3(0, 0.5, 0)
 const UP: Vector3 = Vector3(1, 0, 0)
 const DOWN: Vector3 = Vector3(-1, 0, 0)
@@ -97,6 +98,7 @@ func _move_input(direction):
 func _move(direction):
 	if direction == UNDO:
 		if undos < len(action_history) - UNDO_OFFSET:
+			step_sound.play()
 			push.emit(UNDO, self)
 			undos += UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
@@ -105,6 +107,7 @@ func _move(direction):
 			move_delay_timer.start(SHORT_MOVE_DELAY)
 	elif direction == REDO:
 		if undos > 0:
+			step_sound.play()
 			push.emit(REDO, self)
 			undos -= UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
@@ -142,11 +145,13 @@ func _move(direction):
 				move_delay_timer.start(MOVE_DELAY)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			else:
+				step_sound.play()
 				push.emit(WAIT, self)
 				target_location += direction
 				action_history.append(target_location)
 				move_delay_timer.start(MOVE_DELAY)
 		else:
+			step_sound.play()
 			push.emit(WAIT, self)
 			target_location += direction
 			action_history.append(target_location)

@@ -23,6 +23,7 @@ func _process(delta):
 
 
 func _win():
+	$Success_sound.play()
 	self.show()
 
 

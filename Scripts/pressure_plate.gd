@@ -15,6 +15,7 @@ func _ready():
 
 
 func _pressed(_body):
+	$Click_sound.play()
 	$Pressed.show()
 	$Unpressed.hide()
 	if global.level == 1:
@@ -34,6 +35,7 @@ func _pressed(_body):
 
 
 func _released(_body):
+	$Click_sound.play()
 	$Unpressed.show()
 	$Pressed.hide()
 	if global.level == 1:

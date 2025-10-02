@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://llop56s2vxno"]
+[gd_scene load_steps=6 format=3 uid="uid://llop56s2vxno"]
 
 [ext_resource type="Script" path="res://Scripts/pressure_plate.gd" id="1_lm0ja"]
+[ext_resource type="AudioStream" uid="uid://b85g0omtd6iw8" path="res://Assets/Click.wav" id="2_hi2m6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyrw7"]
 albedo_color = Color(0.7, 0.7, 0.7, 1)
@@ -28,6 +29,11 @@ material = SubResource("StandardMaterial3D_w6jl4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("BoxShape3D_ai5mk")
+
+[node name="Click_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hi2m6")
+volume_db = -5.0
+pitch_scale = 0.8
 
 [connection signal="body_entered" from="." to="." method="_pressed"]
 [connection signal="body_exited" from="." to="." method="_released"]
