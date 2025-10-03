@@ -10,3 +10,13 @@ var redoing: bool = false
 var fast_mode: bool = false
 var music_on: bool = true
 var sound_on: bool = true
+var levels_unlocked: int = 1
+
+
+func _ready() -> void:
+	var file = ResourceLoader.load("res://Scripts/save.tres")
+	if file:
+		fast_mode = file.fast_mode
+		music_on = file.music_on
+		sound_on = file.sound_on
+		levels_unlocked = file.levels_unlocked

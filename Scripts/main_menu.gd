@@ -1,5 +1,6 @@
 extends Control
 
+@onready var global = get_node("/root/Global")
 const TRANSPARENT : Color = Color(1, 1, 1, 1)
 const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
 const BASE_POSITION : Vector2 = Vector2(575.4, 342.5)
@@ -16,6 +17,7 @@ var action: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var file = ResourceLoader.load("res://Scripts/save.tres")
 	$Play.set_modulate(TRANSPARENT)
 	$Options.set_modulate(TRANSPARENT)
 	$Quit.set_modulate(TRANSPARENT)	
@@ -38,8 +40,14 @@ func _play_button_pressed():
 	$Fade_timer.start(FADE_TIME)
 	
 
-# Quits the game when quit is pressed
+# Saves key data and quits the game when quit is pressed
 func _quit_button_pressed():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 	get_tree().quit()
 
 
