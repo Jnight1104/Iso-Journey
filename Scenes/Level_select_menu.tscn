@@ -1,13 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://8xdhcn3yaegd"]
+[gd_scene load_steps=13 format=3 uid="uid://8xdhcn3yaegd"]
 
 [ext_resource type="Script" path="res://Scripts/level_select_menu.gd" id="1_8sitd"]
-[ext_resource type="Texture2D" uid="uid://ce5pnplhlskdt" path="res://Assets/Level select screen.png" id="2_w7y7j"]
+[ext_resource type="Texture2D" uid="uid://bqjyyge6she3q" path="res://Assets/Level select screen v2.png" id="2_4nw35"]
 [ext_resource type="Texture2D" uid="uid://ctpw5e10txju0" path="res://Assets/Level 1.png" id="3_2ukpa"]
 [ext_resource type="Texture2D" uid="uid://ymyod8prhn8p" path="res://Assets/Back button.png" id="3_ykujf"]
 [ext_resource type="Texture2D" uid="uid://b5cwo28c0khdv" path="res://Assets/Level 2.png" id="4_crfar"]
 [ext_resource type="Texture2D" uid="uid://cf1spj6as05do" path="res://Assets/Level 3.png" id="5_n4xxf"]
 [ext_resource type="Texture2D" uid="uid://2ywvfyv6on3u" path="res://Assets/Level 4.png" id="6_7crbj"]
 [ext_resource type="Texture2D" uid="uid://dvhfvgm4lu117" path="res://Assets/Level 5.png" id="7_hmup2"]
+[ext_resource type="Texture2D" uid="uid://dkyrcv5ncsbt0" path="res://Assets/Restart button.png" id="9_01q75"]
+[ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="10_to804"]
+[ext_resource type="Texture2D" uid="uid://1a1ecbu4xgqf" path="res://Assets/Confirm button.png" id="11_14mo1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ov3q"]
+font = ExtResource("10_to804")
+font_size = 39
+font_color = Color(0.176419, 0.176419, 0.176419, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -21,55 +29,55 @@ script = ExtResource("1_8sitd")
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(576, 324)
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_w7y7j")
+texture = ExtResource("2_4nw35")
 
 [node name="Level_1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 158.0
-offset_right = 628.0
-offset_bottom = 722.0
-scale = Vector2(0.15, 0.15)
+offset_left = 66.0
+offset_top = 156.0
+offset_right = 626.0
+offset_bottom = 720.0
+scale = Vector2(0.16, 0.16)
 icon = ExtResource("3_2ukpa")
 flat = true
 
 [node name="Level_2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 253.0
-offset_top = 141.0
-offset_right = 813.0
-offset_bottom = 701.0
-scale = Vector2(0.15, 0.15)
+offset_left = 251.0
+offset_top = 140.0
+offset_right = 811.0
+offset_bottom = 700.0
+scale = Vector2(0.16, 0.16)
 icon = ExtResource("4_crfar")
 flat = true
 
 [node name="Level_3" type="Button" parent="."]
 layout_mode = 0
-offset_left = 434.0
-offset_top = 174.0
-offset_right = 994.0
-offset_bottom = 734.0
-scale = Vector2(0.15, 0.15)
+offset_left = 432.0
+offset_top = 172.0
+offset_right = 992.0
+offset_bottom = 732.0
+scale = Vector2(0.16, 0.16)
 icon = ExtResource("5_n4xxf")
 flat = true
 
 [node name="Level_4" type="Button" parent="."]
 layout_mode = 0
-offset_left = 615.0
-offset_top = 147.0
-offset_right = 1175.0
-offset_bottom = 707.0
-scale = Vector2(0.15, 0.15)
+offset_left = 613.0
+offset_top = 146.0
+offset_right = 1173.0
+offset_bottom = 706.0
+scale = Vector2(0.16, 0.16)
 icon = ExtResource("6_7crbj")
 flat = true
 
 [node name="Level_5" type="Button" parent="."]
 layout_mode = 0
-offset_left = 788.0
-offset_top = 177.0
-offset_right = 1348.0
-offset_bottom = 737.0
-scale = Vector2(0.15, 0.15)
+offset_left = 786.0
+offset_top = 175.0
+offset_right = 1346.0
+offset_bottom = 735.0
+scale = Vector2(0.16, 0.16)
 icon = ExtResource("7_hmup2")
 flat = true
 
@@ -83,6 +91,59 @@ scale = Vector2(0.151, 0.151)
 icon = ExtResource("3_ykujf")
 flat = true
 
+[node name="Fade_timer" type="Timer" parent="."]
+
+[node name="Reset_progress" type="Button" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 12.0
+offset_right = 571.0
+offset_bottom = 572.0
+scale = Vector2(0.15, 0.15)
+icon = ExtResource("9_01q75")
+flat = true
+
+[node name="Reset_tab" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Reset_tab"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0.95)
+
+[node name="Label" type="Label" parent="Reset_tab"]
+offset_left = 330.0
+offset_top = 176.0
+offset_right = 822.0
+offset_bottom = 265.0
+text = "Are you sure you want
+to reset progress?"
+label_settings = SubResource("LabelSettings_0ov3q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Confirm" type="Button" parent="Reset_tab"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 322.0
+offset_right = 1056.0
+offset_bottom = 474.0
+scale = Vector2(0.4, 0.4)
+icon = ExtResource("11_14mo1")
+flat = true
+
+[node name="Backout" type="Button" parent="Reset_tab"]
+layout_mode = 0
+offset_left = 499.0
+offset_top = 398.0
+offset_right = 1683.0
+offset_bottom = 814.0
+scale = Vector2(0.13, 0.13)
+icon = ExtResource("3_ykujf")
+flat = true
+
 [node name="Fade" type="ColorRect" parent="."]
 visible = false
 modulate = Color(0, 0, 0, 1)
@@ -90,8 +151,6 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
-
-[node name="Fade_timer" type="Timer" parent="."]
 
 [connection signal="button_up" from="Level_1" to="." method="_level_1_pressed"]
 [connection signal="mouse_entered" from="Level_1" to="." method="_level_1_mouse_entered"]
@@ -112,3 +171,12 @@ color = Color(0, 0, 0, 1)
 [connection signal="mouse_entered" from="Back" to="." method="_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_back_mouse_exited"]
 [connection signal="timeout" from="Fade_timer" to="." method="_fade_timer_done"]
+[connection signal="button_up" from="Reset_progress" to="." method="_reset_progress_pressed"]
+[connection signal="mouse_entered" from="Reset_progress" to="." method="_reset_progress_mouse_entered"]
+[connection signal="mouse_exited" from="Reset_progress" to="." method="_reset_progress_mouse_exited"]
+[connection signal="button_up" from="Reset_tab/Confirm" to="." method="_confirm_pressed"]
+[connection signal="mouse_entered" from="Reset_tab/Confirm" to="." method="_confirm_mouse_entered"]
+[connection signal="mouse_exited" from="Reset_tab/Confirm" to="." method="_confirm_mouse_exited"]
+[connection signal="button_up" from="Reset_tab/Backout" to="." method="_backout_pressed"]
+[connection signal="mouse_entered" from="Reset_tab/Backout" to="." method="_backout_mouse_entered"]
+[connection signal="mouse_exited" from="Reset_tab/Backout" to="." method="_backout_mouse_exited"]
