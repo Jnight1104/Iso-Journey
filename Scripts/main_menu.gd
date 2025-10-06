@@ -17,7 +17,6 @@ var action: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var file = ResourceLoader.load("res://Scripts/save.tres")
 	$Play.set_modulate(TRANSPARENT)
 	$Options.set_modulate(TRANSPARENT)
 	$Quit.set_modulate(TRANSPARENT)	

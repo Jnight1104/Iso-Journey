@@ -19,7 +19,7 @@ func _pressed(_body):
 		$Click_sound.play()
 	$Pressed.show()
 	$Unpressed.hide()
-	if global.level == 1:
+	if global.level == 1 or global.level == 6:
 		press_signal.emit()
 	elif global.level == 2 or global.level == 5:
 		global.objectives_reached += 1
@@ -40,7 +40,7 @@ func _released(_body):
 		$Click_sound.play()
 	$Unpressed.show()
 	$Pressed.hide()
-	if global.level == 1:
+	if global.level == 1 or global.level == 6:
 		release_signal.emit()
 	else:
 		global.objectives_reached -= 1

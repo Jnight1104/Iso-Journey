@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://8xdhcn3yaegd"]
+[gd_scene load_steps=14 format=3 uid="uid://8xdhcn3yaegd"]
 
 [ext_resource type="Script" path="res://Scripts/level_select_menu.gd" id="1_8sitd"]
 [ext_resource type="Texture2D" uid="uid://bqjyyge6she3q" path="res://Assets/Level select screen v2.png" id="2_4nw35"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cf1spj6as05do" path="res://Assets/Level 3.png" id="5_n4xxf"]
 [ext_resource type="Texture2D" uid="uid://2ywvfyv6on3u" path="res://Assets/Level 4.png" id="6_7crbj"]
 [ext_resource type="Texture2D" uid="uid://dvhfvgm4lu117" path="res://Assets/Level 5.png" id="7_hmup2"]
+[ext_resource type="Texture2D" uid="uid://c2514kqxjkr0n" path="res://Assets/Level 6.png" id="8_6alqi"]
 [ext_resource type="Texture2D" uid="uid://dkyrcv5ncsbt0" path="res://Assets/Restart button.png" id="9_01q75"]
 [ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="10_to804"]
 [ext_resource type="Texture2D" uid="uid://1a1ecbu4xgqf" path="res://Assets/Confirm button.png" id="11_14mo1"]
@@ -81,6 +82,16 @@ scale = Vector2(0.16, 0.16)
 icon = ExtResource("7_hmup2")
 flat = true
 
+[node name="Level_6" type="Button" parent="."]
+layout_mode = 0
+offset_left = 961.0
+offset_top = 136.0
+offset_right = 1521.0
+offset_bottom = 696.0
+scale = Vector2(0.16, 0.16)
+icon = ExtResource("8_6alqi")
+flat = true
+
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
 offset_left = 486.61
@@ -104,6 +115,7 @@ icon = ExtResource("9_01q75")
 flat = true
 
 [node name="Reset_tab" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -169,6 +181,9 @@ color = Color(0, 0, 0, 1)
 [connection signal="button_up" from="Level_5" to="." method="_level_5_pressed"]
 [connection signal="mouse_entered" from="Level_5" to="." method="_level_5_mouse_entered"]
 [connection signal="mouse_exited" from="Level_5" to="." method="_level_5_mouse_exited"]
+[connection signal="button_up" from="Level_6" to="." method="_level_6_pressed"]
+[connection signal="mouse_entered" from="Level_6" to="." method="_level_6_mouse_entered"]
+[connection signal="mouse_exited" from="Level_6" to="." method="_level_6_mouse_exited"]
 [connection signal="button_up" from="Back" to="." method="_back_button_pressed"]
 [connection signal="mouse_entered" from="Back" to="." method="_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_back_mouse_exited"]

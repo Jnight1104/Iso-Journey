@@ -14,6 +14,7 @@ const TWO: int = 2
 const THREE: int = 3
 const FOUR: int = 4
 const FIVE: int = 5
+const SIX: int = 6
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
 
@@ -34,8 +35,8 @@ func _ready():
 		$Level_4.hide()
 	if global.levels_unlocked < FIVE:
 		$Level_5.hide()
-#	if global.levels_unlocked < 6:
-#		$Level_6.hide()
+	if global.levels_unlocked < SIX:
+		$Level_6.hide()
 
 
 func _process(delta):
@@ -152,6 +153,8 @@ func _fade_timer_done():
 			get_tree().change_scene_to_file("res://Scenes/Level_4.tscn")
 		elif global.level == FIVE:
 			get_tree().change_scene_to_file("res://Scenes/Level_5.tscn")
+		elif global.level == SIX:
+			get_tree().change_scene_to_file("res://Scenes/Level_6.tscn")
 
 
 func _reset_progress_pressed():
@@ -172,6 +175,7 @@ func _confirm_pressed():
 	$Level_3.hide()
 	$Level_4.hide()
 	$Level_5.hide()
+	$Level_6.hide()
 	$Reset_tab.hide()
 
 
@@ -193,3 +197,18 @@ func _backout_mouse_entered():
 
 func _backout_mouse_exited():
 	$Reset_tab/Backout.set_modulate(NORMAL)
+
+
+func _level_6_pressed():
+	global.level = SIX
+	$Fade.show()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
+
+
+func _level_6_mouse_entered():
+	$Level_6.set_modulate(DARKENED)
+
+
+func _level_6_mouse_exited():
+	$Level_6.set_modulate(NORMAL)

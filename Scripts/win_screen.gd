@@ -7,7 +7,7 @@ const FADE_IN: float = 1.0
 const FADE_OUT: float = 0.0
 const FADE_SCALE: float = 4.0
 const FADE_TIME: float = 1.0
-const FINAL_LEVEL: int = 5
+const FINAL_LEVEL: int = 6
 const PLUS_ONE: int = 1
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
@@ -23,12 +23,6 @@ func _ready():
 		$Next_level_button.show()
 	else:
 		$Next_level_button.hide()
-	var file = save.new()
-	file.fast_mode = global.fast_mode
-	file.music_on = global.music_on
-	file.sound_on = global.sound_on
-	file.levels_unlocked = global.levels_unlocked
-	ResourceSaver.save(file, "res://Scripts/save.tres")
 
 
 func _process(delta):
@@ -41,6 +35,12 @@ func _win():
 		$Success_sound.play()
 	if global.level == global.levels_unlocked:
 		global.levels_unlocked = global.level + PLUS_ONE
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 	self.show()
 
 
@@ -62,13 +62,20 @@ func _fade_timer_done():
 	if fade_target == FADE_IN:
 		if next_level:
 			if global.level == 1:
+				global.level = 2
 				get_tree().change_scene_to_file("res://Scenes/Level_2.tscn")
 			elif global.level == 2:
+				global.level = 3
 				get_tree().change_scene_to_file("res://Scenes/Level_3.tscn")
 			elif global.level == 3:
+				global.level = 4
 				get_tree().change_scene_to_file("res://Scenes/Level_4.tscn")
 			elif global.level == 4:
+				global.level = 5
 				get_tree().change_scene_to_file("res://Scenes/Level_5.tscn")
+			elif global.level == 5:
+				global.level = 6
+				get_tree().change_scene_to_file("res://Scenes/Level_6.tscn")
 		else:
 			get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 
@@ -78,18 +85,6 @@ func _next_level_pressed():
 	fade_target = FADE_IN
 	next_level = true
 	$Fade_timer.start(FADE_TIME)
-	if global.level == 1:
-		global.level = 2
-		get_tree().change_scene_to_file("res://Scenes/Level_2.tscn")
-	elif global.level == 2:
-		global.level = 3
-		get_tree().change_scene_to_file("res://Scenes/Level_3.tscn")
-	elif global.level == 3:
-		global.level = 4
-		get_tree().change_scene_to_file("res://Scenes/Level_4.tscn")
-	elif global.level == 4:
-		global.level = 5
-		get_tree().change_scene_to_file("res://Scenes/Level_5.tscn")
 
 
 func _next_level_mouse_entered():
