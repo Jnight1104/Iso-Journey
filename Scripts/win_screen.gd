@@ -23,6 +23,12 @@ func _ready():
 		$Next_level_button.show()
 	else:
 		$Next_level_button.hide()
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 
 
 func _process(delta):

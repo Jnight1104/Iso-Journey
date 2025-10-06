@@ -10,10 +10,13 @@ const UNDO: Vector3 = Vector3(-100, 0, 0)
 const REDO: Vector3 = Vector3(100, 0, 0)
 const WAIT: Vector3 = Vector3(100, 100, 100)
 const UNDO_OFFSET: int = 1
+const FAST_MODE_SCALE: float = 2.0
+const REGULAR_MODE_SCALE: float = 1.0
 var target_location: Vector3 = Vector3(0, 0, 0)
 var detection_ray: Node = null
 var action_history: Array = []
 var undos: int = 0
+var speed_mult: float = 1.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,7 +28,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = lerp(position, target_location, LERP_RATE * delta)
+	# Sets speed multiplier based on whether fast mode is enabled
+	if global.fast_mode:
+		speed_mult = FAST_MODE_SCALE
+	else:
+		speed_mult = REGULAR_MODE_SCALE
+	# Moves the box to the set position smoothly
+	position = lerp(position, target_location, LERP_RATE * speed_mult * delta)
 
 
 func _pushed(direction, node):

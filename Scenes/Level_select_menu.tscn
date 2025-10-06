@@ -109,11 +109,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="Reset_tab"]
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(1, 1, 1, 0.95)
 
 [node name="Label" type="Label" parent="Reset_tab"]
+layout_mode = 0
 offset_left = 330.0
 offset_top = 176.0
 offset_right = 822.0

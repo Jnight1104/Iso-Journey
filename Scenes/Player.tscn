@@ -23,22 +23,22 @@ one_shot = true
 
 [node name="Forward" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(1, 0, 0)
+target_position = Vector3(1.4, 0, 0)
 collide_with_areas = true
 
 [node name="Right" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(0, 0, 1)
+target_position = Vector3(0, 0, 1.4)
 collide_with_areas = true
 
 [node name="Back" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(-1, 0, 0)
+target_position = Vector3(-1.4, 0, 0)
 collide_with_areas = true
 
 [node name="Left" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.4)
 collide_with_areas = true
 
 [node name="Left_hand" parent="." instance=ExtResource("3_6lipe")]

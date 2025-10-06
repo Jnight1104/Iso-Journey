@@ -28,6 +28,9 @@ const RESTART: Vector3 = Vector3(10, 10, 10)
 const HAND_Y_POS: float = 0.7
 const HAND_Y_POS_MULTIPLIER: float = 0.05
 const TIME_INCREMENT: float = 1.5
+const FAST_MODE_SCALE: float = 2.0
+const REGULAR_MODE_SCALE: float = 1.0
+const FAST_MODE_DELAY_SCALE: float = 0.7
 var left_hand_position: Vector3 = Vector3(0, 0.7, -0.45)
 var right_hand_position: Vector3 = Vector3(0, 0.7, 0.45)
 var target_location: Vector3 = SPAWN
@@ -43,6 +46,8 @@ var undos: int = 0
 var action_history: Array = [SPAWN]
 var hand_y_pos_offset: float = 0.0
 var time_variation: float = 0.0
+var speed_mult: float = 1.0
+var delay_mult: float = 1.0
 signal push
 
 
@@ -57,6 +62,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global.player_pos = position
+	# Sets speed multiplier based on whether fast mode is enabled
+	if global.fast_mode:
+		speed_mult = FAST_MODE_SCALE
+		delay_mult = FAST_MODE_DELAY_SCALE
+	else:
+		speed_mult = REGULAR_MODE_SCALE
+		delay_mult = REGULAR_MODE_SCALE
+	# Detects and responds to control inputs
 	if not game_finished and not global.paused:
 		if Input.is_action_just_pressed("ui_minus") or global.undoing == true:
 			global.undoing = false
@@ -77,7 +90,7 @@ func _process(delta):
 		action_queue = []
 	# Moves the player toward the target location smoothly and sets position of hands
 	if not global.paused:
-		position = lerp(position, target_location, LERP_RATE * delta)
+		position = lerp(position, target_location, LERP_RATE * speed_mult * delta)
 		left_hand.position = lerp(left_hand.position, left_hand_position, LERP_RATE * delta)
 		right_hand.position = lerp(right_hand.position, right_hand_position, LERP_RATE * delta)
 		if not moving:
@@ -103,7 +116,7 @@ func _move(direction):
 			push.emit(UNDO, self)
 			undos += UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
-			move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY * delay_mult)
 		else:
 			move_delay_timer.start(SHORT_MOVE_DELAY)
 	elif direction == REDO:
@@ -113,7 +126,7 @@ func _move(direction):
 			push.emit(REDO, self)
 			undos -= UNDO_OFFSET
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
-			move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY * delay_mult)
 		else:
 			move_delay_timer.start(SHORT_MOVE_DELAY)
 	else:
@@ -132,7 +145,7 @@ func _move(direction):
 			if detection_ray.get_collider().is_in_group("Box"):
 				push.emit(direction, detection_ray.get_collider())
 				action_history.append(target_location)
-				move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY * delay_mult)
 				if direction == UP:
 					right_hand.position += HAND_PUSH_SCALE * direction
 					left_hand.position += HAND_PUSH_SCALE * direction
@@ -144,7 +157,7 @@ func _move(direction):
 				elif direction == LEFT:
 					left_hand.position += HAND_PUSH_SCALE * direction
 			elif detection_ray.get_collider().is_in_group("Boundaries"):
-				move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY * delay_mult)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			else:
 				if global.sound_on:
@@ -152,14 +165,14 @@ func _move(direction):
 				push.emit(WAIT, self)
 				target_location += direction
 				action_history.append(target_location)
-				move_delay_timer.start(MOVE_DELAY)
+				move_delay_timer.start(MOVE_DELAY * delay_mult)
 		else:
 			if global.sound_on:
 				step_sound.play()
 			push.emit(WAIT, self)
 			target_location += direction
 			action_history.append(target_location)
-			move_delay_timer.start(MOVE_DELAY)
+			move_delay_timer.start(MOVE_DELAY * delay_mult)
 
 
 # Allows player to move again after the delay is done
@@ -168,7 +181,7 @@ func _move_delay_done():
 	# Repeats movement if the action queue isnt done
 	if len(action_queue) > 0:
 		_move(action_queue[0])
-		move_delay_timer.start(MOVE_DELAY)
+		move_delay_timer.start(MOVE_DELAY * delay_mult)
 	else:
 		moving = false
 

@@ -63,6 +63,12 @@ func _process(delta):
 			if global.paused == false:
 				pause()
 			else:
+				var file = save.new()
+				file.fast_mode = global.fast_mode
+				file.music_on = global.music_on
+				file.sound_on = global.sound_on
+				file.levels_unlocked = global.levels_unlocked
+				ResourceSaver.save(file, "res://Scripts/save.tres")
 				resume()
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
 	$Pause_screen_ui.set_modulate(transparency)
@@ -109,12 +115,24 @@ func resume():
 
 # Resumes the game on resume button pressed
 func _resume_button_pressed():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 	resume()
 
 
 # Quits the game on quit button pressed
 func _quit_button_pressed():
 	fading = true
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 	$Fade.show()
 	global.paused = true
 	global.undoing = false

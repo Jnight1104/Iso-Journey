@@ -45,6 +45,12 @@ func _process(delta):
 
 
 func _back_button_pressed():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
 	$Fade.show()
 	fade_target = FADE_IN
 	$Fade_timer.start(FADE_TIME)
