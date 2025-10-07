@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0xyfxmjlp055"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ywld"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hi2t2"]
+material = SubResource("StandardMaterial3D_6ywld")
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sje7l"]
+height = 0.2
+
+[node name="Area3D" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("CylinderMesh_hi2t2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_sje7l")
