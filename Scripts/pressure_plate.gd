@@ -25,7 +25,7 @@ func _pressed(_body):
 		global.objectives_reached += 1
 		if global.objectives_reached == 19:
 			press_signal.emit()
-	elif global.level == 3:
+	elif global.level == 3 or global.level == 7:
 		global.objectives_reached += 1
 		if global.objectives_reached == 4:
 			press_signal.emit()
