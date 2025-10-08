@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhppdq1yipfvr"]
+
+[ext_resource type="PackedScene" uid="uid://b88djl2iqtwju" path="res://Assets/Vine.fbx" id="1_fis21"]
+[ext_resource type="Script" path="res://Scripts/vine.gd" id="1_tlddp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n87i1"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+script = ExtResource("1_tlddp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_n87i1")
+
+[node name="Vine" parent="." instance=ExtResource("1_fis21")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -1, 0)

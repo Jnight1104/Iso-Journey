@@ -56,7 +56,6 @@ func _ready():
 	for node in get_node("/root/Level").get_children():
 		if node.is_in_group("Box"):
 			push.connect(node._pushed)
-			#action.connect(node._action_done)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
