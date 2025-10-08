@@ -3,6 +3,8 @@ extends StaticBody3D
 @onready var global = get_node("/root/Global")
 const BLOCKED: Vector3 = Vector3(0, 1.19, 0)
 const UNBLOCKED: Vector3 = Vector3(0, -1, 0)
+const COLLISION_ACTIVE: Vector3 = Vector3(0, 0.5, 0)
+const COLLISION_INACTIVE: Vector3 = Vector3(0, -2, 0)
 const FAST_MODE_SCALE: float = 2.0
 const REGULAR_MODE_SCALE: float = 1.0
 const LERP_RATE: float = 10
@@ -14,16 +16,20 @@ var speed_mult: float = 1.0
 func _ready():
 	if self.is_in_group("Vine1"):
 		state = BLOCKED
-		$CollisionShape3D.disabled = false
+		$Vine.position = BLOCKED
+		$CollisionShape3D.position = COLLISION_ACTIVE
 	elif self.is_in_group("Vine2"):
 		state = UNBLOCKED
-		$CollisionShape3D.disabled = true
+		$Vine.position = UNBLOCKED
+		$CollisionShape3D.position = COLLISION_INACTIVE
 	elif self.is_in_group("Vine3"):
 		state = BLOCKED
-		$CollisionShape3D.disabled = false
+		$Vine.position = BLOCKED
+		$CollisionShape3D.position = COLLISION_ACTIVE
 	elif self.is_in_group("Vine4"):
 		state = UNBLOCKED
-		$CollisionShape3D.disabled = true
+		$Vine.position = UNBLOCKED
+		$CollisionShape3D.position = COLLISION_INACTIVE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +44,7 @@ func _process(delta):
 func _activated():
 	if state == BLOCKED:
 		state = UNBLOCKED
-		$CollisionShape3D.disabled = true
+		$CollisionShape3D.position = COLLISION_INACTIVE
 	else:
 		state = BLOCKED
-		$CollisionShape3D.disabled = false
+		$CollisionShape3D.position = COLLISION_ACTIVE

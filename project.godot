@@ -29,6 +29,14 @@ window/stretch/mode="canvas_items"
 Boundaries=""
 Box=""
 Player=""
+Button1=""
+Vine1=""
+Button2=""
+Vine2=""
+Button3=""
+Button4=""
+Vine3=""
+Vine4=""
 
 [importer_defaults]
 

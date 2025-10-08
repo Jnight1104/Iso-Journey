@@ -17,6 +17,9 @@ func _ready():
 	win.connect(get_node("/root/Level/Pause_menu")._win)
 	# Makes the initial appearance transparent
 	appearance.material_override.albedo_color = TRANSPARENT_COLOUR
+	# Automatically unlocks the collectible on level 8
+	if global.level == 8:
+		_unlocked()
 
 
 func _process(delta):

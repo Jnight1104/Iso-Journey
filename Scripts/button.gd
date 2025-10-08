@@ -39,3 +39,4 @@ func _released(body):
 		$Click_sound.play()
 	$Unpressed.show()
 	$Pressed.hide()
+	press_signal.emit()
