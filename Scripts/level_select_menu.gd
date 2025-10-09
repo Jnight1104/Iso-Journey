@@ -16,6 +16,7 @@ const FOUR: int = 4
 const FIVE: int = 5
 const SIX: int = 6
 const SEVEN: int = 7
+const EIGHT: int = 8
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
 
@@ -40,6 +41,8 @@ func _ready():
 		$Level_6.hide()
 	if global.levels_unlocked < SEVEN:
 		$Level_7.hide()
+	if global.levels_unlocked < EIGHT:
+		$Level_8.hide()
 
 
 func _process(delta):
@@ -160,6 +163,8 @@ func _fade_timer_done():
 			get_tree().change_scene_to_file("res://Scenes/Level_6.tscn")
 		elif global.level == SEVEN:
 			get_tree().change_scene_to_file("res://Scenes/Level_7.tscn")
+		elif global.level == EIGHT:
+			get_tree().change_scene_to_file("res://Scenes/Level_8.tscn")
 
 
 func _reset_progress_pressed():
@@ -182,6 +187,7 @@ func _confirm_pressed():
 	$Level_5.hide()
 	$Level_6.hide()
 	$Level_7.hide()
+	$Level_8.hide()
 	$Reset_tab.hide()
 
 
@@ -233,3 +239,18 @@ func _level_7_mouse_entered():
 
 func _on_level_7_mouse_exited():
 	$Level_7.set_modulate(NORMAL)
+
+
+func _level_8_pressed():
+	global.level = EIGHT
+	$Fade.show()
+	fade_target = FADE_IN
+	$Fade_timer.start(FADE_TIME)
+
+
+func _level_8_mouse_entered():
+	$Level_8.set_modulate(DARKENED)
+
+
+func _level_8_mouse_exited():
+	$Level_8.set_modulate(NORMAL)
