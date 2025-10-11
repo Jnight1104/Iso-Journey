@@ -4,7 +4,7 @@ extends StaticBody3D
 const BLOCKED: Vector3 = Vector3(0, 1.19, 0)
 const UNBLOCKED: Vector3 = Vector3(0, -1, 0)
 const COLLISION_ACTIVE: Vector3 = Vector3(0, 0.5, 0)
-const COLLISION_INACTIVE: Vector3 = Vector3(0, -2, 0)
+const COLLISION_INACTIVE: Vector3 = Vector3(0, -3, 0)
 const FAST_MODE_SCALE: float = 2.0
 const REGULAR_MODE_SCALE: float = 1.0
 const LERP_RATE: float = 10
@@ -14,19 +14,11 @@ var speed_mult: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if self.is_in_group("Vine1"):
+	if self.is_in_group("Up"):
 		state = BLOCKED
 		$Vine.position = BLOCKED
 		$CollisionShape3D.position = COLLISION_ACTIVE
-	elif self.is_in_group("Vine2"):
-		state = UNBLOCKED
-		$Vine.position = UNBLOCKED
-		$CollisionShape3D.position = COLLISION_INACTIVE
-	elif self.is_in_group("Vine3"):
-		state = BLOCKED
-		$Vine.position = BLOCKED
-		$CollisionShape3D.position = COLLISION_ACTIVE
-	elif self.is_in_group("Vine4"):
+	else:
 		state = UNBLOCKED
 		$Vine.position = UNBLOCKED
 		$CollisionShape3D.position = COLLISION_INACTIVE

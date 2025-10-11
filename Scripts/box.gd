@@ -59,7 +59,7 @@ func _pushed(direction, node):
 			detection_ray = $Back
 		elif direction == LEFT:
 			detection_ray = $Left
-		if detection_ray.is_colliding():
+		if detection_ray.is_colliding() or $Above.has_overlapping_bodies():
 			if undos > 0:
 				action_history = action_history.slice(0, len(action_history) - undos)
 				undos = 0
@@ -79,15 +79,3 @@ func _pushed(direction, node):
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
 				action_history.append(target_location)
-
-
-#func _action_done(action):
-#	if action == WAIT:
-#		if undos > 0:
-#			action_history = action_history.slice(0, len(action_history) - undos)
-#			undos = 0
-#		action_history.append(target_location)
-#	elif action == UNDO:
-#		undos += UNDO_OFFSET
-#		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
-		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2crxba3owhbe"]
+[gd_scene load_steps=9 format=3 uid="uid://c2crxba3owhbe"]
 
 [ext_resource type="Script" path="res://Scripts/box.gd" id="1_lxlui"]
 [ext_resource type="PackedScene" uid="uid://bpufyxgjjntgp" path="res://Assets/Log.fbx" id="2_0bsrt"]
@@ -29,6 +29,9 @@ albedo_color = Color(0.972, 0.775, 0.524, 0.6)
 [sub_resource type="BoxMesh" id="BoxMesh_bgqfg"]
 material = SubResource("StandardMaterial3D_1srvf")
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5brei"]
+size = Vector3(0.7, 1, 0.7)
 
 [node name="RigidBody3D" type="RigidBody3D" groups=["Box"]]
 gravity_scale = 0.0
@@ -65,3 +68,9 @@ draw_pass_1 = SubResource("BoxMesh_bgqfg")
 [node name="Move_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_nnu4n")
 volume_db = -20.0
+
+[node name="Above" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Above"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07899, 0)
+shape = SubResource("BoxShape3D_5brei")
