@@ -2,6 +2,7 @@ extends Area3D
 
 @onready var global = get_node("/root/Global")
 @onready var appearance: Node = $Mesh
+@onready var player: Node = $"../Player"
 const TRANSPARENT_COLOUR: Color = Color(1, 0.788, 0.226, 0.53)
 const OPAQUE_COLOUR: Color = Color(1, 0.788, 0.226, 1)
 const SPIN_SPEED: float = 0.5
@@ -18,7 +19,7 @@ func _ready():
 	# Makes the initial appearance transparent
 	appearance.material_override.albedo_color = TRANSPARENT_COLOUR
 	# Automatically unlocks the collectible on level 8
-	if global.level == 8:
+	if global.level == 8 or global.level == 10:
 		_unlocked()
 
 
@@ -39,7 +40,7 @@ func _unlocked():
 	# Turns the collectible opaque when win conditions are met
 	appearance.material_override.albedo_color = OPAQUE_COLOUR
 	unlocked = true
-	if self.overlaps_body($"../Player"):
+	if self.overlaps_body(player):
 		win.emit()
 		queue_free()
 

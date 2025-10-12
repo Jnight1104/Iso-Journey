@@ -7,7 +7,7 @@ const FADE_IN: float = 1.0
 const FADE_OUT: float = 0.0
 const FADE_SCALE: float = 4.0
 const FADE_TIME: float = 1.0
-const FINAL_LEVEL: int = 9
+const FINAL_LEVEL: int = 10
 const PLUS_ONE: int = 1
 var fade: Color = Color(0, 0, 0, 1)
 var fade_target: float = 0.0
@@ -85,6 +85,9 @@ func _fade_timer_done():
 			elif global.level == 8:
 				global.level = 9
 				get_tree().change_scene_to_file("res://Scenes/Level_9.tscn")
+			elif global.level == 9:
+				global.level = 10
+				get_tree().change_scene_to_file("res://Scenes/Level_10.tscn")
 		else:
 			get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 
