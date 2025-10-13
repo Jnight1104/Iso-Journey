@@ -52,14 +52,14 @@ signal push
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	for node in get_node("/root/Level").get_children():
 		if node.is_in_group("Box"):
 			push.connect(node._pushed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta) -> void:
 	global.player_pos = position
 	# Sets speed multiplier based on whether fast mode is enabled
 	if global.fast_mode:

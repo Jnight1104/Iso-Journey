@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://lgjpuypbxeb5"]
+[gd_scene load_steps=27 format=3 uid="uid://lgjpuypbxeb5"]
 
 [ext_resource type="Script" path="res://Scripts/options_menu.gd" id="1_f78ui"]
 [ext_resource type="Texture2D" uid="uid://bxtye6a6p8oga" path="res://Assets/Options menu.png" id="2_6x3nn"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cr8swxc48shre" path="res://Assets/Toggle frame 10.png" id="20_qaf8e"]
 [ext_resource type="Texture2D" uid="uid://4fq42ek4n2bu" path="res://Assets/Toggle frame 11.png" id="21_1nlbr"]
 [ext_resource type="Texture2D" uid="uid://cy6iun00wlmux" path="res://Assets/Toggle frame 12.png" id="22_dr08y"]
+[ext_resource type="FontFile" uid="uid://cc6oei8kggppy" path="res://Assets/JuliusSansOne-Regular.ttf" id="23_nlwoj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qvbb7"]
 animations = [{
@@ -66,6 +67,16 @@ animations = [{
 "name": &"default",
 "speed": 45.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jk57x"]
+font = ExtResource("23_nlwoj")
+font_size = 11
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p04kn"]
+font = ExtResource("23_nlwoj")
+font_size = 11
+font_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -168,6 +179,30 @@ offset_bottom = 463.5
 position = Vector2(25, 12.5)
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_qvbb7")
+
+[node name="Music_credits" type="Label" parent="."]
+layout_mode = 0
+offset_left = 843.0
+offset_top = 536.0
+offset_right = 1151.0
+offset_bottom = 584.0
+text = "Relaxing Orchestra Music (Village) by Migfus20  
+https://freesound.org/s/683260/  
+License: Attribution 4.0"
+label_settings = SubResource("LabelSettings_jk57x")
+horizontal_alignment = 1
+
+[node name="Sound_credits" type="Label" parent="."]
+layout_mode = 0
+offset_left = 867.0
+offset_top = 592.0
+offset_right = 1125.0
+offset_bottom = 640.0
+text = "SFX-Success by lewisitoo  
+https://freesound.org/s/712851/  
+License: Attribution NonCommercial 4.0"
+label_settings = SubResource("LabelSettings_p04kn")
+horizontal_alignment = 1
 
 [node name="Fade" type="ColorRect" parent="."]
 layout_mode = 0

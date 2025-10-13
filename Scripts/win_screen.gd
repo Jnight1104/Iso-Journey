@@ -15,7 +15,7 @@ var next_level: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	$Fade.hide()
 	self.hide()
 	fade_target = FADE_OUT
@@ -25,7 +25,7 @@ func _ready():
 		$Next_level_button.hide()
 
 
-func _process(delta):
+func _process(delta) -> void:
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
 	$Fade.set_modulate(fade)
 

@@ -29,7 +29,7 @@ signal music_stop
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	music_play.connect(get_node("/root/MusicNode").music_on)
 	music_stop.connect(get_node("/root/MusicNode").music_off)
 	quitting = false
@@ -56,7 +56,7 @@ func _ready():
 		sounds_toggle.set_frame(START_FRAME)
 
 
-func _process(delta):
+func _process(delta) -> void:
 	if not fading:
 		# Pauses/unpauses the game on user input based on whether it is already paused or not
 		if Input.is_action_just_pressed("ui_escape"):

@@ -16,7 +16,7 @@ signal music_stop
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	music_play.connect(get_node("/root/MusicNode").music_on)
 	music_stop.connect(get_node("/root/MusicNode").music_off)
 	$Back.set_modulate(TRANSPARENT)
@@ -39,7 +39,7 @@ func _ready():
 		$Sounds_button/Toggle3.set_frame(START_FRAME)
 
 
-func _process(delta):
+func _process(delta) -> void:
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
 	$Fade.set_modulate(fade)
 

@@ -1,6 +1,9 @@
 extends Area3D
 
 @onready var global = get_node("/root/Global")
+@onready var unpressed: Node = $Unpressed
+@onready var pressed: Node = $Pressed
+@onready var click_sound: Node = $Click_sound
 const VINE1: String = "Vine1"
 const VINE2: String = "Vine2"
 const VINE3: String = "Vine3"
@@ -36,9 +39,9 @@ signal press_signal
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	$Unpressed.show()
-	$Pressed.hide()
+func _ready() -> void:
+	unpressed.show()
+	pressed.hide()
 	if self.is_in_group(BUTTON1):
 		vine_group = VINE1
 	elif self.is_in_group(BUTTON2):
@@ -74,17 +77,17 @@ func _ready():
 			press_signal.connect(node._activated)
 
 
-func _pressed(body):
+func _pressed(_body):
 	if global.sound_on:
-		$Click_sound.play()
-	$Pressed.show()
-	$Unpressed.hide()
+		click_sound.play()
+	pressed.show()
+	unpressed.hide()
 	press_signal.emit()
 
 
-func _released(body):
+func _released(_body):
 	if global.sound_on:
-		$Click_sound.play()
-	$Unpressed.show()
-	$Pressed.hide()
+		click_sound.play()
+	unpressed.show()
+	pressed.hide()
 	press_signal.emit()

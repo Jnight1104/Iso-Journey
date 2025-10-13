@@ -11,7 +11,7 @@ signal win
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	# Connects the win signal to the necessary nodes
 	win.connect(get_node("/root/Level/Player")._win)
 	win.connect(get_node("/root/Level/Win_screen")._win)
@@ -23,7 +23,7 @@ func _ready():
 		_unlocked()
 
 
-func _process(delta):
+func _process(delta) -> void:
 	# Constantly rotates the collectible over time when the game isn't paused
 	if not global.paused:
 		rotation.y += SPIN_SPEED * delta

@@ -6,7 +6,7 @@ signal release_signal
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	$Unpressed.show()
 	$Pressed.hide()
 	global.objectives_reached = 0

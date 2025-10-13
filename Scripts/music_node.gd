@@ -4,7 +4,7 @@ extends Node
 
 
 # Plays the music when the game starts
-func _ready():
+func _ready() -> void:
 	if global.music_on:
 		$Music.play()
 

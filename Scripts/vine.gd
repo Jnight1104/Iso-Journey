@@ -13,7 +13,7 @@ var speed_mult: float = 1.0
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	if self.is_in_group("Up"):
 		state = BLOCKED
 		$Vine.position = BLOCKED
@@ -25,7 +25,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta) -> void:
 	if global.fast_mode:
 		speed_mult = FAST_MODE_SCALE
 	else:

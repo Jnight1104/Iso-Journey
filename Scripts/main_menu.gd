@@ -1,6 +1,8 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
+@onready var fade_screen: Node = $Fade
+@onready var fade_timer: Node = $Fade_timer
 const TRANSPARENT : Color = Color(1, 1, 1, 1)
 const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
 const BASE_POSITION : Vector2 = Vector2(575.4, 342.5)
@@ -16,27 +18,27 @@ var action: String = ""
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	$Play.set_modulate(TRANSPARENT)
 	$Options.set_modulate(TRANSPARENT)
 	$Quit.set_modulate(TRANSPARENT)	
-	$Fade.show()
-	$Fade.set_modulate(fade)
+	fade_screen.show()
+	fade_screen.set_modulate(fade)
 	fade_target = FADE_OUT
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 
 
-func _process(delta):
+func _process(delta) -> void:
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
-	$Fade.set_modulate(fade)
+	fade_screen.set_modulate(fade)
 
 
 # Navigation to the level select screen when play is pressed
 func _play_button_pressed():
 	action = PLAY
-	$Fade.show()
+	fade_screen.show()
 	fade_target = FADE_IN
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 	
 
 # Saves key data and quits the game when quit is pressed
@@ -52,9 +54,9 @@ func _quit_button_pressed():
 
 func _options_button_pressed():
 	action = OPTIONS
-	$Fade.show()
+	fade_screen.show()
 	fade_target = FADE_IN
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 
 
 func _play_mouse_entered():
