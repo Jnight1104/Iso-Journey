@@ -35,12 +35,7 @@ func _win():
 		$Success_sound.play()
 	if global.level == global.levels_unlocked:
 		global.levels_unlocked = global.level + PLUS_ONE
-	var file = save.new()
-	file.fast_mode = global.fast_mode
-	file.music_on = global.music_on
-	file.sound_on = global.sound_on
-	file.levels_unlocked = global.levels_unlocked
-	ResourceSaver.save(file, "res://Scripts/save.tres")
+	save_data()
 	self.show()
 
 
@@ -105,3 +100,12 @@ func _next_level_mouse_entered():
 
 func _next_level_mouse_exited():
 	$Next_level_button.set_modulate(TRANSPARENT)
+
+
+func save_data():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")

@@ -63,12 +63,7 @@ func _process(delta):
 			if global.paused == false:
 				pause()
 			else:
-				var file = save.new()
-				file.fast_mode = global.fast_mode
-				file.music_on = global.music_on
-				file.sound_on = global.sound_on
-				file.levels_unlocked = global.levels_unlocked
-				ResourceSaver.save(file, "res://Scripts/save.tres")
+				save_data()
 				resume()
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
 	$Pause_screen_ui.set_modulate(transparency)
@@ -115,24 +110,14 @@ func resume():
 
 # Resumes the game on resume button pressed
 func _resume_button_pressed():
-	var file = save.new()
-	file.fast_mode = global.fast_mode
-	file.music_on = global.music_on
-	file.sound_on = global.sound_on
-	file.levels_unlocked = global.levels_unlocked
-	ResourceSaver.save(file, "res://Scripts/save.tres")
+	save_data()
 	resume()
 
 
 # Quits the game on quit button pressed
 func _quit_button_pressed():
 	fading = true
-	var file = save.new()
-	file.fast_mode = global.fast_mode
-	file.music_on = global.music_on
-	file.sound_on = global.sound_on
-	file.levels_unlocked = global.levels_unlocked
-	ResourceSaver.save(file, "res://Scripts/save.tres")
+	save_data()
 	$Fade.show()
 	global.paused = true
 	global.undoing = false
@@ -222,6 +207,7 @@ func _fast_mode_pressed():
 	else:
 		fast_mode_toggle.play()
 		global.fast_mode = false
+	save_data()
 
 
 func _fast_mode_mouse_entered():
@@ -241,6 +227,7 @@ func _music_pressed():
 		music_toggle.play()
 		global.music_on = false
 		music_stop.emit()
+	save_data()
 
 
 func _music_mouse_entered():
@@ -258,6 +245,7 @@ func _sounds_pressed():
 	else:
 		sounds_toggle.play()
 		global.sound_on = false
+	save_data()
 
 
 func _sounds_mouse_entered():
@@ -266,3 +254,12 @@ func _sounds_mouse_entered():
 
 func _sounds_mouse_exited():
 	sounds_button.set_modulate(NORMAL)
+
+
+func save_data():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")

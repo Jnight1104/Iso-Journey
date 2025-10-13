@@ -45,12 +45,7 @@ func _process(delta):
 
 
 func _back_button_pressed():
-	var file = save.new()
-	file.fast_mode = global.fast_mode
-	file.music_on = global.music_on
-	file.sound_on = global.sound_on
-	file.levels_unlocked = global.levels_unlocked
-	ResourceSaver.save(file, "res://Scripts/save.tres")
+	save_data()
 	$Fade.show()
 	fade_target = FADE_IN
 	$Fade_timer.start(FADE_TIME)
@@ -78,6 +73,7 @@ func _fast_mode_pressed():
 	else:
 		$Fast_mode_button/Toggle.play()
 		global.fast_mode = false
+	save_data()
 
 
 func _fast_mode_mouse_entered():
@@ -97,6 +93,7 @@ func _music_pressed():
 		$Music_button/Toggle2.play()
 		global.music_on = false
 		music_stop.emit()
+	save_data()
 
 
 func _music_mouse_entered():
@@ -114,6 +111,7 @@ func _sounds_pressed():
 	else:
 		$Sounds_button/Toggle3.play()
 		global.sound_on = false
+	save_data()
 
 
 func _sounds_mouse_entered():
@@ -122,3 +120,12 @@ func _sounds_mouse_entered():
 
 func _sounds_mouse_exited():
 	$Sounds_button.set_modulate(TRANSPARENT)
+
+
+func save_data():
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
