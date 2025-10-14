@@ -1,24 +1,25 @@
 extends Node
 
 @onready var global = get_node("/root/Global")
+@onready var music: Node = $Music
 
 
 # Plays the music when the game starts
 func _ready() -> void:
 	if global.music_on:
-		$Music.play()
+		music.play()
 
 
 # Replays the music when it finishes
 func _music_finished():
-	$Music.play()
+	music.play()
 
 
 # Turns on the music when called
 func music_on():
-	$Music.play()
+	music.play()
 
 
 # Turns off the music when called
 func music_off():
-	$Music.stop()
+	music.stop()

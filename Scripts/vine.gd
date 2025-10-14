@@ -1,6 +1,8 @@
 extends StaticBody3D
 
 @onready var global = get_node("/root/Global")
+@onready var vine: Node = $Vine
+@onready var collision: Node = $CollisionShape3D
 const BLOCKED: Vector3 = Vector3(0, 1.19, 0)
 const UNBLOCKED: Vector3 = Vector3(0, -1, 0)
 const COLLISION_ACTIVE: Vector3 = Vector3(0, 0.5, 0)
@@ -16,12 +18,12 @@ var speed_mult: float = 1.0
 func _ready() -> void:
 	if self.is_in_group("Up"):
 		state = BLOCKED
-		$Vine.position = BLOCKED
-		$CollisionShape3D.position = COLLISION_ACTIVE
+		vine.position = BLOCKED
+		collision.position = COLLISION_ACTIVE
 	else:
 		state = UNBLOCKED
-		$Vine.position = UNBLOCKED
-		$CollisionShape3D.position = COLLISION_INACTIVE
+		vine.position = UNBLOCKED
+		collision.position = COLLISION_INACTIVE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,13 +32,13 @@ func _process(delta) -> void:
 		speed_mult = FAST_MODE_SCALE
 	else:
 		speed_mult = REGULAR_MODE_SCALE
-	$Vine.position = lerp($Vine.position, state, LERP_RATE * speed_mult * delta)
+	vine.position = lerp(vine.position, state, LERP_RATE * speed_mult * delta)
 
 
 func _activated():
 	if state == BLOCKED:
 		state = UNBLOCKED
-		$CollisionShape3D.position = COLLISION_INACTIVE
+		collision.position = COLLISION_INACTIVE
 	else:
 		state = BLOCKED
-		$CollisionShape3D.position = COLLISION_ACTIVE
+		collision.position = COLLISION_ACTIVE

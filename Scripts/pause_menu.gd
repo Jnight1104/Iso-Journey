@@ -1,12 +1,21 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
+@onready var fade_screen: Node = $Fade
+@onready var fade_timer: Node = $Fade_timer
 @onready var fast_mode_toggle: Node = $Pause_screen_ui/Fast_mode_button/Toggle
 @onready var music_toggle: Node = $Pause_screen_ui/Music_button/Toggle2
 @onready var sounds_toggle: Node = $Pause_screen_ui/Sounds_button/Toggle3
 @onready var fast_mode_button: Node = $Pause_screen_ui/Fast_mode_button
 @onready var music_button: Node = $Pause_screen_ui/Music_button
 @onready var sounds_button: Node = $Pause_screen_ui/Sounds_button
+@onready var pause_button: Node = $Pause
+@onready var undo_button: Node = $Undo
+@onready var redo_button: Node = $Redo
+@onready var restart_button: Node = $Restart
+@onready var resume_button: Node = $Pause_screen_ui/Resume
+@onready var quit_button: Node = $Pause_screen_ui/Quit
+@onready var pause_screen_ui: Node = $Pause_screen_ui
 const NORMAL: Color = Color(1, 1, 1, 1)
 const DARKENED: Color = Color(0.9, 0.9, 0.9, 1)
 const TRANSPARENT: Color = Color(1, 1, 1, 0.5)
@@ -33,14 +42,14 @@ func _ready() -> void:
 	music_play.connect(get_node("/root/MusicNode").music_on)
 	music_stop.connect(get_node("/root/MusicNode").music_off)
 	quitting = false
-	$Fade.show()
+	fade_screen.show()
 	fading = true
 	resume()
 	global.paused = true
-	$Pause_screen_ui.set_modulate(transparency)
-	$Fade.set_modulate(fade)
+	pause_screen_ui.set_modulate(transparency)
+	fade_screen.set_modulate(fade)
 	fade_target = FADE_OUT
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 	# Sets toggle button visual modes based on whether their representing values are true or false
 	if not global.fast_mode:
 		fast_mode_toggle.set_frame(END_FRAME)
@@ -66,9 +75,9 @@ func _process(delta) -> void:
 				save_data()
 				resume()
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
-	$Pause_screen_ui.set_modulate(transparency)
+	pause_screen_ui.set_modulate(transparency)
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
-	$Fade.set_modulate(fade)
+	fade_screen.set_modulate(fade)
 
 
 # Pauses the game on pause button pressed
@@ -77,35 +86,35 @@ func _pause_button_pressed():
 
 
 func _pause_mouse_entered():
-	$Pause.set_modulate(DARKENED)
+	pause_button.set_modulate(DARKENED)
 
 
 func _pause_mouse_exited():
-	$Pause.set_modulate(NORMAL)
+	pause_button.set_modulate(NORMAL)
 
 
 # Function for pausing the game
 func pause():
 	global.paused = true
 	transparency_target = FADE_IN
-	$Pause.hide()
-	$Undo.hide()
-	$Redo.hide()
-	$Restart.hide()
-	$Pause_screen_ui/Resume.set_disabled(false)
-	$Pause_screen_ui/Quit.set_disabled(false)
+	pause_button.hide()
+	undo_button.hide()
+	redo_button.hide()
+	restart_button.hide()
+	resume_button.set_disabled(false)
+	quit_button.set_disabled(false)
 
 
 # Function for resuming the game
 func resume():
 	global.paused = false
 	transparency_target = FADE_OUT
-	$Pause_screen_ui/Resume.set_disabled(true)
-	$Pause_screen_ui/Quit.set_disabled(true)
-	$Pause.show()
-	$Undo.show()
-	$Redo.show()
-	$Restart.show()
+	resume_button.set_disabled(true)
+	quit_button.set_disabled(true)
+	pause_button.show()
+	undo_button.show()
+	redo_button.show()
+	restart_button.show()
 
 
 # Resumes the game on resume button pressed
@@ -118,12 +127,12 @@ func _resume_button_pressed():
 func _quit_button_pressed():
 	fading = true
 	save_data()
-	$Fade.show()
+	fade_screen.show()
 	global.paused = true
 	global.undoing = false
 	global.redoing = false
 	fade_target = FADE_IN
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 	quitting = true
 
 
@@ -132,19 +141,19 @@ func _win():
 
 
 func _resume_mouse_entered():
-	$Pause_screen_ui/Resume.set_modulate(DARKENED)
+	resume_button.set_modulate(DARKENED)
 
 
 func _resume_mouse_exited():
-	$Pause_screen_ui/Resume.set_modulate(NORMAL)
+	resume_button.set_modulate(NORMAL)
 
 
 func _quit_mouse_entered():
-	$Pause_screen_ui/Quit.set_modulate(DARKENED)
+	quit_button.set_modulate(DARKENED)
 
 
 func _quit_mouse_exited():
-	$Pause_screen_ui/Quit.set_modulate(NORMAL)
+	quit_button.set_modulate(NORMAL)
 
 
 func _undo_button_pressed():
@@ -152,11 +161,11 @@ func _undo_button_pressed():
 
 
 func _undo_mouse_entered():
-	$Undo.set_modulate(TRANSPARENT)
+	undo_button.set_modulate(TRANSPARENT)
 	
 
 func _undo_mouse_exited():
-	$Undo.set_modulate(NORMAL)
+	undo_button.set_modulate(NORMAL)
 
 
 func _redo_button_pressed():
@@ -164,36 +173,36 @@ func _redo_button_pressed():
 
 
 func _redo_mouse_entered():
-	$Redo.set_modulate(TRANSPARENT)
+	redo_button.set_modulate(TRANSPARENT)
 
 
 func _redo_mouse_exited():
-	$Redo.set_modulate(NORMAL)
+	redo_button.set_modulate(NORMAL)
 
 
 func _restart_button_pressed():
 	fading = true
-	$Fade.show()
+	fade_screen.show()
 	global.paused = true
 	global.undoing = false
 	global.redoing = false
 	fade_target = FADE_IN
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 
 
 func _restart_mouse_entered():
-	$Restart.set_modulate(TRANSPARENT)
+	restart_button.set_modulate(TRANSPARENT)
 
 
 func _restart_mouse_exited():
-	$Restart.set_modulate(NORMAL)
+	restart_button.set_modulate(NORMAL)
 
 
 func _fade_timer_done():
 	if fade_target == FADE_OUT:
 		global.paused = false
 		fading = false
-		$Fade.hide()
+		fade_screen.hide()
 	elif quitting == true:
 		get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 	else:

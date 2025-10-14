@@ -218,6 +218,13 @@ func _confirm_pressed():
 	level_9.hide()
 	level_10.hide()
 	reset_tab.hide()
+	var file = save.new()
+	file.fast_mode = global.fast_mode
+	file.music_on = global.music_on
+	file.sound_on = global.sound_on
+	file.levels_unlocked = global.levels_unlocked
+	ResourceSaver.save(file, "res://Scripts/save.tres")
+	get_tree().quit()
 
 
 func _confirm_mouse_entered():

@@ -1,14 +1,17 @@
 extends Area3D
 
 @onready var global = get_node("/root/Global")
+@onready var unpressed: Node = $Unpressed
+@onready var pressed: Node = $Pressed
+@onready var click_sound: Node = $Click_sound
 signal press_signal
 signal release_signal
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Unpressed.show()
-	$Pressed.hide()
+	unpressed.show()
+	pressed.hide()
 	global.objectives_reached = 0
 	press_signal.connect(get_node("/root/Level/Win_collectible")._unlocked)
 	release_signal.connect(get_node("/root/Level/Win_collectible")._locked)
@@ -16,9 +19,9 @@ func _ready() -> void:
 
 func _pressed(_body):
 	if global.sound_on:
-		$Click_sound.play()
-	$Pressed.show()
-	$Unpressed.hide()
+		click_sound.play()
+	pressed.show()
+	unpressed.hide()
 	if global.level == 1 or global.level == 6:
 		press_signal.emit()
 	elif global.level == 2 or global.level == 5:
@@ -41,9 +44,9 @@ func _pressed(_body):
 
 func _released(_body):
 	if global.sound_on:
-		$Click_sound.play()
-	$Unpressed.show()
-	$Pressed.hide()
+		click_sound.play()
+	unpressed.show()
+	pressed.hide()
 	if global.level == 1 or global.level == 6:
 		release_signal.emit()
 	else:

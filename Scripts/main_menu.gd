@@ -3,6 +3,9 @@ extends Control
 @onready var global = get_node("/root/Global")
 @onready var fade_screen: Node = $Fade
 @onready var fade_timer: Node = $Fade_timer
+@onready var play: Node = $Play
+@onready var options: Node = $Options
+@onready var quit: Node = $Quit
 const TRANSPARENT : Color = Color(1, 1, 1, 1)
 const DARKENED : Color = Color(0.9, 0.9, 0.9, 1)
 const BASE_POSITION : Vector2 = Vector2(575.4, 342.5)
@@ -19,9 +22,9 @@ var action: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Play.set_modulate(TRANSPARENT)
-	$Options.set_modulate(TRANSPARENT)
-	$Quit.set_modulate(TRANSPARENT)	
+	play.set_modulate(TRANSPARENT)
+	options.set_modulate(TRANSPARENT)
+	quit.set_modulate(TRANSPARENT)	
 	fade_screen.show()
 	fade_screen.set_modulate(fade)
 	fade_target = FADE_OUT
@@ -60,32 +63,32 @@ func _options_button_pressed():
 
 
 func _play_mouse_entered():
-	$Play.set_modulate(DARKENED)
+	play.set_modulate(DARKENED)
 
 
 func _play_mouse_exited():
-	$Play.set_modulate(TRANSPARENT)
+	play.set_modulate(TRANSPARENT)
 
 
 func _options_mouse_entered():
-	$Options.set_modulate(DARKENED)
+	options.set_modulate(DARKENED)
 
 
 func _options_mouse_exited():
-	$Options.set_modulate(TRANSPARENT)
+	options.set_modulate(TRANSPARENT)
 
 
 func _quit_mouse_entered():
-	$Quit.set_modulate(DARKENED)
+	quit.set_modulate(DARKENED)
 
 
 func _quit_mouse_exited():
-	$Quit.set_modulate(TRANSPARENT)
+	quit.set_modulate(TRANSPARENT)
 
 
 func _fade_timer_done():
 	if fade_target == FADE_OUT:
-		$Fade.hide()
+		fade_screen.hide()
 	elif action == OPTIONS:
 		get_tree().change_scene_to_file("res://Scenes/Options_menu.tscn")
 	elif action == PLAY:

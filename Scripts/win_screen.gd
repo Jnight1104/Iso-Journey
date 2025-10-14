@@ -1,6 +1,11 @@
 extends Control
 
 @onready var global = get_node("/root/Global")
+@onready var fade_screen: Node = $Fade
+@onready var fade_timer: Node = $Fade_timer
+@onready var next_level_button: Node = $Next_level_button
+@onready var success_sound: Node = $Success_sound
+@onready var exit: Node = $Exit
 const TRANSPARENT: Color = Color(1, 1, 1, 1)
 const DARKENED: Color = Color(0.9, 0.9, 0.9, 1)
 const FADE_IN: float = 1.0
@@ -16,23 +21,23 @@ var next_level: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Fade.hide()
+	fade_screen.hide()
 	self.hide()
 	fade_target = FADE_OUT
 	if global.level < FINAL_LEVEL:
-		$Next_level_button.show()
+		next_level_button.show()
 	else:
-		$Next_level_button.hide()
+		next_level_button.hide()
 
 
 func _process(delta) -> void:
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
-	$Fade.set_modulate(fade)
+	fade_screen.set_modulate(fade)
 
 
 func _win():
 	if global.sound_on:
-		$Success_sound.play()
+		success_sound.play()
 	if global.level == global.levels_unlocked:
 		global.levels_unlocked = global.level + PLUS_ONE
 	save_data()
@@ -40,17 +45,17 @@ func _win():
 
 
 func _exit_button_pressed():
-	$Fade.show()
+	fade_screen.show()
 	fade_target = FADE_IN
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 
 
 func _exit_mouse_entered():
-	$Exit.set_modulate(DARKENED)
+	exit.set_modulate(DARKENED)
 
 
 func _exit_mouse_exited():
-	$Exit.set_modulate(TRANSPARENT)
+	exit.set_modulate(TRANSPARENT)
 
 
 func _fade_timer_done():
@@ -88,18 +93,18 @@ func _fade_timer_done():
 
 
 func _next_level_pressed():
-	$Fade.show()
+	fade_screen.show()
 	fade_target = FADE_IN
 	next_level = true
-	$Fade_timer.start(FADE_TIME)
+	fade_timer.start(FADE_TIME)
 
 
 func _next_level_mouse_entered():
-	$Next_level_button.set_modulate(DARKENED)
+	next_level_button.set_modulate(DARKENED)
 
 
 func _next_level_mouse_exited():
-	$Next_level_button.set_modulate(TRANSPARENT)
+	next_level_button.set_modulate(TRANSPARENT)
 
 
 func save_data():
