@@ -27,6 +27,7 @@ const FADE_SCALE: float = 4.0
 const FADE_TIME: float = 1.0
 const START_FRAME: int = 0
 const END_FRAME: int = 11
+const ESCAPE_KEY: String = "ui_escape"
 var transparency: Color = Color(1, 1, 1, 0)
 var transparency_target: float = 0.0
 var fade: Color = Color(0, 0, 0, 1)
@@ -68,7 +69,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	if not fading:
 		# Pauses/unpauses the game on user input based on whether it is already paused or not
-		if Input.is_action_just_pressed("ui_escape"):
+		if Input.is_action_just_pressed(ESCAPE_KEY):
 			if global.paused == false:
 				pause()
 			else:

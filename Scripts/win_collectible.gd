@@ -6,6 +6,7 @@ extends Area3D
 const TRANSPARENT_COLOUR: Color = Color(1, 0.788, 0.226, 0.53)
 const OPAQUE_COLOUR: Color = Color(1, 0.788, 0.226, 1)
 const SPIN_SPEED: float = 0.5
+const PLAYER_GROUP: String = "Player"
 var unlocked: bool = false
 signal win
 
@@ -31,7 +32,7 @@ func _process(delta) -> void:
 
 func _collected(body):
 	# Triggers game winning sequence when unlocked and collected
-	if body.is_in_group("Player") and unlocked:
+	if body.is_in_group(PLAYER_GROUP) and unlocked:
 		win.emit()
 		queue_free()
 

@@ -10,13 +10,14 @@ const COLLISION_INACTIVE: Vector3 = Vector3(0, -3, 0)
 const FAST_MODE_SCALE: float = 2.0
 const REGULAR_MODE_SCALE: float = 1.0
 const LERP_RATE: float = 10
+const UP: String = "Up"
 var state: Vector3 = BLOCKED
 var speed_mult: float = 1.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if self.is_in_group("Up"):
+	if self.is_in_group(UP):
 		state = BLOCKED
 		vine.position = BLOCKED
 		collision.position = COLLISION_ACTIVE

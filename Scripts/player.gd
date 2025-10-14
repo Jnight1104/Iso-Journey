@@ -31,6 +31,15 @@ const TIME_INCREMENT: float = 1.5
 const FAST_MODE_SCALE: float = 2.0
 const REGULAR_MODE_SCALE: float = 1.0
 const FAST_MODE_DELAY_SCALE: float = 0.7
+const MINUS_KEY: String = "ui_minus"
+const PLUS_KEY: String = "ui_plus"
+const ESCAPE_KEY: String = "ui_escape"
+const W_KEY: String = "ui_w"
+const A_KEY: String = "ui_a"
+const S_KEY: String = "ui_s"
+const D_KEY: String = "ui_d"
+const BOX: String = "Box"
+const BOUNDARIES: String = "Boundaries"
 var left_hand_position: Vector3 = Vector3(0, 0.7, -0.45)
 var right_hand_position: Vector3 = Vector3(0, 0.7, 0.45)
 var target_location: Vector3 = SPAWN
@@ -54,7 +63,7 @@ signal push
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for node in get_node("/root/Level").get_children():
-		if node.is_in_group("Box"):
+		if node.is_in_group(BOX):
 			push.connect(node._pushed)
 
 
@@ -70,22 +79,22 @@ func _process(delta) -> void:
 		delay_mult = REGULAR_MODE_SCALE
 	# Detects and responds to control inputs
 	if not game_finished and not global.paused:
-		if Input.is_action_just_pressed("ui_minus") or global.undoing == true:
+		if Input.is_action_just_pressed(MINUS_KEY) or global.undoing == true:
 			global.undoing = false
 			_move_input(UNDO)
-		elif Input.is_action_just_pressed("ui_plus") or global.redoing == true:
+		elif Input.is_action_just_pressed(PLUS_KEY) or global.redoing == true:
 			global.redoing = false
 			_move_input(REDO)
-		elif Input.is_action_just_pressed("ui_w"):
+		elif Input.is_action_just_pressed(W_KEY):
 			_move_input(UP)
-		elif Input.is_action_just_pressed("ui_s"):
+		elif Input.is_action_just_pressed(S_KEY):
 			_move_input(DOWN)
-		elif Input.is_action_just_pressed("ui_a"):
+		elif Input.is_action_just_pressed(A_KEY):
 			_move_input(LEFT)
-		elif Input.is_action_just_pressed("ui_d"):
+		elif Input.is_action_just_pressed(D_KEY):
 			_move_input(RIGHT)
 	# Clears pending actions when game is paused
-	if Input.is_action_just_pressed("ui_escape"):
+	if Input.is_action_just_pressed(ESCAPE_KEY):
 		action_queue = []
 	# Moves the player toward the target location smoothly and sets position of hands
 	if not global.paused:
@@ -141,7 +150,7 @@ func _move(direction):
 		elif direction == LEFT:
 			detection_ray = left_ray
 		if detection_ray.is_colliding():
-			if detection_ray.get_collider().is_in_group("Box"):
+			if detection_ray.get_collider().is_in_group(BOX):
 				push.emit(direction, detection_ray.get_collider())
 				action_history.append(target_location)
 				move_delay_timer.start(MOVE_DELAY * delay_mult)
@@ -155,7 +164,7 @@ func _move(direction):
 					left_hand.position += HAND_PUSH_SCALE * direction
 				elif direction == LEFT:
 					left_hand.position += HAND_PUSH_SCALE * direction
-			elif detection_ray.get_collider().is_in_group("Boundaries"):
+			elif detection_ray.get_collider().is_in_group(BOUNDARIES):
 				move_delay_timer.start(MOVE_DELAY * delay_mult)
 				position += direction * OBSTACLE_BUFFER_SCALE
 			else:

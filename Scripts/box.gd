@@ -45,19 +45,25 @@ func _process(delta) -> void:
 
 
 func _pushed(direction, node):
+	# Adds onto action history for remaining stationary after a player input
 	if direction == WAIT:
+		# Cuts off undone actions when a new input is created
 		if undos > 0:
 			action_history = action_history.slice(0, len(action_history) - undos)
 			undos = 0
 		action_history.append(target_location)
+	# Restores previous positions when undo happens
 	elif direction == UNDO:
 		undos += UNDO_OFFSET
 		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
+	# Restores undone positions when redo happens
 	elif direction == REDO:
 		undos -= UNDO_OFFSET
 		target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 	else:
+		# Makes dust emit in opposite direction to current movement
 		dust.process_material.direction = -1 * direction
+		# Calls the required detection ray based on direction recieved
 		if direction == UP:
 			detection_ray = forward
 		elif direction == RIGHT:
@@ -66,22 +72,30 @@ func _pushed(direction, node):
 			detection_ray = back
 		elif direction == LEFT:
 			detection_ray = left
+		# Prevents movement if detection ray detects an adjacent obstacle
 		if detection_ray.is_colliding() or above.has_overlapping_bodies():
+			# Cuts off undone actions when a new input is created
 			if undos > 0:
 				action_history = action_history.slice(0, len(action_history) - undos)
 				undos = 0
 			action_history.append(target_location)
 		else:
+			# Ensures only the box being called to push is pushed
 			if node == self:
+				# Cuts off undone actions when a new input is created
 				if undos > 0:
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
+				# Playes sound if sound enabled
 				if global.sound_on:
 					move_sound.play()
+				# Moves the box to set location
 				target_location += direction
 				dust.restart()
 				action_history.append(target_location)
+			# Keeps box stationary if not being pushed
 			else:
+				# Cuts off undone actions when a new input is created
 				if undos > 0:
 					action_history = action_history.slice(0, len(action_history) - undos)
 					undos = 0
