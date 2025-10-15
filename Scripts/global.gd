@@ -14,6 +14,7 @@ var levels_unlocked: int = 1
 
 
 func _ready() -> void:
+	# Loads save file when opening the game
 	var file = ResourceLoader.load("res://Scripts/save.tres")
 	if file:
 		fast_mode = file.fast_mode

@@ -13,15 +13,18 @@ func _ready() -> void:
 	unpressed.show()
 	pressed.hide()
 	global.objectives_reached = 0
+	# Connects press/release signals
 	press_signal.connect(get_node("/root/Level/Win_collectible")._unlocked)
 	release_signal.connect(get_node("/root/Level/Win_collectible")._locked)
 
 
 func _pressed(_body):
+	# Emits sound and changes appearance when pressed
 	if global.sound_on:
 		click_sound.play()
 	pressed.show()
 	unpressed.hide()
+	# Adds to objectives met and unlocks win collectible if all objectives are met for each level
 	if global.level == 1 or global.level == 6:
 		press_signal.emit()
 	elif global.level == 2 or global.level == 5:
@@ -43,12 +46,15 @@ func _pressed(_body):
 
 
 func _released(_body):
+	# Emits sound and changes appearance when released
 	if global.sound_on:
 		click_sound.play()
 	unpressed.show()
 	pressed.hide()
+	# Locks win collectible for levels with only 1 pressure plate
 	if global.level == 1 or global.level == 6:
 		release_signal.emit()
+	# Subtracts from objectives met and locks win collectible
 	else:
 		global.objectives_reached -= 1
 		release_signal.emit()

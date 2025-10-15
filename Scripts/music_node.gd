@@ -4,7 +4,7 @@ extends Node
 @onready var music: Node = $Music
 
 
-# Plays the music when the game starts
+# Plays the music when the game starts if music is on
 func _ready() -> void:
 	if global.music_on:
 		music.play()

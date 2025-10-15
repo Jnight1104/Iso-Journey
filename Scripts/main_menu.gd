@@ -24,7 +24,8 @@ var action: String = ""
 func _ready() -> void:
 	play.set_modulate(TRANSPARENT)
 	options.set_modulate(TRANSPARENT)
-	quit.set_modulate(TRANSPARENT)	
+	quit.set_modulate(TRANSPARENT)
+	# Activates fade in sequence on scene entry
 	fade_screen.show()
 	fade_screen.set_modulate(fade)
 	fade_target = FADE_OUT
@@ -32,6 +33,7 @@ func _ready() -> void:
 
 
 func _process(delta) -> void:
+	# Smoothly fades the black screen when needed
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
 	fade_screen.set_modulate(fade)
 
@@ -55,6 +57,7 @@ func _quit_button_pressed():
 	get_tree().quit()
 
 
+# Navigates to options menu when pressed
 func _options_button_pressed():
 	action = OPTIONS
 	fade_screen.show()
@@ -62,33 +65,41 @@ func _options_button_pressed():
 	fade_timer.start(FADE_TIME)
 
 
+# Darkens button when mouse is hovering it
 func _play_mouse_entered():
 	play.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _play_mouse_exited():
 	play.set_modulate(TRANSPARENT)
 
 
+# Darkens button when mouse is hovering it
 func _options_mouse_entered():
 	options.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _options_mouse_exited():
 	options.set_modulate(TRANSPARENT)
 
 
+# Darkens button when mouse is hovering it
 func _quit_mouse_entered():
 	quit.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _quit_mouse_exited():
 	quit.set_modulate(TRANSPARENT)
 
 
 func _fade_timer_done():
+	# Completes fade out sequence on fade out
 	if fade_target == FADE_OUT:
 		fade_screen.hide()
+	# Switches scene based on button pressed
 	elif action == OPTIONS:
 		get_tree().change_scene_to_file("res://Scenes/Options_menu.tscn")
 	elif action == PLAY:

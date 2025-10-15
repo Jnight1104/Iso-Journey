@@ -40,9 +40,11 @@ signal music_stop
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Connects music control signals
 	music_play.connect(get_node("/root/MusicNode").music_on)
 	music_stop.connect(get_node("/root/MusicNode").music_off)
 	quitting = false
+	# Activates fade in sequence on scene entry
 	fade_screen.show()
 	fading = true
 	resume()
@@ -75,8 +77,10 @@ func _process(delta) -> void:
 			else:
 				save_data()
 				resume()
+	# Smoothly fades the pause tab when needed
 	transparency.a = lerp(transparency.a, transparency_target, TRANSPARENCY_SCALE * delta)
 	pause_screen_ui.set_modulate(transparency)
+	# Smoothly fades the black screen when needed
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
 	fade_screen.set_modulate(fade)
 
@@ -86,10 +90,12 @@ func _pause_button_pressed():
 	pause()
 
 
+# Darkens button when mouse is hovering it
 func _pause_mouse_entered():
 	pause_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _pause_mouse_exited():
 	pause_button.set_modulate(NORMAL)
 
@@ -137,50 +143,61 @@ func _quit_button_pressed():
 	quitting = true
 
 
+# Hides pause menu on game win
 func _win():
 	self.hide()
 
 
+# Darkens button when mouse is hovering it
 func _resume_mouse_entered():
 	resume_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _resume_mouse_exited():
 	resume_button.set_modulate(NORMAL)
 
 
+# Darkens button when mouse is hovering it
 func _quit_mouse_entered():
 	quit_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _quit_mouse_exited():
 	quit_button.set_modulate(NORMAL)
 
 
+# Indirectly triggers the undo sequence when pressed
 func _undo_button_pressed():
 	global.undoing = true
 
 
+# Darkens button when mouse is hovering it
 func _undo_mouse_entered():
 	undo_button.set_modulate(TRANSPARENT)
 	
 
+# Lightens button when mouse moves off it
 func _undo_mouse_exited():
 	undo_button.set_modulate(NORMAL)
 
-
+# Indirectly triggers the redo sequence when pressed
 func _redo_button_pressed():
 	global.redoing = true
 
 
+# Darkens button when mouse is hovering it
 func _redo_mouse_entered():
 	redo_button.set_modulate(TRANSPARENT)
 
 
+# Lightens button when mouse moves off it
 func _redo_mouse_exited():
 	redo_button.set_modulate(NORMAL)
 
 
+# Resets level when pressed
 func _restart_button_pressed():
 	fading = true
 	fade_screen.show()
@@ -191,25 +208,31 @@ func _restart_button_pressed():
 	fade_timer.start(FADE_TIME)
 
 
+# Darkens button when mouse is hovering it
 func _restart_mouse_entered():
 	restart_button.set_modulate(TRANSPARENT)
 
 
+# Lightens button when mouse moves off it
 func _restart_mouse_exited():
 	restart_button.set_modulate(NORMAL)
 
 
 func _fade_timer_done():
+	# Ends fade out sequence on fading out
 	if fade_target == FADE_OUT:
 		global.paused = false
 		fading = false
 		fade_screen.hide()
+	# Quits to level select menu on quit pressed
 	elif quitting == true:
 		get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
+	# Restarts level on restart pressed
 	else:
 		get_tree().reload_current_scene()
 
 
+# Activates fast mode and begins animations when pressed
 func _fast_mode_pressed():
 	if not global.fast_mode:
 		fast_mode_toggle.play_backwards()
@@ -220,14 +243,17 @@ func _fast_mode_pressed():
 	save_data()
 
 
+# Darkens button when mouse is hovering it
 func _fast_mode_mouse_entered():
 	fast_mode_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _fast_mode_mouse_exited():
 	fast_mode_button.set_modulate(NORMAL)
 
 
+# Activates music and begins animations when pressed
 func _music_pressed():
 	if not global.music_on:
 		music_toggle.play_backwards()
@@ -240,14 +266,17 @@ func _music_pressed():
 	save_data()
 
 
+# Darkens button when mouse is hovering it
 func _music_mouse_entered():
 	music_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _music_mouse_exited():
 	music_button.set_modulate(NORMAL)
 
 
+# Activates sounds and begins animations when pressed
 func _sounds_pressed():
 	if not global.sound_on:
 		sounds_toggle.play_backwards()
@@ -258,14 +287,17 @@ func _sounds_pressed():
 	save_data()
 
 
+# Darkens button when mouse is hovering it
 func _sounds_mouse_entered():
 	sounds_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _sounds_mouse_exited():
 	sounds_button.set_modulate(NORMAL)
 
 
+# Data save function
 func save_data():
 	var file = save.new()
 	file.fast_mode = global.fast_mode

@@ -31,10 +31,12 @@ func _ready() -> void:
 
 
 func _process(delta) -> void:
+	# Smoothly fades the black screen when needed
 	fade.a = lerp(fade.a, fade_target, FADE_SCALE * delta)
 	fade_screen.set_modulate(fade)
 
 
+# Plays win sound and shows win tab on game win
 func _win():
 	if global.sound_on:
 		success_sound.play()
@@ -44,23 +46,29 @@ func _win():
 	self.show()
 
 
+# Exits to level select when pressed
 func _exit_button_pressed():
 	fade_screen.show()
 	fade_target = FADE_IN
 	fade_timer.start(FADE_TIME)
 
 
+# Darkens button when mouse is hovering it
 func _exit_mouse_entered():
 	exit.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _exit_mouse_exited():
 	exit.set_modulate(TRANSPARENT)
 
 
 func _fade_timer_done():
+	# Changes scene when fading is done
 	if fade_target == FADE_IN:
+		# Begins next level if next level is pressed
 		if next_level:
+			# Identifies the next level based on current level
 			if global.level == 1:
 				global.level = 2
 				get_tree().change_scene_to_file("res://Scenes/Level_2.tscn")
@@ -88,10 +96,12 @@ func _fade_timer_done():
 			elif global.level == 9:
 				global.level = 10
 				get_tree().change_scene_to_file("res://Scenes/Level_10.tscn")
+		# Exits to level select if exit pressed
 		else:
 			get_tree().change_scene_to_file("res://Scenes/Level_select_menu.tscn")
 
 
+# Changes scene to the next level when pressed
 func _next_level_pressed():
 	fade_screen.show()
 	fade_target = FADE_IN
@@ -99,14 +109,17 @@ func _next_level_pressed():
 	fade_timer.start(FADE_TIME)
 
 
+# Darkens button when mouse is hovering it
 func _next_level_mouse_entered():
 	next_level_button.set_modulate(DARKENED)
 
 
+# Lightens button when mouse moves off it
 func _next_level_mouse_exited():
 	next_level_button.set_modulate(TRANSPARENT)
 
 
+# Data save function
 func save_data():
 	var file = save.new()
 	file.fast_mode = global.fast_mode

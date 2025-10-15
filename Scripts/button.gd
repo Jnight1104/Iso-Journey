@@ -42,6 +42,7 @@ signal press_signal
 func _ready() -> void:
 	unpressed.show()
 	pressed.hide()
+	# Identifies target vine type based on button type
 	if self.is_in_group(BUTTON1):
 		vine_group = VINE1
 	elif self.is_in_group(BUTTON2):
@@ -72,11 +73,13 @@ func _ready() -> void:
 		vine_group = VINE14
 	elif self.is_in_group(BUTTON15):
 		vine_group = VINE15
+	# Links signal to vines with the set type
 	for node in get_node("/root/Level").get_children():
 		if node.is_in_group(vine_group):
 			press_signal.connect(node._activated)
 
 
+# Activates signal and modifies visuals when pressed
 func _pressed(_body):
 	if global.sound_on:
 		click_sound.play()
@@ -85,6 +88,7 @@ func _pressed(_body):
 	press_signal.emit()
 
 
+# Activates signal and modifies visuals when released
 func _released(_body):
 	if global.sound_on:
 		click_sound.play()

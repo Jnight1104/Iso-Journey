@@ -62,6 +62,7 @@ signal push
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Connects push signal to all baxes in level
 	for node in get_node("/root/Level").get_children():
 		if node.is_in_group(BOX):
 			push.connect(node._pushed)
@@ -117,30 +118,41 @@ func _move_input(direction):
 
 
 func _move(direction):
+	# Activates undo sequence
 	if direction == UNDO:
+		# Checks if requested undo exceeds the number of stored actions
 		if undos < len(action_history) - UNDO_OFFSET:
 			if global.sound_on:
 				step_sound.play()
 			push.emit(UNDO, self)
 			undos += UNDO_OFFSET
+			# Retrieves and sets position to previous locations
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 			move_delay_timer.start(MOVE_DELAY * delay_mult)
+		# Makes input redundant if requested undo exceeds the number of stored actions
 		else:
 			move_delay_timer.start(SHORT_MOVE_DELAY)
+	# Activates redo sequence
 	elif direction == REDO:
+		# Checks if more than one undo has been called
 		if undos > 0:
 			if global.sound_on:
 				step_sound.play()
 			push.emit(REDO, self)
 			undos -= UNDO_OFFSET
+			# Restores and sets position to undone actions
 			target_location = action_history[len(action_history) - (undos + UNDO_OFFSET)]
 			move_delay_timer.start(MOVE_DELAY * delay_mult)
+		# Makes input redundant if no undos have been called
 		else:
 			move_delay_timer.start(SHORT_MOVE_DELAY)
+	# Activates directional input sequence
 	else:
 		if undos > 0:
+			# Cuts off undone actions from action history
 			action_history = action_history.slice(0, len(action_history) - undos)
 			undos = 0
+		# Calls the required detection ray based on direction recieved
 		if direction == UP:
 			detection_ray = forward_ray
 		elif direction == RIGHT:
@@ -149,11 +161,14 @@ func _move(direction):
 			detection_ray = back_ray
 		elif direction == LEFT:
 			detection_ray = left_ray
+		# Prevents movement if detection ray detects an adjacent obstacle
 		if detection_ray.is_colliding():
+			# Pushes box if detected
 			if detection_ray.get_collider().is_in_group(BOX):
 				push.emit(direction, detection_ray.get_collider())
 				action_history.append(target_location)
 				move_delay_timer.start(MOVE_DELAY * delay_mult)
+				# Animates player hand push
 				if direction == UP:
 					right_hand.position += HAND_PUSH_SCALE * direction
 					left_hand.position += HAND_PUSH_SCALE * direction
@@ -164,9 +179,12 @@ func _move(direction):
 					left_hand.position += HAND_PUSH_SCALE * direction
 				elif direction == LEFT:
 					left_hand.position += HAND_PUSH_SCALE * direction
+			# Makes input redundant if a static object/boundary is detected
 			elif detection_ray.get_collider().is_in_group(BOUNDARIES):
 				move_delay_timer.start(MOVE_DELAY * delay_mult)
+				# Creates slight bump animation
 				position += direction * OBSTACLE_BUFFER_SCALE
+			# Moves player based on direction input if no box or boundary is detected
 			else:
 				if global.sound_on:
 					step_sound.play()
@@ -174,6 +192,7 @@ func _move(direction):
 				target_location += direction
 				action_history.append(target_location)
 				move_delay_timer.start(MOVE_DELAY * delay_mult)
+		# Moves player based on direction input
 		else:
 			if global.sound_on:
 				step_sound.play()

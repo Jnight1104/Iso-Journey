@@ -17,6 +17,7 @@ var speed_mult: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Sets initial vine state based on whether it is in the up or down group
 	if self.is_in_group(UP):
 		state = BLOCKED
 		vine.position = BLOCKED
@@ -29,13 +30,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
+	# Modifies speed based on fast mode
 	if global.fast_mode:
 		speed_mult = FAST_MODE_SCALE
 	else:
 		speed_mult = REGULAR_MODE_SCALE
+	# Provides smooth vine rising/lowering animation when transitioning state
 	vine.position = lerp(vine.position, state, LERP_RATE * speed_mult * delta)
 
 
+# Flips state when the linked button(s) are pressed or released 
 func _activated():
 	if state == BLOCKED:
 		state = UNBLOCKED
