@@ -138,6 +138,7 @@ scale = Vector2(0.325, 0.325)
 texture = ExtResource("10_d4emj")
 
 [node name="Fade_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Fast_mode_button" type="CheckButton" parent="."]
 self_modulate = Color(1, 1, 1, 0)

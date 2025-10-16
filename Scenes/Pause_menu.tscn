@@ -247,6 +247,7 @@ icon = ExtResource("27_hw1e3")
 flat = true
 
 [node name="Fade_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Fade" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 1)

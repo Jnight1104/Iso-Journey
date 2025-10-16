@@ -151,6 +151,7 @@ icon = ExtResource("3_ykujf")
 flat = true
 
 [node name="Fade_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Reset_progress" type="Button" parent="."]
 layout_mode = 0

@@ -110,6 +110,9 @@ func pause():
 	restart_button.hide()
 	resume_button.set_disabled(false)
 	quit_button.set_disabled(false)
+	fast_mode_button.set_disabled(false)
+	music_button.set_disabled(false)
+	sounds_button.set_disabled(false)
 
 
 # Function for resuming the game
@@ -118,6 +121,9 @@ func resume():
 	transparency_target = FADE_OUT
 	resume_button.set_disabled(true)
 	quit_button.set_disabled(true)
+	fast_mode_button.set_disabled(true)
+	music_button.set_disabled(true)
+	sounds_button.set_disabled(true)
 	pause_button.show()
 	undo_button.show()
 	redo_button.show()

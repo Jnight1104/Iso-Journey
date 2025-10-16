@@ -50,6 +50,7 @@ icon = ExtResource("3_kij8u")
 flat = true
 
 [node name="Fade_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Success_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_8g1aq")
