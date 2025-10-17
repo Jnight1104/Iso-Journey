@@ -250,7 +250,6 @@ func _confirm_pressed():
 	file.sound_on = global.sound_on
 	file.levels_unlocked = global.levels_unlocked
 	ResourceSaver.save(file, "res://Scripts/save.tres")
-	get_tree().quit()
 
 
 # Darkens button when mouse is hovering it

@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_w2tu5")
 fast_mode = false
-music_on = false
-sound_on = false
-levels_unlocked = 9
+music_on = true
+sound_on = true
+levels_unlocked = 1
