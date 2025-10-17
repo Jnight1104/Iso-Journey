@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://br0a56m3b1ss8" path="res://Assets/Resume button.png" id="3_hy5sn"]
 [ext_resource type="Texture2D" uid="uid://csvvwa3bf0hoy" path="res://Assets/Quit button2.png" id="4_tn3ls"]
 [ext_resource type="Texture2D" uid="uid://cink5bmjcqj8p" path="res://Assets/Movement_WASD.png" id="5_hmurv"]
-[ext_resource type="Texture2D" uid="uid://dts0bfl214g6x" path="res://Assets/Rotate camera.png" id="7_0wadd"]
 [ext_resource type="Texture2D" uid="uid://beb0giaj3hce2" path="res://Assets/Undo redo action.png" id="8_pwfmr"]
 [ext_resource type="Texture2D" uid="uid://b2nls1wxhgnf0" path="res://Assets/Pause & unpause game_ “esc”.png" id="9_am17u"]
 [ext_resource type="Texture2D" uid="uid://k8jhvu164xek" path="res://Assets/Fast mode.png" id="10_d01kx"]
@@ -17,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dj027erw072e8" path="res://Assets/Toggle frame 3.png" id="15_jq2f6"]
 [ext_resource type="Texture2D" uid="uid://cl5dg01lipnd3" path="res://Assets/Toggle frame 4.png" id="16_33any"]
 [ext_resource type="Texture2D" uid="uid://cq4wr8wjnjggd" path="res://Assets/Toggle frame 5.png" id="17_xfy2b"]
+[ext_resource type="Texture2D" uid="uid://31xtlwo4wc42" path="res://Assets/Rotate camera (q e).png" id="18_72osf"]
 [ext_resource type="Texture2D" uid="uid://qmmdsrnj0qqy" path="res://Assets/Toggle frame 6.png" id="18_l7vp5"]
 [ext_resource type="Texture2D" uid="uid://d31gfkbr0xjpi" path="res://Assets/Toggle frame 7.png" id="19_h8tja"]
 [ext_resource type="Texture2D" uid="uid://cnd1456jligw4" path="res://Assets/Toggle frame 8.png" id="20_140if"]
@@ -177,9 +177,9 @@ scale = Vector2(0.13, 0.13)
 texture = ExtResource("5_hmurv")
 
 [node name="Camera_rotate" type="Sprite2D" parent="Pause_screen_ui/Text"]
-position = Vector2(624, 241)
-scale = Vector2(0.325, 0.325)
-texture = ExtResource("7_0wadd")
+position = Vector2(576, 241)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("18_72osf")
 
 [node name="Undo_redo" type="Sprite2D" parent="Pause_screen_ui/Text"]
 position = Vector2(576.5, 275)
@@ -205,6 +205,10 @@ texture = ExtResource("11_c1bpb")
 position = Vector2(523.5, 411)
 scale = Vector2(0.325, 0.325)
 texture = ExtResource("12_en70w")
+
+[node name="Label" type="Label" parent="Pause_screen_ui/Text"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Pause" type="Button" parent="."]
 layout_mode = 0
@@ -250,6 +254,7 @@ flat = true
 one_shot = true
 
 [node name="Fade" type="ColorRect" parent="."]
+visible = false
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_right = 1152.0
